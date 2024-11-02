@@ -11,4 +11,9 @@ import java.util.List;
 @Repository
 public interface StudentRepo extends JpaRepository<Student, Integer> {
 
+
+    @Query(value = "SELECT * FROM StudentView", nativeQuery = true)
+    List<Student> getStudentFromView();
+
+
 }

@@ -11,18 +11,22 @@ import lombok.NoArgsConstructor;
 
 @Entity(name = "student1")
 @Table(name = "student1")
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
+  
     @Id
-    @Column(name = "student_id")
+    @Column(name = "studentId")
     private int studentID;
 
-    @Column(name = "student_name")
+    @Column(name = "studentName")
     private String studentName;
 
-    @Column(name = "dob")
+    @Column(name = "DOB")
     private String DOB;
 
-    @Column(name = "academic_year")
+    @Column(name = "academicYear")
     private int academicYear;
 }

@@ -12,14 +12,28 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-private StudentRepo studentRepo;
+    @Autowired
+    private StudentRepo studentRepo;
 
-public StudentService(StudentRepo studentRepo) {
+    public StudentService (StudentRepo studentRepo) {
         this.studentRepo = studentRepo;
-}
 
-public List<Student> getAllStudent(){
-     return  studentRepo.findAll();
-}
+    }
+
+    public List<StudentDto> getAllStudents() {
+        List<Student> studentList = studentRepo.getStudentFromView();
+        return studentList.stream().map(this::convertStudentToDTO).collect(Collectors.toList());
+    }
+
+    private StudentDto convertStudentToDTO(Student student) {
+        return StudentDto.builder()
+                .student_id(student.getStudentID())          // Mapping studentID to student_id
+                .student_name(student.getStudentName())      // Mapping studentName to student_name
+                .DOB(student.getDOB())                       // Mapping DOB to DOB
+                .academic_year(String.valueOf(student.getAcademicYear())) // Converting academicYear to String for academic_year
+                .build();
+    }
+
+
 
 }
