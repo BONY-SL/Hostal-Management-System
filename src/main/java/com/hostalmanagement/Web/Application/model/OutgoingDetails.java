@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Time;
 import java.util.Date;
 
-@Entity(name = "outgoingDetails")
+@Entity
 @Table(name = "outgoingDetails")
 @Builder
 @Data

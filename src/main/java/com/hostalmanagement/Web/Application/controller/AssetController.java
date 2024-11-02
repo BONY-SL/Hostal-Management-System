@@ -1,2 +1,4 @@
-package com.hostalmanagement.Web.Application.controller;public class AssetController {
+package com.hostalmanagement.Web.Application.controller;
+
+public class AssetController {
 }

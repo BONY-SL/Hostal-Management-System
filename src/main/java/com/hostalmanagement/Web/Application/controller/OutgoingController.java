@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hostel")
+@RequestMapping("/hostalmanage")
 @RequiredArgsConstructor
 public class OutgoingController {
     private final OutgoingService outgoingService;
