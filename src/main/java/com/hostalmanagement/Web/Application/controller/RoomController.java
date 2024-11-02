@@ -21,7 +21,7 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping("/rooms")
+    @GetMapping("/rooms") // This annotation is used to map the HTTP GET requests onto specific handler methods.
     public ResponseEntity<?> getAllRooms() {
         return ResponseEntity.ok(roomService.getAllRooms()); // Returns a list of Room objects as JSON
     }
