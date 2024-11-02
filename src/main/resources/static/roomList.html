@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            height: 100%; /* Ensures cards are the same height */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-4">Room List</h2>
+    <div class="row" id="roomCards"></div>
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center" id="pagination"></ul>
+    </nav>
+</div>
+
+<script>
+    const itemsPerPage = 6; // Number of cards per page
+    let currentPage = 1;
+    let roomsData = [];
+
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/rooms')
+            .then(response => response.json())
+            .then(data => {
+                roomsData = data;
+                renderPage(currentPage);
+                setupPagination();
+            })
+            .catch(error => console.error('Error fetching room data:', error));
+    });
+
+    function renderPage(page) {
+        const cardsContainer = document.querySelector('#roomCards');
+        cardsContainer.innerHTML = ''; // Clear existing cards
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const roomsToDisplay = roomsData.slice(startIndex, endIndex);
+
+        roomsToDisplay.forEach(room => {
+            const card = document.createElement('div');
+            card.classList.add('col-md-4', 'mb-4');
+            card.innerHTML = `
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Room Number: ${room.roomNumber}</h5>
+                        <p class="card-text"><strong>ID:</strong> ${room.id}</p>
+                        <p class="card-text"><strong>Floor Number:</strong> ${room.floorNumber}</p>
+                        <p class="card-text"><strong>Capacity:</strong> ${room.roomCapacity}</p>
+                        <p class="card-text"><strong>Description:</strong> ${room.description}</p>
+                        <p class="card-text"><strong>Building ID:</strong> ${room.buildingId}</p>
+                    </div>
+                </div>
+            `;
+            cardsContainer.appendChild(card);
+        });
+    }
+
+    function setupPagination() {
+        const pagination = document.querySelector('#pagination');
+        const totalPages = Math.ceil(roomsData.length / itemsPerPage);
+
+        // Create pagination buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.classList.add('page-item');
+            li.innerHTML = `
+                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+            `;
+            pagination.appendChild(li);
+        }
+    }
+
+    function changePage(page) {
+        currentPage = page;
+        renderPage(currentPage);
+    }
+</script>
+</body>
+</html>
