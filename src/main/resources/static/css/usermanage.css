@@ -1,0 +1,48 @@
+.button-container {
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    margin-right: 10px;
+    padding: 15px 20px;
+    border: none;
+    background-color: #035959;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.button-container button:hover {
+    background-color: #068f8f;
+}
+
+.user-section {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 50px;
+}
+
+.user-section h4 {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
