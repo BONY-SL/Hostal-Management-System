@@ -1,13 +1,14 @@
 package com.hostalmanagement.Web.Application.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -16,17 +17,36 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
-  
-    @Id
-    @Column(name = "studentId")
-    private int studentID;
 
-    @Column(name = "studentName")
-    private String studentName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "studentId")
+    private Long studentID;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "DOB")
-    private String DOB;
+    private String dob;
 
-    @Column(name = "academicYear")
-    private int academicYear;
+    @Column(name = "enrollment_date")
+    private Date enrollmentDate;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "phone_no")
+    private String phoneNo;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "address")
+    private String address;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Fine> fines = new ArrayList<>();
 }

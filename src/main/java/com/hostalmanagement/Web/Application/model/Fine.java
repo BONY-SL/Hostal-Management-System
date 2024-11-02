@@ -1,22 +1,31 @@
 package com.hostalmanagement.Web.Application.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity(name = "fine")
+import java.sql.Date;
+
+@Entity
 @Table(name = "fine")
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Fine {
 
     @Id
-    @Column(name = "fineID")
-    private String fineId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long fineId;
 
-    @Column(name = "fineName")
-    private String fineName;
+    private double amount;
+    private String reason;
+    private Date issuedDate;
+    private String status;
 
-    @Column(name = "fineType")
-    private String fineType;
-
+    @ManyToOne
+    @JoinColumn(name = "studentID", nullable = false)
+    private Student student;
 }
