@@ -1,10 +1,12 @@
 package com.hostalmanagement.Web.Application.repository;
 
-
-import com.hostalmanagement.Web.Application.model.Asset;
+import com.hostalmanagement.Web.Application.model.SubWarden;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface AssetRepository extends JpaRepository<Asset,String> {
+public interface SubWardenRepository extends JpaRepository<SubWarden,Long> {
+
 }
