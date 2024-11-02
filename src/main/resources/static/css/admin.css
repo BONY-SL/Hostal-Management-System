@@ -20,7 +20,7 @@ body {
     overflow-x: hidden;
     background-color: #d0f3d0;
 }
-.container_css {
+.container {
     position: relative;
     width: 100%;
 }
