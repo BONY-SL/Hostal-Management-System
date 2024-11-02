@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
+  
     @Id
     @Column(name = "studentId")
     private int studentID;

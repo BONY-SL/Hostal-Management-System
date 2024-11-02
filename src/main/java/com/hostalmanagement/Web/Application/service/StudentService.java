@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
+
     @Autowired
     private StudentRepo studentRepo;
 
@@ -32,5 +33,7 @@ public class StudentService {
                 .academic_year(String.valueOf(student.getAcademicYear())) // Converting academicYear to String for academic_year
                 .build();
     }
+
+
 
 }
