@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.repository.NoRepositoryBean;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -21,4 +22,6 @@ public class Role {
     @Column(name = "role")
     private String name;
 
+    @OneToMany(mappedBy = "role")  // 'role' is the name of the field in the User class
+    private List<User> users;      // List of users that have this role
 }

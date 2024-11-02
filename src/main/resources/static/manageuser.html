@@ -122,20 +122,49 @@
 
             <div id="createUser" class="user-section" style="display:none;">
                 <form>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" required>
-                    <button type="submit">Add User</button>
+                    <div class="form-group">
+                        <label for="firstname" style="text-align: left">First Name</label>
+                        <input type="text" id="firstname" name="firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" style="text-align: left">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" style="text-align: left">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" style="text-align: left">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role" style="text-align: left">Role</label>
+                        <select id="role">
+                            <option value="WARDEN">Warden</option>
+                            <option value="SUB_WARDEN">Sub Warden</option>
+                            <option value="MAINTAIN_SUPERVISOR">Maintain Supervisor</option>
+                            <option value="DEAN">Dean</option>
+                        </select>
+                    </div>
+                    <button type="button" class="createuserbutton" onclick="createUser()">Create User</button>
                 </form>
             </div>
 
             <div id="deleteUser" class="user-section" style="display:none;">
-                <form>
-                    <label for="deleteUsername">Username:</label>
-                    <input type="text" id="deleteUsername" required>
-                    <button type="submit">Delete User</button>
-                </form>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -19,3 +19,23 @@ function toggleSections(activeSection) {
     });
 }
 
+function createUser() {
+
+    const firstname = document.getElementById("firstname").value;
+    const lastname = document.getElementById("lastname").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const role = document.getElementById("role").value;
+
+    const user = {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        role: role,
+    };
+
+
+
+    // You could send this user object to a server here using fetch or axios.
+}
