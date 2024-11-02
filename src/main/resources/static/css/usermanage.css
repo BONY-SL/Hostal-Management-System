@@ -18,7 +18,6 @@
 .button-container button:hover {
     background-color: #068f8f;
 }
-
 .user-section {
     border: 1px solid #ccc;
     padding: 15px;
@@ -34,15 +33,12 @@ table {
     border-collapse: collapse;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+table, th{
+    border: 1px solid #044444;
+    background-color: #068f8f;
+    text-align: center;
 }
 
 th, td {
     padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
 }

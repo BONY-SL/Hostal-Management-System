@@ -104,35 +104,23 @@
                 <button id="createUserBtn">Create User</button>
                 <button id="deleteUserBtn">Delete User</button>
             </div>
-
             <div id="viewUsers" class="user-section">
-                <h4>All Users</h4>
                 <table>
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
+                        <th>Full name</th>
                         <th>Email</th>
+                        <th>Role</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>john_doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>jane_smith</td>
-                        <td>jane@example.com</td>
-                    </tr>
-                    <!-- Additional user rows can be added here -->
+
                     </tbody>
                 </table>
             </div>
 
             <div id="createUser" class="user-section" style="display:none;">
-                <h4>Create User</h4>
                 <form>
                     <label for="username">Username:</label>
                     <input type="text" id="username" required>
@@ -143,7 +131,6 @@
             </div>
 
             <div id="deleteUser" class="user-section" style="display:none;">
-                <h4>Delete User</h4>
                 <form>
                     <label for="deleteUsername">Username:</label>
                     <input type="text" id="deleteUsername" required>

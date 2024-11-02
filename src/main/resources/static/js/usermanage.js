@@ -18,3 +18,4 @@ function toggleSections(activeSection) {
         document.getElementById(section).style.display = (section === activeSection) ? 'block' : 'none';
     });
 }
+
