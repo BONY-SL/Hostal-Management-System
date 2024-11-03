@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "room") // This tells Hibernate to name the table as User and not User
+@Table(name = "roomview") // This tells Hibernate to name the table as User and not User
 @Data // Lombok annotation to generate Getters and Setters
 public class Room {
 
