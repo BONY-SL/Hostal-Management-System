@@ -10,28 +10,28 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AssetService {
-
     @Autowired
     private StudentRepo studentRepo;
 
     @Autowired
     private AssetRepository assetRepository;
 
-    //add asset
-    public Asset addAsset(AssetDto assetDto) {
-
-        Student student = studentRepo.findById(assetDto.getStudentID())
-                .orElseThrow(() -> new RuntimeException("Student not found with id: " + assetDto.getStudentID()));
-
-        Asset asset = Asset.builder()
-                .room_no(assetDto.getRoom_no())
-                .assetCondition(assetDto.getCondition())
-                .acquisition_date(assetDto.getAcquisition_date())
-                .description(assetDto.getDescription())
-                .location(assetDto.getLocation())
-                .student(student)
-                .build();
-
-        return assetRepository.save(asset);
+    // Add asset using a stored procedure and return a message
+    public String saveAssetUsingProcedure(AssetDto assetDto) {
+        // Check if student exists
+        if (studentRepo.existsById(assetDto.getStudentID())) {
+            // Call stored procedure to insert asset
+            assetRepository.insertAsset(
+                    assetDto.getRoom_no(),
+                    assetDto.getDescription(),
+                    assetDto.getLocation(),
+                    assetDto.getAcquisition_date(),
+                    assetDto.getCondition(),
+                    assetDto.getStudentID()
+            );
+            return "Asset added successfully.";
+        } else {
+            return "Student not found with ID: " + assetDto.getStudentID();
+        }
     }
 }
