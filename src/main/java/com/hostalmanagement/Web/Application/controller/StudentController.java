@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/hostel")
+@RequestMapping("/hostalmanage")
 @RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
