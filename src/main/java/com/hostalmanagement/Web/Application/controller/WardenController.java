@@ -1,8 +1,10 @@
 package com.hostalmanagement.Web.Application.controller;
 
 import com.hostalmanagement.Web.Application.dto.NoticeDto;
+import com.hostalmanagement.Web.Application.dto.StudentDto;
 import com.hostalmanagement.Web.Application.model.Notice;
 import com.hostalmanagement.Web.Application.service.NoticeService;
+import com.hostalmanagement.Web.Application.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,9 +14,20 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/hostalmanage")
+@CrossOrigin("*")
 @RequiredArgsConstructor
-public class NoticeController {
+public class WardenController {
+    private final StudentService studentService;
     private final NoticeService noticeService;
+
+    //View Student
+    @GetMapping("/getStudent/warden")
+    public ResponseEntity<List<StudentDto>> getStudentDetails() {
+        System.out.println("Received request to retrieve student details");
+        List<StudentDto> studentDtos=studentService.getAllStudents();
+        return ResponseEntity.ok().body(studentDtos);
+
+    }
 
     //Add new notices
     @PostMapping("/addNewNotice")
@@ -36,11 +49,4 @@ public class NoticeController {
         noticeService.updateNotices(noticeDto);
         return ResponseEntity.ok().build();
     }
-
-    //Delete notices
-   /* @PatchMapping("/deleteNotices/{id}")
-    public ResponseEntity<?>deleteNotices(@PathVariable int id){
-
-    }*/
-
 }

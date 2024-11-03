@@ -1,9 +1,6 @@
 package com.hostalmanagement.Web.Application.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,4 +33,7 @@ public class Notice {
     @Column(name = "publish_time")
     private Time publishTime;
 
+    @ManyToOne
+    @JoinColumn(name = "wardenID")
+    private Warden warden;
 }
