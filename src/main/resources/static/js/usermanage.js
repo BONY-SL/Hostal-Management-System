@@ -1,3 +1,5 @@
+import {AdminModule} from "./adminmodule.js";
+
 document.addEventListener("DOMContentLoaded", function() {
     toggleSections('viewUsers'); // Show view users by default
 });
@@ -19,7 +21,8 @@ function toggleSections(activeSection) {
     });
 }
 
-function createUser() {
+async function createUser() {
+
 
     const firstname = document.getElementById("firstname").value;
     const lastname = document.getElementById("lastname").value;
@@ -35,7 +38,47 @@ function createUser() {
         role: role,
     };
 
+    const adminModule = new AdminModule();
 
+    try {
+        const response = await adminModule.createUser(user);
 
-    // You could send this user object to a server here using fetch or axios.
+        console.log(response);
+
+        if (response.message) {
+            showSuccessAlert(response.message);
+            console.log(response.message);
+        } else {
+            showErrorAlert("Email Already Exsist")
+            console.error("Unexpected response format:", response);
+        }
+    } catch (error) {
+        console.error("Error occurred:", error);
+    }
 }
+
+function showSuccessAlert(message){
+
+    const  errorMessage = document.getElementById("successAlert");
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+    setTimeout(() => {
+        errorMessage.style.display = "none";
+    }, 5000);
+}
+
+function showErrorAlert(message){
+
+    const  errorMessage = document.getElementById("errorAlert");
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+    setTimeout(() => {
+        errorMessage.style.display = "none";
+    }, 5000);
+}
+
+
+window.createUser = createUser;
+
+
+document.getElementById("createuserId").addEventListener("onclick", createUser);

@@ -59,8 +59,8 @@ async function logOut() {
 }
 
 
-
 window.logOut = logOut;
+
 
 document.getElementById("logoutButtonId").addEventListener("onclick", logOut);
 

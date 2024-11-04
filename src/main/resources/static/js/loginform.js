@@ -15,7 +15,7 @@ function showErrorAlert(message){
     errorMessage.style.display = "block";
     setTimeout(() => {
         errorMessage.style.display = "none";
-    }, 8000);
+    }, 5000);
 }
 function showErrorAlert2(message){
 
@@ -24,7 +24,7 @@ function showErrorAlert2(message){
     errorMessage.style.display = "block";
     setTimeout(() => {
         errorMessage.style.display = "none";
-    }, 8000);
+    }, 5000);
 }
 
 function showSuccessAlert(message){
@@ -34,7 +34,7 @@ function showSuccessAlert(message){
     errorMessage.style.display = "block";
     setTimeout(() => {
         errorMessage.style.display = "none";
-    }, 8000);
+    }, 5000);
 }
 
 

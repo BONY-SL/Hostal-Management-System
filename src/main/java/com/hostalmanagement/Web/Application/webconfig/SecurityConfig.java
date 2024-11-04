@@ -36,12 +36,12 @@ public class SecurityConfig{
 
                         .requestMatchers("/hostalmanage/auth/**")
                         .permitAll()
-                        .requestMatchers("/hostalmanage/admin/**").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers("/hostalmanage/student/**").hasAnyAuthority(Role.STUDENT.name())
-                        .requestMatchers("/hostalmanage/warden/**").hasAnyAuthority(Role.WARDEN.name())
-                        .requestMatchers("/hostalmanage/subwarden/**").hasAnyAuthority(Role.SUB_WARDEN.name())
-                        .requestMatchers("/hostalmanage/maintainsupervisor/**").hasAnyAuthority(Role.MAINTAIN_SUPERVISOR.name())
-                        .requestMatchers("/hostalmanage/dean/**").hasAnyAuthority(Role.DEAN.name())
+                        .requestMatchers("/hostalmanage/admin/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("/hostalmanage/student/**").hasAuthority(Role.STUDENT.name())
+                        .requestMatchers("/hostalmanage/warden/**").hasAuthority(Role.WARDEN.name())
+                        .requestMatchers("/hostalmanage/subwarden/**").hasAuthority(Role.SUB_WARDEN.name())
+                        .requestMatchers("/hostalmanage/maintainsupervisor/**").hasAuthority(Role.MAINTAIN_SUPERVISOR.name())
+                        .requestMatchers("/hostalmanage/dean/**").hasAuthority(Role.DEAN.name())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
