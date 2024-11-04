@@ -15,7 +15,7 @@ public class FineDto {
     private double amount;
     private String reason;
     private Date issued_date;
-    private String status;
+    private String fine_status;
     private String name;
     private Long studentID;
 }
