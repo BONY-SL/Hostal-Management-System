@@ -4,7 +4,7 @@ async function loadStudentDetails() {
 
     try {
         // Fetch student data from the backend API
-        const response = await fetch("http://localhost:8080/hostalmanage/getStudent/warden"); // Replace with the full URL if needed
+        const response = await fetch("http://localhost:8080/hostalmanage/getStudent/warden");
         if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
         }
@@ -47,5 +47,9 @@ async function loadStudentDetails() {
     }
 }
 
-// Load student details on page load
-document.addEventListener("DOMContentLoaded", loadStudentDetails);
+// Load student details and initialize notice button events on page load
+document.addEventListener("DOMContentLoaded", () => {
+    loadStudentDetails();
+
+
+});
