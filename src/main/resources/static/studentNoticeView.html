@@ -6,64 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin DashBoard</title>
-    <link rel="stylesheet" href="css/student.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .card {
-            height: 100%; /* Ensures cards are the same height */
+        .notice-board {
+            max-width: 1200px;
+            margin-top: 30px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        .btn{
-            background: #068f8f;
-            border-left: #024b4b;
-        }
-
-             /* Button Style */
-         .open-modal-btn {
-             background-color: #068f8f;
-             color: white;
-             padding: 10px 20px;
-             border: none;
-             cursor: pointer;
-             font-size: 16px;
-         }
-
-        /* Modal Background */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        /* Modal Content */
-        .modal-content {
-            position:relative;
-            margin: 10% auto;
-            padding: 20px;
-            background-color: white;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 5px;
+        .notice-header {
+            background-color: #068f8f;
+            color: #fff;
+            padding: 10px;
+            font-weight: bold;
             text-align: center;
         }
-
-        /* Close Button */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
+        .notice-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f8f9fa;
         }
+        .notice-item {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+            background-color: #ffffff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .notice-icon {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-right: 10px;
+        }
+        .notice-text {
+            color: #333;
+            flex-grow: 1;
+        }
+        .notice-date {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+
     </style>
 </head>
 
@@ -137,63 +129,53 @@
 
     <div class="main">
         <div class="topbar">
-           <h2><samp class="small-text">Hostel Management System - University of Ruhuna </samp></h2>
+            <h2><samp class="small-text">Hostel Management System - University of Ruhuna </samp></h2>
 
         </div>
         <div>
+
             <div class="container">
-                <h2 class="mt-4">Room List
-                    <form class="d-flex" onsubmit="searchRoomById(event)">
-                        <input id="roomIdInput" class="form-control me-2" type="text" placeholder="Enter Room ID" aria-label="Search by Room ID" required>
-                        <button class="btn btn-success" type="submit">Search</button>
-                    </form>
-                </h2>
-                <div class="row" id="roomCards"></div>
-                <nav aria-label="Page navigation" class="mt-4">
-                    <ul class="pagination justify-content-center" id="pagination"></ul>
-                </nav>
+                <!-- Notice Board -->
+                <div class="notice-board ">
+                    <div class="notice-header">Notice Board</div>
+                    <div class="notice-list" id="noticeList">
+                        <!-- Sample Notices -->
+                        <div class="notice-item">
+                            <i class="fas fa-bullhorn notice-icon"></i>
+                            <div>
+                                <div class="notice-text">New student hostel applications open from 1st November.</div>
+                                <div class="notice-date">Posted on: October 30, 2024</div>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <i class="fas fa-calendar-alt notice-icon"></i>
+                            <div>
+                                <div class="notice-text">Annual Hostel Maintenance will be on December 15th. Ensure all belongings are secured.</div>
+                                <div class="notice-date">Posted on: October 25, 2024</div>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <i class="fas fa-exclamation-circle notice-icon"></i>
+                            <div>
+                                <div class="notice-text">Hostel management system maintenance scheduled on November 5th from 2 PM to 4 PM.</div>
+                                <div class="notice-date">Posted on: October 20, 2024</div>
+                            </div>
+                        </div>
+                        <!-- More notice items can be added here -->
+                    </div>
+                </div>
             </div>
-            <!-- External JavaScript File -->
-            <script src="js/studentRoomList.js"></script>
+
+            <!-- Include Bootstrap JS and Font Awesome JS -->
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
         </div>
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container">
-                <p class="mb-0">&copy; 2023  University of Ruhuna. All rights reserved.</p>
-            </div>
-        </footer>
-    </div>
-
-</div>
-
-
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h2>Hostel Management System</h2>
-
-        <label for="exampleInputEmail1" class="form-label">Registration Number</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        <button type="button" class="btn btn-secondary" >Conform Request</button>
-    </div>
-
     </div>
 </div>
-
-
-
 
 <script src="js/admin.js"></script>
-<!-- Bootstrap JS and FontAwesome for Icons -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-
 </body>
 
 </html>
