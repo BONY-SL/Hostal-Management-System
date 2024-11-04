@@ -16,6 +16,6 @@ public interface AssetRepository extends JpaRepository<Asset,Long> {
             @Param("p_location") String location,
             @Param("p_acquisition_date") java.sql.Date acquisition_date,
             @Param("p_assetCondition") String condition,
-            @Param("p_studentID") Long studentID
+            @Param("p_studentID") Integer studentID
     );
 }

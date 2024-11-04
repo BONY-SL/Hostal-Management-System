@@ -27,6 +27,6 @@ public class Asset {
     private String assetCondition;
 
     @ManyToOne
-    @JoinColumn(name = "studentID", nullable = true)
-    private Student student;
+    @JoinColumn(name = "id", nullable = true)
+    private User user;
 }
