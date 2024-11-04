@@ -27,6 +27,8 @@ public class SubwardenController {
     //add fine
     @PostMapping("/addFine")
     public ResponseEntity<String> addComplain(@RequestBody FineDto fineDto){
+        System.out.println("work");
+        System.out.println(fineDto);
         String message=fineService.saveFineUsingProcedure(fineDto);
         return new ResponseEntity<>(message,HttpStatus.CREATED);
     }

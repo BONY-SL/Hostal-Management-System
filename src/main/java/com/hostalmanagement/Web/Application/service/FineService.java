@@ -38,7 +38,7 @@ public class FineService {
         }
     }
 
-    // This method will run every 60 minutes (3600000 milliseconds)
+    // This method will run every 60 minutes
     @Scheduled(fixedRate = 3600000)
     public void updateFines() {
         fineRepository.updateFineStatusAndAmount();

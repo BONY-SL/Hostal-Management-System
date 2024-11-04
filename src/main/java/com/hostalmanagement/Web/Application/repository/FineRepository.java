@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface FineRepository extends JpaRepository<Fine,Long> {
 
-    @Procedure(name = "insert_fine")
+    @Procedure(name = "hostalmanagementsystem.insert_fine")
     void insertFine(
             @Param("p_amount") double amount,
             @Param("p_reason") String reason,
@@ -21,6 +21,7 @@ public interface FineRepository extends JpaRepository<Fine,Long> {
             @Param("p_status") String status,
             @Param("p_studentID") Long studentID
     );
+
 
     @Procedure("update_fine_status_and_amount")
     void updateFineStatusAndAmount();
