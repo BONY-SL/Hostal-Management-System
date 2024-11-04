@@ -4,6 +4,7 @@ import com.hostalmanagement.Web.Application.dto.FineDto;
 import com.hostalmanagement.Web.Application.model.Fine;
 import com.hostalmanagement.Web.Application.repository.FineRepository;
 import com.hostalmanagement.Web.Application.repository.StudentRepo;
+import com.hostalmanagement.Web.Application.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,25 +19,27 @@ public class FineService {
     @Autowired
     private FineRepository fineRepository;
 
+
+
     @Autowired
-    private StudentRepo studentRepo;
+    private UserRepository userRepository;
 
    @Transactional
     public String saveFineUsingProcedure(FineDto fineDto) {
         // Check if the student exists
-        if (studentRepo.existsById(fineDto.getStudentID())) {
+        if (userRepository.existsById(fineDto.getId())) {
             // Call the repository to insert the fine
             fineRepository.insertFine(
                     fineDto.getAmount(),
                     fineDto.getReason(),
                     fineDto.getIssued_date(),
                     fineDto.getFine_status(),
-                    fineDto.getStudentID()
+                    fineDto.getId()
             );
             return "Fine added successfully.";
         } else {
             // Return error message if the student is not found
-            return "Student not found with ID: " + fineDto.getStudentID();
+            return "Student not found with ID: " + fineDto.getId();
         }
     }
 
@@ -59,8 +62,9 @@ public class FineService {
                 fine.getReason(),
                 fine.getIssuedDate(),
                 fine.getFine_status(),
-                fine.getStudent().getFirstName(),
-                fine.getStudent().getStudentID()
+                fine.getUser().getFirstname(),
+                fine.getUser().getId()
+
         );
     }
 

@@ -19,13 +19,12 @@ public class Fine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fineId;
-
     private double amount;
     private String reason;
     private Date issuedDate;
     private String fine_status;
 
     @ManyToOne
-    @JoinColumn(name = "studentID", nullable = false)
-    private Student student;
+    @JoinColumn(name = "id", nullable = false)
+    private User user;
 }

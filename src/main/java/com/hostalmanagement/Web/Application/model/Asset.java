@@ -19,7 +19,6 @@ public class Asset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long asset_id;
-
     private Long room_no;
     private String description;
     private String location;
@@ -27,6 +26,6 @@ public class Asset {
     private String asset_condition;
 
     @ManyToOne
-    @JoinColumn(name = "studentID", nullable = true)
-    private Student student;
+    @JoinColumn(name = "id", nullable = true)
+    private User user;
 }

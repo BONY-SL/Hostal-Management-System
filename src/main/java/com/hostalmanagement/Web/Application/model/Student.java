@@ -47,11 +47,8 @@ public class Student {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Fine> fines = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Asset> assets=new ArrayList<>();
+
 
 
 }

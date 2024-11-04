@@ -45,6 +45,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
+
+    @OneToMany(mappedBy = "user")
+    private List<Asset> assets;
+
+    @OneToMany(mappedBy = "user")
+    private List<Fine> fines;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

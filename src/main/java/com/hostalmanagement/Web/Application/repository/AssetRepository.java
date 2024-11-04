@@ -15,14 +15,14 @@ import java.util.List;
 public interface AssetRepository extends JpaRepository<Asset,Long> {
     @Modifying
     @Transactional
-    @Query(value = "CALL insert_asset(:room_no, :description, :location, :acquisition_date, :assetCondition, :studentID)", nativeQuery = true)
+    @Query(value = "CALL insert_asset(:room_no, :description, :location, :acquisition_date, :assetCondition, :id)", nativeQuery = true)
     void insertAsset(
             @Param("room_no") Long roomNo,
             @Param("description") String description,
             @Param("location") String location,
             @Param("acquisition_date") java.sql.Date acquisitionDate,
             @Param("assetCondition") String condition,
-            @Param("studentID") Long studentID
+            @Param("id") Integer id
     );
 
     @Query(value = "select * from Asset_display", nativeQuery = true)

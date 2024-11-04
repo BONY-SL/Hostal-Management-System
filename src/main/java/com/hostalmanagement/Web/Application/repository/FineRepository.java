@@ -18,13 +18,13 @@ public interface FineRepository extends JpaRepository<Fine,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "CALL hostalmanagementsystem.insert_fine(:amount, :reason, :issuedDate, :status, :studentID)", nativeQuery = true)
+    @Query(value = "CALL hostalmanagementsystem.insert_fine(:amount, :reason, :issuedDate, :status, :id)", nativeQuery = true)
     void insertFine(
             @Param("amount") double amount,
             @Param("reason") String reason,
             @Param("issuedDate") java.sql.Date issuedDate,
             @Param("status") String status,
-            @Param("studentID") Long studentID
+            @Param("id") Integer id
     );
 
 
