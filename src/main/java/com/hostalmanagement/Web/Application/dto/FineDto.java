@@ -16,5 +16,6 @@ public class FineDto {
     private String reason;
     private Date issued_date;
     private String status;
+    private String name;
     private Long studentID;
 }
