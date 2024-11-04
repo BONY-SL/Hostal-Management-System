@@ -23,7 +23,7 @@ public class Fine {
     private double amount;
     private String reason;
     private Date issuedDate;
-    private String status;
+    private String fine_status;
 
     @ManyToOne
     @JoinColumn(name = "studentID", nullable = false)

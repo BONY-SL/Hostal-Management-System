@@ -4,6 +4,7 @@ import com.hostalmanagement.Web.Application.dto.FineDto;
 import com.hostalmanagement.Web.Application.model.Fine;
 import com.hostalmanagement.Web.Application.repository.FineRepository;
 import com.hostalmanagement.Web.Application.repository.StudentRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class FineService {
     @Autowired
     private StudentRepo studentRepo;
 
+   @Transactional
     public String saveFineUsingProcedure(FineDto fineDto) {
         // Check if the student exists
         if (studentRepo.existsById(fineDto.getStudentID())) {
@@ -28,7 +30,7 @@ public class FineService {
                     fineDto.getAmount(),
                     fineDto.getReason(),
                     fineDto.getIssued_date(),
-                    fineDto.getStatus(),
+                    fineDto.getFine_status(),
                     fineDto.getStudentID()
             );
             return "Fine added successfully.";
@@ -44,7 +46,7 @@ public class FineService {
         fineRepository.updateFineStatusAndAmount();
     }
 
-    public List<FineDto> getFinesByStudentId() {
+    public List<FineDto> getALLFines() {
         List<Fine> fineList = fineRepository.getFineFromView();
         return fineList.stream().map(this::convertToDto).collect(Collectors.toList());
     }
@@ -56,7 +58,7 @@ public class FineService {
                 fine.getAmount(),
                 fine.getReason(),
                 fine.getIssuedDate(),
-                fine.getStatus(),
+                fine.getFine_status(),
                 fine.getStudent().getFirstName(),
                 fine.getStudent().getStudentID()
         );

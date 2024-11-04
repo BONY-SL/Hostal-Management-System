@@ -2,20 +2,29 @@ package com.hostalmanagement.Web.Application.repository;
 
 
 import com.hostalmanagement.Web.Application.model.Asset;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AssetRepository extends JpaRepository<Asset,Long> {
-    @Procedure(name = "insert_asset")
+    @Modifying
+    @Transactional
+    @Query(value = "CALL insert_asset(:room_no, :description, :location, :acquisition_date, :assetCondition, :studentID)", nativeQuery = true)
     void insertAsset(
-            @Param("p_room_no") Long room_no,
-            @Param("p_description") String description,
-            @Param("p_location") String location,
-            @Param("p_acquisition_date") java.sql.Date acquisition_date,
-            @Param("p_assetCondition") String condition,
-            @Param("p_studentID") Long studentID
+            @Param("room_no") Long roomNo,
+            @Param("description") String description,
+            @Param("location") String location,
+            @Param("acquisition_date") java.sql.Date acquisitionDate,
+            @Param("assetCondition") String condition,
+            @Param("studentID") Long studentID
     );
+
+    @Query(value = "select * from Asset_display", nativeQuery = true)
+    List<Asset> getAssetFromView();
 }

@@ -5,8 +5,12 @@ import com.hostalmanagement.Web.Application.model.Asset;
 import com.hostalmanagement.Web.Application.model.Student;
 import com.hostalmanagement.Web.Application.repository.AssetRepository;
 import com.hostalmanagement.Web.Application.repository.StudentRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AssetService {
@@ -17,6 +21,7 @@ public class AssetService {
     private AssetRepository assetRepository;
 
     // Add asset using a stored procedure and return a message
+
     public String saveAssetUsingProcedure(AssetDto assetDto) {
         // Check if student exists
         if (studentRepo.existsById(assetDto.getStudentID())) {
@@ -26,12 +31,29 @@ public class AssetService {
                     assetDto.getDescription(),
                     assetDto.getLocation(),
                     assetDto.getAcquisition_date(),
-                    assetDto.getCondition(),
+                    assetDto.getAsset_condition(),
                     assetDto.getStudentID()
             );
             return "Asset added successfully.";
         } else {
             return "Student not found with ID: " + assetDto.getStudentID();
         }
+    }
+
+    public List<AssetDto> getAllAsset() {
+        List<Asset> assetList = assetRepository.getAssetFromView();
+        return assetList.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    private AssetDto convertToDto(Asset asset) {
+        return new AssetDto(
+                asset.getAsset_id(),
+                asset.getRoom_no(),
+                asset.getDescription(),
+                asset.getLocation(),
+                asset.getAcquisition_date(),
+                asset.getAsset_condition(),
+                asset.getStudent().getStudentID()
+        );
     }
 }

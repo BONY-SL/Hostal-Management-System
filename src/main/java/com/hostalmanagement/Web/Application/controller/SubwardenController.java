@@ -36,17 +36,25 @@ public class SubwardenController {
     //add asset
     @PostMapping("/addAsset")
     public ResponseEntity<String> createAsset(@RequestBody AssetDto assetDto) {
+        System.out.println(assetDto);
         String message=assetService.saveAssetUsingProcedure(assetDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     //get fine details
     @GetMapping("/getFine")
-    public ResponseEntity<List<FineDto>> getStudentDetails() {
+    public ResponseEntity<List<FineDto>> getFineDetails() {
         System.out.println("Received request to retrieve fine details");
-        List<FineDto> fineDtosDtos=fineService.getFinesByStudentId();
+        List<FineDto> fineDtosDtos=fineService.getALLFines();
         return ResponseEntity.ok().body(fineDtosDtos);
 
+    }
+    //get Asset details
+    @GetMapping("/getAsset")
+    public ResponseEntity<List<AssetDto>>getAssertDetails(){
+        System.out.println("work");
+        List<AssetDto> assetDtos=assetService.getAllAsset();
+        return ResponseEntity.ok().body(assetDtos);
     }
 
 
