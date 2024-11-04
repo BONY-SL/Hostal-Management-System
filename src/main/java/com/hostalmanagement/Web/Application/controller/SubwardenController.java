@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hostalmanage")
+@RequestMapping("/hostalmanage/subwarden")
 public class SubwardenController {
 
     @Autowired

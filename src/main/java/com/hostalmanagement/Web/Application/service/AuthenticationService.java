@@ -142,7 +142,8 @@ public class AuthenticationService {
         }
     }
 
-    private void revokeAllUserTokens(User user) {
+    @Transactional
+    protected void revokeAllUserTokens(User user) {
 
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -154,7 +155,9 @@ public class AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-    private void saveUserToken(User user, String jwtToken) {
+
+    @Transactional
+    public void saveUserToken(User user, String jwtToken) {
 
 
         Optional<Token> existingToken = tokenRepository.findByToken(jwtToken);

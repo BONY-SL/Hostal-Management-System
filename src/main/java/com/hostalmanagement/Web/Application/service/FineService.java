@@ -28,7 +28,7 @@ public class FineService {
                     fineDto.getAmount(),
                     fineDto.getReason(),
                     fineDto.getIssued_date(),
-                    fineDto.getStatus(),
+                    fineDto.getFine_status(),
                     fineDto.getStudentID()
             );
             return "Fine added successfully.";
@@ -56,7 +56,7 @@ public class FineService {
                 fine.getAmount(),
                 fine.getReason(),
                 fine.getIssuedDate(),
-                fine.getStatus(),
+                fine.getFine_status(),
                 fine.getStudent().getFirstName(),
                 fine.getStudent().getStudentID()
         );
