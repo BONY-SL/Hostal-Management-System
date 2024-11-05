@@ -27,6 +27,6 @@ public class Asset {
     private String asset_condition;
 
     @ManyToOne
-    @JoinColumn(name = "studentID", nullable = true)
+    @JoinColumn(name = "tg_no", referencedColumnName = "tg_no", nullable = true)
     private Student student;
 }

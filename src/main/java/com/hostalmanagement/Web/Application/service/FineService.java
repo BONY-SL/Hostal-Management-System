@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class FineService {
 
+/*
+
     @Autowired
     private FineRepository fineRepository;
 
@@ -57,9 +59,11 @@ public class FineService {
                 fine.getReason(),
                 fine.getIssuedDate(),
                 fine.getFine_status(),
-                fine.getStudent().getFirstName(),
                 fine.getStudent().getStudentID()
         );
     }
 
+
+
+ */
 }

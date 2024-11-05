@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface FineRepository extends JpaRepository<Fine,Long> {
-
+/*
     @Procedure(name = "hostalmanagementsystem.insert_fine")
     void insertFine(
             @Param("p_amount") double amount,
@@ -30,5 +30,6 @@ public interface FineRepository extends JpaRepository<Fine,Long> {
     @Query(value = "select * from fine_display", nativeQuery = true)
     List<Fine> getFineFromView();
 
+ */
 
 }

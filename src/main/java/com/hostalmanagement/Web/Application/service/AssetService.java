@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AssetService {
+
+
     @Autowired
     private StudentRepo studentRepo;
 
@@ -18,20 +20,24 @@ public class AssetService {
 
     // Add asset using a stored procedure and return a message
     public String saveAssetUsingProcedure(AssetDto assetDto) {
-        // Check if student exists
-        if (studentRepo.existsById(assetDto.getStudentID())) {
+        // Check if student exists by tg_no
+        if (studentRepo.existsByTgNo(assetDto.getTg_no())) {
             // Call stored procedure to insert asset
             assetRepository.insertAsset(
                     assetDto.getRoom_no(),
                     assetDto.getDescription(),
                     assetDto.getLocation(),
                     assetDto.getAcquisition_date(),
-                    assetDto.getCondition(),
-                    assetDto.getStudentID()
+                    assetDto.getAsset_condition(),
+                    assetDto.getTg_no()
             );
             return "Asset added successfully.";
         } else {
-            return "Student not found with ID: " + assetDto.getStudentID();
+            return "Student not found with TG number: " + assetDto.getTg_no();
         }
     }
+
+
+
+
 }
