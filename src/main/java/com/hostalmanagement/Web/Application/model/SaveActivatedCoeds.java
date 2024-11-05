@@ -6,21 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name="studentmail")
-public class StudentMailStore {
+public class SaveActivatedCoeds {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true,name = "email")
-    private String email;
+    @Column(length = 6)
+    private String activationCode;
 
-    @Column(length = 5)
-    private String tgnumber;
+
 }
