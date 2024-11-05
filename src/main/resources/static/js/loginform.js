@@ -135,9 +135,9 @@ async function signIn() {
             if (StorageService.isAdminLoggedIn() && token) {
                 window.location.href = `admindashboard.html?token=${token}`;
             }else if(StorageService.isDeanLoggedIn()){
-                window.location.href = "";
+                window.location.href = '';
             }else if(StorageService.isStudentLoggedIn()){
-                window.location.href = "";
+                window.location.href = `studentDashboard.html?token=${token}`;
             }else if(StorageService.isMaintainLoggedIn()){
                 window.location.href = "";
             }else if(StorageService.isWardenLoggedIn()){
