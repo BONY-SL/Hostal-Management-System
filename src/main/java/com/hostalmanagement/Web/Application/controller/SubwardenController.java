@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/hostalmanage/subwarden")
 @PreAuthorize("hasAuthority('SUB_WARDEN')")
 public class SubwardenController {
+
 
     @Autowired
     private AssetService assetService;
@@ -35,9 +38,12 @@ public class SubwardenController {
         return new ResponseEntity<>(message,HttpStatus.CREATED);
     }
 
+
+
     //add asset
     @PostMapping("/addAsset")
     public ResponseEntity<String> createAsset(@RequestBody AssetDto assetDto) {
+        System.out.println(assetDto);
         String message=assetService.saveAssetUsingProcedure(assetDto);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
@@ -49,6 +55,14 @@ public class SubwardenController {
         List<FineDto> fineDtosDtos=fineService.getFinesByStudentId();
         return ResponseEntity.ok().body(fineDtosDtos);
 
+    }
+
+    //get Asset details
+    @GetMapping("/getAsset")
+    public ResponseEntity<List<AssetDto>>getAssertDetails(){
+        System.out.println("work");
+        List<AssetDto> assetDtos=assetService.getAllAsset();
+        return ResponseEntity.ok().body(assetDtos);
     }
 
 

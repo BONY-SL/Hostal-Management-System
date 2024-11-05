@@ -28,4 +28,13 @@ public class StudentController {
     }
 
      */
+
+    //total count of the student
+    @GetMapping("/getTotalStudentCount")
+    public ResponseEntity<Long> getTotalStudentCount() {
+        long totalStudentCount = studentService.getStudentCount();
+        return ResponseEntity.ok(totalStudentCount);
+    }
+
+
 }

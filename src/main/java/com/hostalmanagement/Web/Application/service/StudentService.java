@@ -37,6 +37,11 @@ public class StudentService {
 
      */
 
+    public long getStudentCount() {
+        return studentRepo.count();
+    }
+
+
 
 
 }
