@@ -1,0 +1,95 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #e9edf7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background-image: url('./images/site-image.JPG');*/
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px) brightness(0.7);
+    z-index: -1;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+h1, h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Table Styling */
+.student-table {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #4CAF50; /* Green border for table */
+}
+
+.table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #388E3C; /* Darker green for header borders */
+}
+
+.table th, .table td {
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #4CAF50; /* Green borders for cells */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #eaf7ea; /* Light green for alternating rows */
+}
+
+.table-striped tbody tr:hover {
+    background-color: #c8e6c9; /* Highlight on hover with soft green */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h1, h3 {
+        font-size: 1.5em;
+    }
+}

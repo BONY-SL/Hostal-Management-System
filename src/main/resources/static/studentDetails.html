@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+  <h1>Student Details</h1>
+  <table id="studentTable">
+    <thead>
+    <tr>
+      <th>Student ID</th>
+      <th>Student Name</th>
+      <th>Date of Birth</th>
+      <th>Academic Year</th>
+    </tr>
+    </thead>
+    <tbody id="studentData">
+    <!-- Data will be populated here by JavaScript -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  // Fetch student data from the backend and populate the table
+  fetch('/api/students')
+          .then(response => response.json())
+          .then(data => {
+            const studentData = document.getElementById('studentData');
+            data.forEach(student => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                        <td>${student.studentID}</td>
+                        <td>${student.studentName}</td>
+                        <td>${student.dob}</td>
+                        <td>${student.academicYear}</td>
+                    `;
+              studentData.appendChild(row);
+            });
+          })
+          .catch(error => console.error('Error fetching student data:', error));
+</script>
+</body>
+</html>

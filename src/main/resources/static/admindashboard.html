@@ -18,7 +18,7 @@
                 <img src="images/uni.png" alt="FOT" style="width: 110px;height: 150px;margin-left: 90px;margin-top: 30px;">
             </li>
             <li>
-                <a href="admindashboard.html">
+                <a href="admindashboard.html" id="dashboardLink">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="manageuser.html">
+                <a href="manageuser.html" id="userManageLink">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li>
-                <a href="roommanage.html">
+                <a href="roommanage.html" id="roomManageLink">
                     <span class="icon">
                             <ion-icon name="bed"></ion-icon>
                     </span>
@@ -42,7 +42,7 @@
                 </a>
             </li>
             <li>
-                <a href="studentmanage.html">
+                <a href="studentmanage.html" id="studentManageLink">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li>
-                <a href="adminmessage.html">
+                <a href="adminmessage.html" id="adminMessageLink">
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li>
-                <a href="adminprofilesetting.html">
+                <a href="adminprofilesetting.html" id="adminProfileSettingsLink">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -66,11 +66,11 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a>
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                    <span class="title">Sign Out</span>
+                    <span class="title" onclick="logOut()" id="logoutButtonId">Sign Out</span>
                 </a>
             </li>
         </ul>
@@ -81,7 +81,7 @@
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
-            <h2>Faculty Of Technology University Of Ruhuna!</h2>
+            <h2 style="color: #F5F5F5">Faculty Of Technology University Of Ruhuna!</h2>
         </div>
         <div>
             Main Dashboard
@@ -89,7 +89,10 @@
     </div>
 </div>
 
-<script src="js/admin.js"></script>
+<!-- Include SweetAlert2 from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="module" src="js/admin.js"  defer></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

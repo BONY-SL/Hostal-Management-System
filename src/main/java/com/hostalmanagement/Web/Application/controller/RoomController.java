@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
 @Controller // This annotation is used to mark the class as a controller.
-@RequestMapping("/api")
+@RequestMapping("/hostalmanage")
 public class RoomController {
 
     private RoomService roomService; // Assume you have a service to get room data
