@@ -2,19 +2,18 @@
     text-align: center;
     font-size: 24px;
     font-weight: bold;
-    color: #333;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .button-group {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .btn {
-    padding: 6px 12px;
+    padding: 8px 15px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
@@ -22,15 +21,6 @@
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s, transform 0.2s;
-    width: 120px;
-}
-
-.btn.add {
-    background-color: #035959;
-}
-
-.btn.add:hover {
-    background-color: #068f8f;
 }
 
 .btn.update {
@@ -41,94 +31,16 @@
     background-color: #068f8f;
 }
 
-.btn.delete {
-    background-color: #035959;
-}
-
-.btn.delete:hover {
-    background-color: #068f8f;
-}
-
-.noticeSection {
-    margin: 20px auto;
-    padding: 20px;
-    width: 400px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.noticeSection label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.noticeSection input,
-.noticeSection textarea,
-.noticeSection button {
-    width: 100%;
-    margin-top: 5px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.noticeSection button {
-    margin-top: 15px;
-    background-color: #035959;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.noticeSection button:hover {
-    background-color: #068f8f;
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 400px;
-    border-radius: 8px;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    display: none; /* Hide by default */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 table, th, td {
@@ -155,4 +67,12 @@ td button {
 
 td button:hover {
     background-color: #068f8f;
+}
+
+.noticeSection {
+    display: none;
+}
+
+.noticeSection.active {
+    display: block;
 }
