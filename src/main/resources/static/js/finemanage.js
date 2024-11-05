@@ -65,11 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Collect data from the form fields
         const fineData = {
+
             tg_no: document.getElementById('studentID').value,
             amount: parseFloat(document.getElementById('amount').value),
             reason: document.getElementById('reason').value,
             issued_date: document.getElementById('issued_date').value,
             fine_status: document.getElementById('status').value
+
         };
 
         // Log fine details to the console
