@@ -8,6 +8,9 @@ import com.hostalmanagement.Web.Application.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AssetService {
 
@@ -35,6 +38,23 @@ public class AssetService {
         } else {
             return "Student not found with TG number: " + assetDto.getTg_no();
         }
+    }
+
+    public List<AssetDto> getAllAsset() {
+        List<Asset> assetList = assetRepository.getAssetFromView();
+        return assetList.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    private AssetDto convertToDto(Asset asset) {
+        return new AssetDto(
+                asset.getAsset_id(),
+                asset.getRoom_no(),
+                asset.getDescription(),
+                asset.getLocation(),
+                asset.getAcquisition_date(),
+                asset.getAsset_condition(),
+                asset.getStudent().getTg_no()
+        );
     }
 
 

@@ -59,4 +59,13 @@ public class SubwardenController {
 
      */
 
+    //get Asset details
+    @GetMapping("/getAsset")
+    public ResponseEntity<List<AssetDto>>getAssertDetails(){
+        System.out.println("work");
+        List<AssetDto> assetDtos=assetService.getAllAsset();
+        return ResponseEntity.ok().body(assetDtos);
+    }
+
+
 }
