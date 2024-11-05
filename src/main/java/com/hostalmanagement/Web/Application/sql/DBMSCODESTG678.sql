@@ -62,3 +62,35 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+-- After Register Student Insert Default Student Details
+
+DELIMITER $$
+
+CREATE TRIGGER StudentRegisterTrigger
+    AFTER INSERT ON user
+    FOR EACH ROW
+BEGIN
+    DECLARE userRole VARCHAR(50);
+            DECLARE tg VARCHAR(255);
+
+            SET userRole = NEW.role;
+
+    SELECT tgnumber INTO tg FROM studentmail WHERE email = NEW.email;
+
+    IF (userRole = 'STUDENT') THEN
+                INSERT INTO student
+                (email,tg_no,user_id)
+                VALUES
+                (NEW.email,tg,NEW.id);
+END IF ;
+
+END $$
+DELIMITER ;
+
+
+-- Create View Get All System Manage Users (excepted Students)
+
+CREATE OR REPLACE VIEW  GetAllSystemUsers AS
+SELECT * FROM user WHERE role != 'STUDENT';
