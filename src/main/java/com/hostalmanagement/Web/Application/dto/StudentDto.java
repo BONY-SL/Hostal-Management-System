@@ -5,13 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class StudentDto {
-    private Long student_id;
-    private String student_name;
-    private String DOB;
-    private String academic_year;
+    private Long studentID;
+    private String firstName;
+    private String lastName;
+    private String dob;
+    private Date enrollmentDate;
+    private String department;
+    private String phoneNo;
+    private String email;
+    private String address;
 }

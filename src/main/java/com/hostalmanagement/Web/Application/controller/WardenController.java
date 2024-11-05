@@ -21,13 +21,13 @@ public class WardenController {
     private final NoticeService noticeService;
 
     //View Student
-    @GetMapping("/getStudent/warden")
-    public ResponseEntity<List<StudentDto>> getStudentDetails() {
-        System.out.println("Received request to retrieve student details");
-        List<StudentDto> studentDtos=studentService.getAllStudents();
-        return ResponseEntity.ok().body(studentDtos);
-
-    }
+//    @GetMapping("/getStudent/warden")
+//    public ResponseEntity<List<StudentDto>> getStudentDetails() {
+//        System.out.println("Received request to retrieve student details");
+//        List<StudentDto> studentDtos=studentService.getAllStudents();
+//        return ResponseEntity.ok().body(studentDtos);
+//
+//    }
 
     //Add new notices
     @PostMapping("/addNewNotice")
