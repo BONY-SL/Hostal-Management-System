@@ -16,4 +16,12 @@ export class AdminModule{
         }).then(response => response.json());
     }
 
+    getSystemUser(){
+
+        const authservice = new AuthService();
+        return fetch(`${BASE_URL}/hostalmanage/admin/getSystemUsers`, {
+            method: "GET",
+            headers: authservice.createAuthorizationHeader(),
+        }).then(response => response.json());
+    }
 }

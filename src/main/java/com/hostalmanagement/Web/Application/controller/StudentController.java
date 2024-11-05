@@ -7,6 +7,7 @@ import com.hostalmanagement.Web.Application.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/hostalmanage/student")
-@RequiredArgsConstructor // Lombok annotation to create a constructor with all required fields
+
+@PreAuthorize("hasAuthority('STUDENT')")
+@RequiredArgsConstructor
+
 public class StudentController {
 
     private final StudentService studentService; // Assume you have a service to get student data
