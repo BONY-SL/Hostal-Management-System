@@ -1,5 +1,6 @@
 package com.hostalmanagement.Web.Application.service;
 import com.hostalmanagement.Web.Application.dto.CreateUser;
+import com.hostalmanagement.Web.Application.dto.UserDto;
 import com.hostalmanagement.Web.Application.model.User;
 import com.hostalmanagement.Web.Application.repository.UserRepository;
 import com.hostalmanagement.Web.Application.util.EmailAlreadyExistsException;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -84,5 +87,24 @@ public class AdminService {
     }
 
 
+    public List<UserDto> getSystemUsers() {
 
+        List<User> userList = userRepository.getUsersExceptStudent();
+
+        return userList.stream()
+                .map(this::convertUserToUserDto)
+                .collect(Collectors.toList());
+    }
+
+    private UserDto convertUserToUserDto(User user){
+
+        var getUser = UserDto.builder()
+                .id(user.getId())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .email(user.getEmail())
+                .role(user.getRole()).build();
+
+        return getUser;
+    }
 }

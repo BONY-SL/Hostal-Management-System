@@ -39,6 +39,12 @@ table, th{
     text-align: center;
     color: white;
 }
+table, td{
+    background-color: #ffffff;
+    text-align: left;
+    color: #000000;
+    border: 1px solid #044444;
+}
 
 th, td {
     padding: 8px;
