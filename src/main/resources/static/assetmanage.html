@@ -83,7 +83,7 @@
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
-            <h2>Faculty Of Technology University Of Ruhuna!</h2>
+            <h2>Faculty Of Technology University Of Ruhuna</h2>
         </div>
 
         <div class="usermanage">
@@ -134,11 +134,15 @@
                 <!-- Form to add fine details -->
                 <div class="fine-section">
                     <form id="fineForm">
+
+                        <label for="studentid">Student ID:</label>
+                        <input type="text" id="studentid" required>
+
                         <label for="roomNo">Room NO:</label>
                         <input type="number" id="roomNo" required>
 
                         <label for="description">Description:</label>
-                        <input type="text" step="0.01" id="description" required>
+                        <textarea id="description" rows="3" placeholder="Enter description" required></textarea>
 
                         <label for="location">Location:</label>
                         <input type="text" id="location" required>
@@ -147,10 +151,12 @@
                         <input type="date" id="acquisitionDate" required>
 
                         <label for="condition">Condition:</label>
-                        <input type="text" id="condition" required>
+                        <select id="condition" required>
+                            <option value="">Select Status</option>
+                            <option value="good">good</option>
+                            <option value="repairer">repairer</option>
+                        </select>
 
-                        <label for="studentid">Student ID:</label>
-                        <input type="text" id="studentid" required>
 
                         <button type="submit">Add Asset</button>
                         &nbsp;
@@ -165,32 +171,15 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Fine ID</th>
-                            <th>Amount</th>
-                            <th>Reason</th>
-                            <th>Issued Date</th>
-                            <th>Status</th>
                             <th>Student ID</th>
+                            <th>Room NO</th>
+                            <th>Description</th>
+                            <th>Location</th>
+                            <th>Acquisition Date</th>
+                            <th>Condition</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Sample data, replace with dynamic data as needed -->
-                        <tr>
-                            <td>2</td>
-                            <td>$30</td>
-                            <td>Damaged Book</td>
-                            <td>2023-10-20</td>
-                            <td>Paid</td>
-                            <td>1002</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>$20</td>
-                            <td>Library Fee</td>
-                            <td>2023-11-01</td>
-                            <td>Pending</td>
-                            <td>1003</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>

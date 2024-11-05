@@ -89,8 +89,8 @@
         <div class="dashboard">
             <div class="cardBox">
                 <div class="card">
-                    <div class="numbers">150</div>
-                    <div class="cardName">Total Users</div>
+                    <div class="numbers" id="studentCount"></div>
+                    <div class="cardName">Total Students</div>
                     <div class="iconBx">
                         <ion-icon name="people-outline"></ion-icon>
                     </div>
@@ -159,7 +159,21 @@
         </div>
     </div>
 </div>
+<script>
+    function getStudentCount() {
+        fetch('/hostel/getTotalStudentCount') // Replace with your actual API endpoint
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('studentCount').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error fetching student count:', error);
+                // Handle errors appropriately (e.g., display an error message)
+            });
 
+        getStudentCount();
+    }
+</script>
 <script src="js/admin.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

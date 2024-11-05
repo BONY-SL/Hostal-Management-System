@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "student")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "student", indexes = {
+        @Index(name = "idx_student_tg_no", columnList = "tg_no")
+})
 public class Student {
 
     @Id
@@ -23,29 +25,30 @@ public class Student {
     @Column(name = "studentId")
     private Long studentID;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "tg_no")
+    private String tg_no;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "DOB")
+    @Column(name = "DOB",nullable = true)
     private String dob;
 
-    @Column(name = "enrollment_date")
+    @Column(name = "enrollment_date",nullable = true)
     private Date enrollmentDate;
 
-    @Column(name = "department")
+    @Column(name = "department",nullable = true)
     private String department;
 
-    @Column(name = "phone_no")
+    @Column(name = "phone_no",nullable = true)
     private String phoneNo;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable = true)
     private String email;
 
-    @Column(name = "address")
+    @Column(name = "address",nullable = true)
     private String address;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    public User user1;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Fine> fines = new ArrayList<>();
