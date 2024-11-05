@@ -18,6 +18,7 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
 
+    /*
     @GetMapping("/getStudent")
     public ResponseEntity<List<StudentDto>> getStudentDetails() {
         System.out.println("Received request to retrieve student details");
@@ -25,4 +26,6 @@ public class StudentController {
         return ResponseEntity.ok().body(studentDtos);
 
     }
+
+     */
 }

@@ -20,6 +20,7 @@ public class StudentService {
 
     }
 
+    /*
     public List<StudentDto> getAllStudents() {
         List<Student> studentList = studentRepo.getStudentFromView();
         return studentList.stream().map(this::convertStudentToDTO).collect(Collectors.toList());
@@ -33,6 +34,8 @@ public class StudentService {
                 .academic_year(String.valueOf(student.getAcademicYear())) // Converting academicYear to String for academic_year
                 .build();
     }
+
+     */
 
 
 

@@ -1,20 +1,32 @@
 package com.hostalmanagement.Web.Application.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 @Entity
+@Table(name = "asset")
 public class Asset {
+
     @Id
-    private String asset_id;
-    private String asset_name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long asset_id;
+
+    private Long room_no;
     private String description;
-    private String category;
     private String location;
+    private Date acquisition_date;
+    private String assetCondition;
+
+    @ManyToOne
+    @JoinColumn(name = "studentID", nullable = true)
+    private Student student;
 }

@@ -24,4 +24,8 @@ public class RoomService {
         return roomRepository.findAll();
     }   // This method is used to get all the rooms from the database.
 
+
+    public Room getRoomByRoomNumber(String room_id) {
+       return roomRepository.findByRoomNumber(room_id).orElseThrow(() -> new RuntimeException("Room not found with id: " + room_id));
+    }   // This method is used to get a room by its id from the database.
 }

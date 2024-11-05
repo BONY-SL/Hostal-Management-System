@@ -5,20 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.repository.NoRepositoryBean;
 
-@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+@Entity
+@Table(name="studentmail")
+public class StudentMailStore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "role")
-    private String name;
-
+    @Column(unique = true,name = "email")
+    private String email;
 }
