@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+
 @RequestMapping("/hostalmanage")
 @CrossOrigin("*")
+@RequestMapping("/hostalmanage/student")
 @RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
@@ -27,5 +29,13 @@ public class StudentController {
 
     }
 
+
+
+    //total count of the student
+    @GetMapping("/getTotalStudentCount")
+    public ResponseEntity<Long> getTotalStudentCount() {
+        long totalStudentCount = studentService.getStudentCount();
+        return ResponseEntity.ok(totalStudentCount);
+    }
 
 }

@@ -27,10 +27,10 @@ public class StudentService {
   }
 
     private StudentDto convertStudentToDTO(Student student) {
+
             return StudentDto.builder()
               .studentID(student.getStudentID())          // Mapping studentID to student_id
-              .firstName(student.getFirstName())      // Mapping studentName to student_name
-               .lastName(student.getLastName())
+                    .tg_no(student.getTg_no())
                 .dob(student.getDob())
                     .enrollmentDate(student.getEnrollmentDate())
                     .department(student.getDepartment())
@@ -39,5 +39,16 @@ public class StudentService {
                     .address(student.getAddress())
             .build();
    }
+
+
+
+
+    public long getStudentCount() {
+        return studentRepo.count();
+    }
+
+
+
+
 
 }
