@@ -1,21 +1,20 @@
 package com.hostalmanagement.Web.Application.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "student")
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "student", indexes = {
+        @Index(name = "idx_tg_no", columnList = "tg_no")
+})
 public class Student {
 
     @Id
@@ -23,11 +22,8 @@ public class Student {
     @Column(name = "studentId")
     private Long studentID;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "tg_no")
+    private String tg_no;
 
     @Column(name = "DOB")
     private String dob;
@@ -47,8 +43,15 @@ public class Student {
     @Column(name = "address")
     private String address;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User user1;
 
+    @OneToMany(mappedBy = "student")
+    private List<Asset> assets;
 
+    @OneToMany(mappedBy = "student")
+    private List<Fine> fines;
 
 
 }

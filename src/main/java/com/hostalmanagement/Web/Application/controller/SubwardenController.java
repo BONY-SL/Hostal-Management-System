@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/hostalmanage")
 public class SubwardenController {
 
+    /*
     @Autowired
     private AssetService assetService;
 
@@ -47,7 +48,6 @@ public class SubwardenController {
         System.out.println("Received request to retrieve fine details");
         List<FineDto> fineDtosDtos=fineService.getALLFines();
         return ResponseEntity.ok().body(fineDtosDtos);
-
     }
     //get Asset details
     @GetMapping("/getAsset")
@@ -56,6 +56,8 @@ public class SubwardenController {
         List<AssetDto> assetDtos=assetService.getAllAsset();
         return ResponseEntity.ok().body(assetDtos);
     }
+
+     */
 
 
 }

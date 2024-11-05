@@ -46,11 +46,8 @@ public class User implements UserDetails {
     private List<Token> tokens;
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Asset> assets;
-
-    @OneToMany(mappedBy = "user")
-    private List<Fine> fines;
+    @OneToOne(mappedBy = "user1")
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

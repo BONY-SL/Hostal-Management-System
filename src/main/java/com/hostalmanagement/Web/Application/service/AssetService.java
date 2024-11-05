@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class AssetService {
 
+    /*
+
     @Autowired
     private UserRepository userRepository;
 
@@ -58,4 +60,6 @@ public class AssetService {
                 asset.getUser().getId()
         );
     }
+
+     */
 }

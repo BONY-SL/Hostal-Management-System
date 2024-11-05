@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface FineRepository extends JpaRepository<Fine,Long> {
 
-
+/*
     @Modifying
     @Transactional
     @Query(value = "CALL hostalmanagementsystem.insert_fine(:amount, :reason, :issuedDate, :status, :id)", nativeQuery = true)
@@ -36,4 +36,6 @@ public interface FineRepository extends JpaRepository<Fine,Long> {
     List<Fine> getFineFromView();
 
 
+
+ */
 }

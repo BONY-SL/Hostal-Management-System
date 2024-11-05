@@ -143,13 +143,19 @@
                         <input type="number" step="0.01" id="amount" required>
 
                         <label for="reason">Reason:</label>
-                        <input type="text" id="reason" required>
+                        <textarea id="reason" rows="3" placeholder="Enter reason for fine" required></textarea>
 
                         <label for="issued_date">Issued Date:</label>
                         <input type="date" id="issued_date" required>
 
                         <label for="status">Status:</label>
-                        <input type="text" id="status" required>
+                        <select id="status" required>
+                            <option value="">Select Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Waived">Waived</option>
+                        </select>
+
 
                         <button type="submit">Add Fine</button>
                         &nbsp;
@@ -164,32 +170,15 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Fine ID</th>
-                            <th>Amount</th>
+                            <th>Student ID</th>
                             <th>Reason</th>
+                            <th>Amount</th>
                             <th>Issued Date</th>
                             <th>Status</th>
-                            <th>Student ID</th>
+
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Sample data, replace with dynamic data as needed -->
-                        <tr>
-                            <td>2</td>
-                            <td>$30</td>
-                            <td>Damaged Book</td>
-                            <td>2023-10-20</td>
-                            <td>Paid</td>
-                            <td>1002</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>$20</td>
-                            <td>Library Fee</td>
-                            <td>2023-11-01</td>
-                            <td>Pending</td>
-                            <td>1003</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -197,6 +186,7 @@
         </div>
     </div>
 </div>
+
 
 //get dashboard template(js file)
 <script src="js/admin.js"></script>

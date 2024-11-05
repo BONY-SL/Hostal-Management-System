@@ -13,6 +13,8 @@ import java.util.List;
 
 @Repository
 public interface AssetRepository extends JpaRepository<Asset,Long> {
+
+    /*
     @Modifying
     @Transactional
     @Query(value = "CALL insert_asset(:room_no, :description, :location, :acquisition_date, :assetCondition, :id)", nativeQuery = true)
@@ -27,4 +29,6 @@ public interface AssetRepository extends JpaRepository<Asset,Long> {
 
     @Query(value = "select * from Asset_display", nativeQuery = true)
     List<Asset> getAssetFromView();
+
+     */
 }

@@ -16,5 +16,5 @@ public class AssetDto {
     private String location;
     private Date acquisition_date;
     private String asset_condition;
-    private Integer id;
+    private Long studentID;
 }

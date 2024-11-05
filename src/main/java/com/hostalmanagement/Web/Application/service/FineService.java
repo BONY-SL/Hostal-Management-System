@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class FineService {
 
+    /*
+
     @Autowired
     private FineRepository fineRepository;
 
@@ -67,5 +69,7 @@ public class FineService {
 
         );
     }
+
+     */
 
 }

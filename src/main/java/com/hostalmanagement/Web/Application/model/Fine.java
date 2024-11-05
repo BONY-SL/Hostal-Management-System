@@ -25,6 +25,6 @@ public class Fine {
     private String fine_status;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private User user;
+    @JoinColumn(name = "studentID", nullable = false)
+    private Student student;
 }
