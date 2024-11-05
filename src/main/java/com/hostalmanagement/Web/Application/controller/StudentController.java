@@ -33,4 +33,6 @@ public class StudentController {
         long totalStudentCount = studentService.getStudentCount();
         return ResponseEntity.ok(totalStudentCount);
     }
+
+
 }
