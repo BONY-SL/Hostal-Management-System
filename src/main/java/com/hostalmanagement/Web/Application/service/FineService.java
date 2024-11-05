@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class FineService {
 
-/*
+
 
     @Autowired
     private FineRepository fineRepository;
@@ -24,27 +24,30 @@ public class FineService {
 
     public String saveFineUsingProcedure(FineDto fineDto) {
         // Check if the student exists
-        if (studentRepo.existsById(fineDto.getStudentID())) {
+        if (studentRepo.existsByTgNo(fineDto.getTg_no())) {
             // Call the repository to insert the fine
             fineRepository.insertFine(
                     fineDto.getAmount(),
                     fineDto.getReason(),
                     fineDto.getIssued_date(),
                     fineDto.getFine_status(),
-                    fineDto.getStudentID()
+                    fineDto.getTg_no()
             );
             return "Fine added successfully.";
         } else {
             // Return error message if the student is not found
-            return "Student not found with ID: " + fineDto.getStudentID();
+            return "Student not found with ID: " + fineDto.getTg_no();
         }
     }
+
 
     // This method will run every 60 minutes
     @Scheduled(fixedRate = 3600000)
     public void updateFines() {
         fineRepository.updateFineStatusAndAmount();
     }
+
+
 
     public List<FineDto> getFinesByStudentId() {
         List<Fine> fineList = fineRepository.getFineFromView();
@@ -59,11 +62,11 @@ public class FineService {
                 fine.getReason(),
                 fine.getIssuedDate(),
                 fine.getFine_status(),
-                fine.getStudent().getStudentID()
+                fine.getStudent().getTg_no()
         );
     }
 
 
 
- */
+
 }

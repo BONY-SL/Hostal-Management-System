@@ -26,7 +26,7 @@ public class SubwardenController {
     @Autowired
     private FineService fineService;
 
-/*
+
     //add fine
     @PostMapping("/addFine")
     public ResponseEntity<String> addComplain(@RequestBody FineDto fineDto){
@@ -36,7 +36,7 @@ public class SubwardenController {
         return new ResponseEntity<>(message,HttpStatus.CREATED);
     }
 
- */
+
 
     //add asset
     @PostMapping("/addAsset")
@@ -46,7 +46,6 @@ public class SubwardenController {
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
-    /*
     //get fine details
     @GetMapping("/getFine")
     public ResponseEntity<List<FineDto>> getStudentDetails() {
@@ -55,9 +54,6 @@ public class SubwardenController {
         return ResponseEntity.ok().body(fineDtosDtos);
 
     }
-
-
-     */
 
     //get Asset details
     @GetMapping("/getAsset")
