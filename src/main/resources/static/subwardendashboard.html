@@ -39,7 +39,7 @@
                     <span class="icon">
                             <ion-icon name="bed"></ion-icon>
                     </span>
-                    <span class="title">Room Manage</span>
+                    <span class="title">Fine Manage</span>
                 </a>
             </li>
             <li>
@@ -47,7 +47,7 @@
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                    <span class="title">Student Manage</span>
+                    <span class="title">Assign Room</span>
                 </a>
             </li>
             <li>
@@ -89,7 +89,7 @@
         <div class="dashboard">
             <div class="cardBox">
                 <div class="card">
-                    <div class="numbers" id="studentCount"></div>
+                    <div class="numbers" id="totalStudents">0</div> <!-- ID added here -->
                     <div class="cardName">Total Students</div>
                     <div class="iconBx">
                         <ion-icon name="people-outline"></ion-icon>
@@ -121,7 +121,7 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
+                        <h2>Outgoing Details</h2>
                         <a href="#" class="btn">View All</a>
                     </div>
                     <table>
@@ -160,19 +160,19 @@
     </div>
 </div>
 <script>
-    function getStudentCount() {
-        fetch('/hostel/getTotalStudentCount') // Replace with your actual API endpoint
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchTotalStudentCount();
+    });
+
+    function fetchTotalStudentCount() {
+        fetch('/hostalmanage/student/getTotalStudentCount')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('studentCount').textContent = data;
+                document.getElementById('totalStudents').innerText = data;
             })
-            .catch(error => {
-                console.error('Error fetching student count:', error);
-                // Handle errors appropriately (e.g., display an error message)
-            });
-
-        getStudentCount();
+            .catch(error => console.error('Error fetching student count:', error));
     }
+
 </script>
 <script src="js/admin.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
