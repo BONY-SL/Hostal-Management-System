@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warden DashBoard</title>
+    <title>Warden Dashboard</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/wardenNotice.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
@@ -20,65 +20,65 @@
             </li>
             <li>
                 <a href="wardenDashboard.html">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
                     <span class="title">Dashboard</span>
                 </a>
             </li>
             <li>
                 <a href="wardenViewComplaints.html">
-                        <span class="icon">
-                            <ion-icon name="alert-circle-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                    </span>
                     <span class="title">Complaints</span>
                 </a>
             </li>
             <li>
                 <a href="wardenViewAssets.html">
                     <span class="icon">
-                            <ion-icon name="bed"></ion-icon>
+                        <ion-icon name="bed"></ion-icon>
                     </span>
                     <span class="title">Assets</span>
                 </a>
             </li>
             <li>
                 <a href="wardenViewStudents.html">
-                        <span class="icon">
-                            <ion-icon name="people-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
                     <span class="title">Student Details</span>
                 </a>
             </li>
             <li>
                 <a href="wardenManageNotices.html">
-                        <span class="icon">
-                            <ion-icon name="notifications-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="notifications-outline"></ion-icon>
+                    </span>
                     <span class="title">Notices</span>
                 </a>
             </li>
             <li>
                 <a href="wardenViewFines.html">
-                        <span class="icon">
-                             <ion-icon name="cash-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </span>
                     <span class="title">Fines</span>
                 </a>
             </li>
             <li>
                 <a href="wardenViewOutgoing.html">
-                        <span class="icon">
-                            <ion-icon name="document-text-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="document-text-outline"></ion-icon>
+                    </span>
                     <span class="title">Outgoing Details</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
                     <span class="title">Sign Out</span>
                 </a>
             </li>
@@ -101,36 +101,80 @@
                 <button id="updateNoticeBtn" class="btn update">Update Notice</button>
                 <button id="deleteNoticeBtn" class="btn delete">Delete Notice</button>
             </div>
-            <div id="AddNotices" class="noticeSection" style="display:none;>
+
+            <!-- Add Notice Form Section -->
+            <div id="addNoticeSection" class="noticeSection" style="display: none;">
                 <form id="addNoticeForm">
-            <label for="noticeId">ID:</label>
-            <input type="number" id="noticeId" name="id" required>
+                    <label for="noticeId">ID:</label>
+                    <input type="number" id="noticeId" name="id" required>
 
-            <label for="noticeTitle">Title:</label>
-            <input type="text" id="noticeTitle" name="title" required>
+                    <label for="noticeTitle">Title:</label>
+                    <input type="text" id="noticeTitle" name="title" required>
 
-            <label for="noticeContent">Content:</label>
-            <textarea id="noticeContent" name="content" rows="4" required></textarea>
+                    <label for="noticeContent">Content:</label>
+                    <textarea id="noticeContent" name="content" rows="4" required></textarea>
 
-            <label for="publishDate">Publish Date:</label>
-            <input type="date" id="publishDate" name="publishDate" required>
+                    <label for="publishDate">Publish Date:</label>
+                    <input type="date" id="publishDate" name="publishDate" required>
 
-            <label for="publishTime">Publish Time:</label>
-            <input type="time" id="publishTime" name="publishTime" required>
+                    <label for="publishTime">Publish Time:</label>
+                    <input type="time" id="publishTime" name="publishTime" required>
 
-            <button type="submit" class="btn add">Add Notice</button>
-            </form>
+                    <button type="submit" class="btn add">Add Notice</button>
+                </form>
+            </div>
+
+            <!-- Modal for Updating Notice -->
+            <div id="updateNoticeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h2>Update Notice</h2>
+                    <form id="updateNoticeForm">
+                        <label for="updateNoticeId">ID:</label>
+                        <input type="number" id="updateNoticeId" name="id" readonly required>
+
+                        <label for="updateNoticeTitle">Title:</label>
+                        <input type="text" id="updateNoticeTitle" name="title" required>
+
+                        <label for="updateNoticeContent">Content:</label>
+                        <textarea id="updateNoticeContent" name="content" rows="4" required></textarea>
+
+                        <label for="updatePublishDate">Publish Date:</label>
+                        <input type="date" id="updatePublishDate" name="publishDate" required>
+
+                        <label for="updatePublishTime">Publish Time:</label>
+                        <input type="time" id="updatePublishTime" name="publishTime" required>
+
+                        <button type="submit" class="btn update">Update Notice</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Existing Notices Table Container -->
+            <div id="noticesTableContainer" style="display: none;">
+                <table id="noticesTable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Publish Date</th>
+                        <th>Publish Time</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="noticesTableBody">
+                    <!-- Rows will be dynamically inserted here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-
-</div>
-
 </div>
 
 <script src="js/warden.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/noticeManage.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
