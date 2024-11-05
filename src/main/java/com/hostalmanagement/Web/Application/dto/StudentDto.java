@@ -13,6 +13,7 @@ import java.util.Date;
 @Builder
 public class StudentDto {
     private Long studentID;
+    private String tg_no;
     private String firstName;
     private String lastName;
     private String dob;

@@ -13,8 +13,6 @@ import java.util.List;
 
 @Controller
 
-@RequestMapping("/hostalmanage")
-@CrossOrigin("*")
 @RequestMapping("/hostalmanage/student")
 @RequiredArgsConstructor
 public class StudentController {
