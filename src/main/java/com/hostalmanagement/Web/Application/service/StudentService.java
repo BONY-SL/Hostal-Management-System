@@ -36,8 +36,8 @@ public class StudentService {
                     student.getPhoneNo(),
                     student.getEmail(),
                     student.getAddress(),
-                    student.getStudentID(),
-                    student.user1.getFirstname()
+                        student.getUser1().getId(),
+                        student.getUser1().getFirstname()+" "+student.getUser1().getLastname()
                 );
    }
 

@@ -11,14 +11,15 @@ import com.hostalmanagement.Web.Application.service.NoticeService;
 import com.hostalmanagement.Web.Application.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/hostalmanage")
-@CrossOrigin("*")
+@RequestMapping("/hostalmanage/warden")
+@PreAuthorize("hasAuthority('WARDEN')")
 @RequiredArgsConstructor
 public class WardenController {
     private final StudentService studentService;
@@ -27,7 +28,7 @@ public class WardenController {
     private final AssetService assetService;
 
     //View Student
-    @GetMapping("/getStudent/warden")
+    @GetMapping("/getStudent")
     public ResponseEntity<List<StudentDto>> getStudentDetails() {
         System.out.println("Received request to retrieve student details");
         List<StudentDto> studentDtos=studentService.getAllStudents();

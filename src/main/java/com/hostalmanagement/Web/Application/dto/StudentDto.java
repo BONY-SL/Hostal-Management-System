@@ -24,4 +24,7 @@ public class StudentDto {
     private String phoneNo;
     private String email;
     private String address;
+    private Integer user_id;
+    private String fName;
+
 }
