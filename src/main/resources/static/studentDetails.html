@@ -26,7 +26,7 @@
 
 <script>
   // Fetch student data from the backend and populate the table
-  fetch('/api/students')
+  fetch('/hostalmanage/getStudent')
           .then(response => response.json())
           .then(data => {
             const studentData = document.getElementById('studentData');

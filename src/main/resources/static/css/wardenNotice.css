@@ -1,0 +1,166 @@
+/* Centered title styling */
+.centered-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #131a1e;
+}
+
+.form, .table {
+    display: none; /* Hidden by default */
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn.add, .btn.update, .btn.delete {
+    background-color: #035959;
+}
+
+.btn:hover {
+    background-color: #068f8f;
+    transform: scale(1.05);
+}
+
+/* Notice section styling */
+.noticeSection {
+    display: none;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.noticeSection.active {
+    display: block;
+}
+
+/* Form input styling */
+.noticeSection form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.noticeSection label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.noticeSection input[type="number"],
+.noticeSection input[type="text"],
+.noticeSection input[type="date"],
+.noticeSection input[type="time"],
+.noticeSection textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.2s;
+}
+
+.noticeSection input:focus,
+.noticeSection textarea:focus {
+    border-color: #035959;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Form button styling */
+.noticeSection button[type="submit"] {
+    align-self: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #068f8f;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.noticeSection button[type="submit"]:hover {
+    background-color: #068f8f;
+}
+/* Notice Table Container Styling */
+.noticeTableContainer {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Notice Table Styling */
+.noticeTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.noticeTable th, .noticeTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.noticeTable th {
+    background-color: #035959;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.noticeTable td {
+    color: #333;
+}
+
+.noticeTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button in Action Column */
+.noticeTable .btn.update {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #035959;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.noticeTable .btn.update:hover {
+    background-color: #068f8f;
+    transform: scale(1.05);
+}
