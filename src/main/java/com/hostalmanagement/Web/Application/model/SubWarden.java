@@ -28,6 +28,5 @@ public class SubWarden {
     private String assigned_hostel;
     private String status;
 
-    @OneToMany(mappedBy = "subwarden", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Complain> complaints = new ArrayList<>();
+
 }

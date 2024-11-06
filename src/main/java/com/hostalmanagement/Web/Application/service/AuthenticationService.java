@@ -3,28 +3,38 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostalmanagement.Web.Application.dto.AuthenticationRequest;
 import com.hostalmanagement.Web.Application.dto.AuthenticationResponse;
 import com.hostalmanagement.Web.Application.dto.RegistrationRequest;
+import com.hostalmanagement.Web.Application.model.SaveActivatedCoeds;
 import com.hostalmanagement.Web.Application.model.StudentMailStore;
 import com.hostalmanagement.Web.Application.model.Token;
 import com.hostalmanagement.Web.Application.model.User;
+import com.hostalmanagement.Web.Application.repository.SaveCodeRepo;
 import com.hostalmanagement.Web.Application.repository.StudentMailRepository;
 import com.hostalmanagement.Web.Application.repository.TokenRepository;
 import com.hostalmanagement.Web.Application.repository.UserRepository;
+import com.hostalmanagement.Web.Application.util.EmailService;
+import com.hostalmanagement.Web.Application.util.EmailTemplateName;
 import com.hostalmanagement.Web.Application.util.Role;
 import com.hostalmanagement.Web.Application.util.TokenType;
 import com.hostalmanagement.Web.Application.webconfig.JwtService;
 import jakarta.annotation.PostConstruct;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,9 +53,18 @@ public class AuthenticationService {
 
     private final StudentMailRepository studentMailRepository;
 
+    private final EmailService emailService;
+
+    private final SaveCodeRepo saveCodeRepo;
+
+    private User user;
+
+    @Value("${application.mailing.frontend.activation-url}")
+    private String activationUrl;
+
 
     @Transactional
-    public AuthenticationResponse register(RegistrationRequest registrationRequest) {
+    public ResponseEntity<Map<String, String>> register(RegistrationRequest registrationRequest) throws MessagingException {
 
 
         Optional<StudentMailStore> studentMailStore = studentMailRepository.findByEmail(registrationRequest.getEmail());
@@ -55,7 +74,8 @@ public class AuthenticationService {
 
             if(exsistUser.isPresent()){
                 System.out.println("User Already Exsist");
-                return null;
+                return ResponseEntity.ok(Collections.singletonMap("message", "User Already Exsist"));
+
             }
 
             var user = User.builder()
@@ -63,26 +83,54 @@ public class AuthenticationService {
                     .lastname(registrationRequest.getLastname())
                     .email(registrationRequest.getEmail())
                     .password(passwordEncoder.encode(registrationRequest.getPassword()))
-                    .role(registrationRequest.getRole())
+                    .role(Role.STUDENT)
                     .build();
 
-            var savedUser = userRepository.save(user);
-            var jwtToken = jwtService.generateToken(user);
-
-            var refreshToken = jwtService.generateRefreshToken(user);
-
-            saveUserToken(savedUser, jwtToken);
+                this.user =user;
+                sendValidationEmail(user);
 
 
+            return ResponseEntity.ok(Collections.singletonMap("message", "OTP"));
 
-            return AuthenticationResponse.builder()
-                    .accessToken(jwtToken)
-                    .refreshToken(refreshToken)
-                    .build();
         }else {
             System.out.println("Your Email is Not Registered In The System Yet");
-            return null;
+            return ResponseEntity.ok(Collections.singletonMap("message", "Your Email is Not Registered In The System Yet"));
+
         }
+    }
+
+
+    private void sendValidationEmail(User user) throws MessagingException {
+
+        String code = generateActivationCode(6);
+
+        emailService.sendUserCredentials(
+                user.getEmail(),
+                user.getFirstname()+" "+user.getLastname(),
+                EmailTemplateName.ACTIVATE_ACCOUNT,
+                activationUrl,
+                code,
+                "Account Activation");
+
+        var savedCode = SaveActivatedCoeds.builder()
+                .activationCode(code).build();
+
+        saveCodeRepo.save(savedCode);
+    }
+
+    private String generateActivationCode(int length) {
+
+        String characters = "0123456789";
+
+        StringBuilder codeBuilder = new StringBuilder();
+        SecureRandom secureRandom = new SecureRandom();
+
+        for(int i = 0 ; i<length ;i++){
+
+            int randomIndex = secureRandom.nextInt(characters.length());
+            codeBuilder.append(characters.charAt(randomIndex));
+        }
+        return codeBuilder.toString();
     }
 
     @Transactional
@@ -143,7 +191,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    protected void revokeAllUserTokens(User user) {
+    public void revokeAllUserTokens(User user) {
 
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -196,6 +244,7 @@ public class AuthenticationService {
 
                 StudentMailStore studentMailStore = StudentMailStore.builder()
                         .email("studentExample"+i+"@ruhuna.ac.lk")
+                        .tgnumber("TG"+i)
                         .build();
 
                 studentMailRepository.save(studentMailStore);
@@ -218,6 +267,21 @@ public class AuthenticationService {
                 .build();
 
         userRepository.save(user);
+
+    }
+
+    @Transactional
+    public void activateAccount(String code) {
+
+        SaveActivatedCoeds saveActivatedCoeds = saveCodeRepo.findByActivationCode(code)
+                .orElseThrow(()-> new RuntimeException("Invalid Code..."));
+
+        if(saveActivatedCoeds.getActivationCode().contains(code)){
+
+            var savedUser = userRepository.save(this.user);
+            var jwtToken = jwtService.generateToken(this.user);
+            saveUserToken(savedUser, jwtToken);
+        }
 
     }
 }

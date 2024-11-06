@@ -1,40 +1,47 @@
 package com.hostalmanagement.Web.Application.service;
 
-import com.hostalmanagement.Web.Application.dto.ComplainDto;
+import com.hostalmanagement.Web.Application.dto.ComplainRequest;
 import com.hostalmanagement.Web.Application.model.Complain;
-import com.hostalmanagement.Web.Application.model.SubWarden;
+import com.hostalmanagement.Web.Application.model.Student;
 import com.hostalmanagement.Web.Application.repository.ComplainRepository;
-import com.hostalmanagement.Web.Application.repository.SubWardenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hostalmanagement.Web.Application.repository.StudentRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpRequest;
-import java.util.Optional;
-
 @Service
+@Transactional // This annotation is used to configure the transaction on the service class
 public class ComplainService {
-    @Autowired
-    private ComplainRepository complainRepository;
 
-    @Autowired
-    private SubWardenRepository subWardenRepository;
+    // Autowire the ComplainRepository
+    final private ComplainRepository complainRepository;
+    // Autowire the StudentRepo
+    final  private StudentRepo studentRepo;
 
-    public Complain addComplain(ComplainDto complainDto) {
+    // Constructor
+    public ComplainService(ComplainRepository complainRepository, StudentRepo studentRepo) {
+        this.complainRepository = complainRepository;
+        this.studentRepo = studentRepo;
+    }
 
-        SubWarden subWarden = subWardenRepository.findById(complainDto.getSubwarden_id())
-                .orElseThrow(() -> new RuntimeException("SubWarden not found with id: " + complainDto.getSubwarden_id()));
+    // Add a new complaint
+    public void addComplain(ComplainRequest complainRequest) throws Exception {
+        // Add the logic to add a complaint
+        Complain complain = new Complain();
 
+        // Set the values to the Complaint object
+        complain.setRoomNumber(complainRequest.getRoomNumber());
+        complain.setComplainType(complainRequest.getComplainType());
+        complain.setDescription(complainRequest.getDescription());
+        complain.setContactNumber(complainRequest.getContactNumber());
+        complain.setStatus(complainRequest.getStatus());
 
-        Complain complain = Complain.builder()
-                .complain_id(complainDto.getComplain_id())
-                .title(complainDto.getTitle())
-                .description(complainDto.getDescription())
-                .date_reported(complainDto.getDate_reported())
-                .resolved_date(complainDto.getDate_resolved())
-                .status(complainDto.getStatus())
-                .subwarden(subWarden)
-                .build();
+        // Fetch the Student by studentId
+        Student student =  studentRepo.findById(complainRequest.getStudentId()).
+                orElseThrow(() -> new Exception("Menu not found"));
+        // Set the Student in Complaint
+        complain.setStudent(student);
+        // Save the Complaint
+        complainRepository.save(complain);
 
-        return complainRepository.save(complain);
     }
 }
