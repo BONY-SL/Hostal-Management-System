@@ -96,6 +96,9 @@
         <!-- Card for CRUD operations on Notices -->
         <div class="noticesManage">
             <h1 class="centered-title">Manage Notices</h1>
+            <br>
+           <br>
+            <hr>
             <div class="button-group">
                 <button id="addNoticeBtn" class="btn add">Add Notice</button>
                 <button id="updateNoticeBtn" class="btn update">Update Notice</button>
@@ -123,48 +126,34 @@
                     <button type="submit" class="btn add">Add Notice</button>
                 </form>
             </div>
-
-            <!-- Modal for Updating Notice -->
-            <div id="updateNoticeModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeModal">&times;</span>
-                    <h2>Update Notice</h2>
-                    <form id="updateNoticeForm">
-                        <label for="updateNoticeId">ID:</label>
-                        <input type="number" id="updateNoticeId" name="id" readonly required>
-
-                        <label for="updateNoticeTitle">Title:</label>
-                        <input type="text" id="updateNoticeTitle" name="title" required>
-
-                        <label for="updateNoticeContent">Content:</label>
-                        <textarea id="updateNoticeContent" name="content" rows="4" required></textarea>
-
-                        <label for="updatePublishDate">Publish Date:</label>
-                        <input type="date" id="updatePublishDate" name="publishDate" required>
-
-                        <label for="updatePublishTime">Publish Time:</label>
-                        <input type="time" id="updatePublishTime" name="publishTime" required>
-
-                        <button type="submit" class="btn update">Update Notice</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Existing Notices Table Container -->
-            <div id="noticesTableContainer" style="display: none;">
-                <table id="noticesTable">
+            <!-- Table Section for Notices -->
+            <div class="noticeTableContainer">
+                <table class="noticeTable">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Notice ID</th>
                         <th>Title</th>
                         <th>Content</th>
                         <th>Publish Date</th>
-                        <th>Publish Time</th>
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody id="noticesTableBody">
-                    <!-- Rows will be dynamically inserted here -->
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Meeting Reminder</td>
+                        <td>Reminder for all students about the upcoming meeting.</td>
+                        <td>2024-11-06</td>
+                        <td><button class="btn update">Update</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Holiday Notice</td>
+                        <td>There will be a holiday on Friday due to maintenance.</td>
+                        <td>2024-11-07</td>
+                        <td><button class="btn update">Update</button></td>
+                    </tr>
+                    <!-- Additional rows can go here -->
                     </tbody>
                 </table>
             </div>
@@ -172,7 +161,29 @@
     </div>
 </div>
 
-<script src="js/warden.js"></script>
+<!-- Update Notice Modal -->
+<div id="updateNoticeModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <form id="updateNoticeForm">
+            <label for="updateNoticeId">ID:</label>
+            <input type="number" id="updateNoticeId" name="id" readonly>
+
+            <label for="updateNoticeTitle">Title:</label>
+            <input type="text" id="updateNoticeTitle" name="title" required>
+
+            <label for="updateNoticeContent">Content:</label>
+            <textarea id="updateNoticeContent" name="content" rows="4" required></textarea>
+
+            <label for="updatePublishDate">Publish Date:</label>
+            <input type="date" id="updatePublishDate" name="publishDate" required>
+
+            <button type="submit" class="btn update">Update Notice</button>
+        </form>
+    </div>
+</div>
+
+
 <script src="js/admin.js"></script>
 <script src="js/noticeManage.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

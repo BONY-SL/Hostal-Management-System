@@ -23,33 +23,55 @@ async function loadStudentDetails() {
             const idCell = document.createElement("td");
             idCell.textContent = student.student_id;
 
-            const nameCell = document.createElement("td");
-            nameCell.textContent = student.student_name;
+            const indexNumberCell = document.createElement("td");
+            indexNumberCell.textContent = student.index_number;
+
+            const firstNameCell = document.createElement("td");
+            firstNameCell.textContent = student.first_name;
+
+            const lastNameCell = document.createElement("td");
+            lastNameCell.textContent = student.last_name;
 
             const dobCell = document.createElement("td");
-            dobCell.textContent = student.DOB;
+            dobCell.textContent = student.date_of_birth;
 
-            const yearCell = document.createElement("td");
-            yearCell.textContent = student.academic_year;
+            const enrollmentDateCell = document.createElement("td");
+            enrollmentDateCell.textContent = student.enrollment_date;
+
+            const departmentCell = document.createElement("td");
+            departmentCell.textContent = student.department;
+
+            const phoneCell = document.createElement("td");
+            phoneCell.textContent = student.phone;
+
+            const emailCell = document.createElement("td");
+            emailCell.textContent = student.email;
+
+            const addressCell = document.createElement("td");
+            addressCell.textContent = student.address;
 
             // Append cells to the row
             row.appendChild(idCell);
-            row.appendChild(nameCell);
+            row.appendChild(indexNumberCell);
+            row.appendChild(firstNameCell);
+            row.appendChild(lastNameCell);
             row.appendChild(dobCell);
-            row.appendChild(yearCell);
+            row.appendChild(enrollmentDateCell);
+            row.appendChild(departmentCell);
+            row.appendChild(phoneCell);
+            row.appendChild(emailCell);
+            row.appendChild(addressCell);
 
             // Append the row to the table body
             tableBody.appendChild(row);
         });
     } catch (error) {
         console.error("Failed to load student details:", error);
-        tableBody.innerHTML = "<tr><td colspan='4'>Failed to load student data.</td></tr>";
+        tableBody.innerHTML = "<tr><td colspan='10'>Failed to load student data.</td></tr>";
     }
 }
 
-// Load student details and initialize notice button events on page load
+// Load student details on page load
 document.addEventListener("DOMContentLoaded", () => {
     loadStudentDetails();
-
-
 });

@@ -1,28 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
     const addNoticeBtn = document.getElementById("addNoticeBtn");
+    const updateNoticeBtn = document.getElementById("updateNoticeBtn");
+    const deleteNoticeBtn = document.getElementById("deleteNoticeBtn");
     const addNoticeSection = document.getElementById("addNoticeSection");
     const updateNoticeModal = document.getElementById("updateNoticeModal");
-    const closeModal = document.getElementById("closeModal");
-    const updateNoticeForm = document.getElementById("updateNoticeForm");
-    const noticesTableBody = document.getElementById("noticesTableBody");
-    const noticesTableContainer = document.getElementById("noticesTableContainer");
+    const addNoticeForm = document.getElementById("addNoticeForm");
+    const noticesTableContainer = document.querySelector(".noticeTableContainer");
 
-    // Toggle the form visibility when the "Add Notice" button is clicked
+    // Hide sections initially
+    addNoticeSection.style.display = "none";
+    updateNoticeModal.style.display = "none";
+    noticesTableContainer.style.display = "block"; // Make sure the table is visible initially
+
+    // Add Notice Button functionality
     addNoticeBtn.addEventListener("click", function () {
-        addNoticeSection.style.display = (addNoticeSection.style.display === "none" || addNoticeSection.style.display === "") ? "block" : "none";
+        // Show Add Notice form and hide Update Notice table/modal
+        addNoticeSection.style.display = "block";
+        updateNoticeModal.style.display = "none";
+        noticesTableContainer.style.display = "none"; // Hide the full table
     });
 
-    // Close the modal
-    closeModal.addEventListener("click", function () {
-        updateNoticeModal.style.display = "none";
+    // Update Notice Button functionality
+    updateNoticeBtn.addEventListener("click", function () {
+        // Hide Add Notice form and show Update Notice modal
+        addNoticeSection.style.display = "none";
+        updateNoticeModal.style.display = "block";
+        noticesTableContainer.style.display = "block"; // Show the full table
+    });
+
+    // Delete Notice Button functionality
+    deleteNoticeBtn.addEventListener("click", function () {
+        // Add logic to delete notices
+        alert("Delete Notice functionality is under construction.");
     });
 
     // Add Notice Form Submission
-    const addNoticeForm = document.getElementById("addNoticeForm");
     addNoticeForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        // Gather form data
         const formData = {
             id: document.getElementById("noticeId").value,
             title: document.getElementById("noticeTitle").value,
@@ -31,12 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
             publishTime: document.getElementById("publishTime").value
         };
 
-        // Create a new row in the notices table
         addNoticeToTable(formData);
-
-        // Clear the form and hide it
         addNoticeForm.reset();
-        addNoticeSection.style.display = "none";
+        addNoticeSection.style.display = "none"; // Hide form after submission
     });
 
     // Function to add notice to the table
@@ -47,56 +59,31 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${notice.title}</td>
             <td>${notice.content}</td>
             <td>${notice.publishDate}</td>
-            <td>${notice.publishTime}</td>
-            <td><button class="update-btn" data-id="${notice.id}">Update</button></td>
+            <td><button class="btn update">Update</button></td>
         `;
-        noticesTableBody.appendChild(row);
-        noticesTableContainer.style.display = "block";
+        const updateButton = row.querySelector(".btn.update");
 
-        // Add event listener for update button
-        row.querySelector(".update-btn").addEventListener("click", function () {
-            openUpdateModal(notice);
+        // Attach event listener to the Update button in the new row
+        updateButton.addEventListener("click", function () {
+            showUpdateNoticeModal(notice);
         });
+
+        noticesTableContainer.querySelector("tbody").appendChild(row);
     }
 
-    // Function to open the update modal
-    function openUpdateModal(notice) {
+    // Function to show update modal with existing notice data
+    function showUpdateNoticeModal(notice) {
         document.getElementById("updateNoticeId").value = notice.id;
         document.getElementById("updateNoticeTitle").value = notice.title;
         document.getElementById("updateNoticeContent").value = notice.content;
         document.getElementById("updatePublishDate").value = notice.publishDate;
-        document.getElementById("updatePublishTime").value = notice.publishTime;
-        updateNoticeModal.style.display = "block";
+
+        updateNoticeModal.style.display = "block"; // Show the modal
     }
 
-    // Update Notice Form Submission
-    updateNoticeForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const updatedNotice = {
-            id: document.getElementById("updateNoticeId").value,
-            title: document.getElementById("updateNoticeTitle").value,
-            content: document.getElementById("updateNoticeContent").value,
-            publishDate: document.getElementById("updatePublishDate").value,
-            publishTime: document.getElementById("updatePublishTime").value
-        };
-
-        // Update the notice in the table
-        updateNoticeInTable(updatedNotice);
-        updateNoticeModal.style.display = "none";
+    // Close the modal functionality
+    const closeModalBtn = document.getElementById("closeModal");
+    closeModalBtn.addEventListener("click", function () {
+        updateNoticeModal.style.display = "none"; // Close the modal
     });
-
-    // Function to update notice in the table
-    function updateNoticeInTable(notice) {
-        const rows = noticesTableBody.querySelectorAll("tr");
-        rows.forEach(row => {
-            const idCell = row.querySelector("td:first-child");
-            if (idCell.innerText === notice.id) {
-                row.querySelector("td:nth-child(2)").innerText = notice.title;
-                row.querySelector("td:nth-child(3)").innerText = notice.content;
-                row.querySelector("td:nth-child(4)").innerText = notice.publishDate;
-                row.querySelector("td:nth-child(5)").innerText = notice.publishTime;
-            }
-        });
-    }
 });

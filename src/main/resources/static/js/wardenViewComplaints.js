@@ -1,42 +1,24 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     const complaintsTableBody = document.getElementById("complaintsTableBody");
 
-    // Mock data to populate the complaints table
-    const complaintsData = [
-        {
-            complain_id: "C001",
-            title: "Broken Window",
-            description: "The window in Room 102 is broken.",
-            date_reported: "2024-11-01",
-            status: "Pending",
-            resolved_date: "N/A"
-        },
-        {
-            complain_id: "C002",
-            title: "Leaking Faucet",
-            description: "The faucet in the common bathroom is leaking.",
-            date_reported: "2024-11-02",
-            status: "Resolved",
-            resolved_date: "2024-11-04"
-        }
+    // Sample data - replace with actual data from API or backend
+    const complaintsDetails = [
+        { complaintId: "1", title: "Noise Disturbance", description: "Loud noises in the dorm after 10 PM", dateReported: "2024-10-01", status: "Open", resolvedDate: "N/A" },
+        { complaintId: "2", title: "Facility Issue", description: "Broken window in room 203", dateReported: "2024-10-05", status: "Resolved", resolvedDate: "2024-10-06" },
+        // Add more sample data as needed
     ];
 
-    // Function to add complaints data to the table
-    function populateComplaintsTable(complaints) {
-        complaints.forEach(complaint => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${complaint.complain_id}</td>
-                <td>${complaint.title}</td>
-                <td>${complaint.description}</td>
-                <td>${complaint.date_reported}</td>
-                <td>${complaint.status}</td>
-                <td>${complaint.resolved_date}</td>
-            `;
-            complaintsTableBody.appendChild(row);
-        });
-    }
-
-    // Populate table with mock data
-    populateComplaintsTable(complaintsData);
+    // Populate table
+    complaintsDetails.forEach(complaint => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${complaint.complaintId}</td>
+            <td>${complaint.title}</td>
+            <td>${complaint.description}</td>
+            <td>${complaint.dateReported}</td>
+            <td>${complaint.status}</td>
+            <td>${complaint.resolvedDate}</td>
+        `;
+        complaintsTableBody.appendChild(row);
+    });
 });
