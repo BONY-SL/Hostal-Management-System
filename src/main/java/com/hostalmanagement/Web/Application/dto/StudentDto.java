@@ -10,8 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class StudentDto {
-    private Long student_id;
-    private String student_name;
-    private String DOB;
-    private String academic_year;
+    private Long studentId;
+    private String address;
+    private String department;
+    private String dob;
+    private String email;
+    private String enrollmentDate;
+    private String phoneNo;
+    private Long userId;
 }
