@@ -74,5 +74,4 @@ public class WardenController {
         noticeService.updateNotices(noticeDto);
         return ResponseEntity.ok().build();
     }
-
 }
