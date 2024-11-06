@@ -141,7 +141,7 @@ async function signIn() {
             }else if(StorageService.isMaintainLoggedIn()){
                 window.location.href = "";
             }else if(StorageService.isWardenLoggedIn()){
-                window.location.href = "";
+                window.location.href = `wardenDashboard.html?token=${token}`;
             }else if(StorageService.isSubWardenLoggedIn()){
                 window.location.href = "";
             }else {

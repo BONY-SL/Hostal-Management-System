@@ -9,17 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/hostalmanage/student")
 
+@RequestMapping("/hostalmanage/student")
 @PreAuthorize("hasAuthority('STUDENT')")
 @RequiredArgsConstructor
-
 public class StudentController {
 
     private final StudentService studentService; // Assume you have a service to get student data
@@ -42,7 +44,6 @@ public class StudentController {
         long totalStudentCount = studentService.getStudentCount();
         return ResponseEntity.ok(totalStudentCount);
     }
-
 
     @GetMapping("/rooms") // This annotation is used to map the HTTP GET requests onto specific handler methods.
     public ResponseEntity<?> getAllRooms() {
