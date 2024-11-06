@@ -33,4 +33,13 @@ export class AdminModule{
              body: JSON.stringify(studentEntries),
          }).then(response => response.json());
     }
+
+    async getRegisterdStudents() {
+
+            const response = await fetch(`${BASE_URL}/hostalmanage/auth/getAllRegisterdStudents`);
+            const textResponse = await response.text(); // Get raw text for inspection
+            console.log("Raw Response:", textResponse); // Log the raw response
+            // Attempt to parse if it looks like JSON
+            return textResponse;
+    }
 }

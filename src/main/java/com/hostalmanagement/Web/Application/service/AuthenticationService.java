@@ -295,6 +295,7 @@ public class AuthenticationService {
                     @Override
                     public GetStudentStatusDTO mapRow(@NonNull java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
                         return GetStudentStatusDTO.builder()
+                                .student_id(rs.getLong("student_id"))
                                 .tg_no(rs.getString("tg_no"))
                                 .department(rs.getString("department"))
                                 .email(rs.getString("email"))

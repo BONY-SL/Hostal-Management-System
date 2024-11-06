@@ -76,6 +76,7 @@ async function createUser() {
 
         if (response.message) {
             showSuccessAlert(response.message);
+            getSystemUser().then(r => null);
             console.log(response.message);
         } else {
             showErrorAlert("Email Already Exsist")

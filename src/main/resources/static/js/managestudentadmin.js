@@ -1,21 +1,21 @@
 import {AdminModule} from "./adminmodule.js";
 
 document.addEventListener("DOMContentLoaded", function() {
-    toggleSections('viewUsers'); // Show view users by default
+    toggleSections('viewUsers2'); // Show view users by default
 });
 
-document.getElementById('viewUsersBtn').onclick = function() {
-    toggleSections('viewUsers');
+document.getElementById('viewUsersBtn2').onclick = function() {
+    toggleSections('viewUsers2');
 };
-document.getElementById('createUserBtn').onclick = function() {
-    toggleSections('createUser');
+document.getElementById('createUserBtn2').onclick = function() {
+    toggleSections('createUser2');
 };
-document.getElementById('deleteUserBtn').onclick = function() {
-    toggleSections('deleteUser');
+document.getElementById('deleteUserBtn2').onclick = function() {
+    toggleSections('deleteUser2');
 };
 
 function toggleSections(activeSection) {
-    const sections = ['viewUsers', 'createUser', 'deleteUser'];
+    const sections = ['viewUsers2', 'createUser2', 'deleteUser2'];
     sections.forEach(section => {
         document.getElementById(section).style.display = (section === activeSection) ? 'block' : 'none';
     });
@@ -25,7 +25,7 @@ function toggleSections(activeSection) {
 let entryCount = 1;
 const studentEntries = [];
 
-
+getRegisterdStudents().then(r => null);
 
 // Function to add a new student entry row
 function addEntry() {
@@ -161,11 +161,62 @@ async function submitList() {
     }
 }
 
+async function getRegisterdStudents() {
+    const adminModule = new AdminModule();
+
+    try {
+        const response = await adminModule.getRegisterdStudents();
+        const textResponse = response.toString();
+
+        console.log("Raw Response:", textResponse);
+
+        // Split the concatenated JSON arrays
+        const jsonParts = textResponse.split("]["); // Splits at the ][
+
+        // Parse each part as JSON
+        const firstArray = JSON.parse(jsonParts[0] + "]"); // Adds the closing bracket
+        const secondArray = JSON.parse("[" + jsonParts[1]); // Adds the opening bracket
+
+        // Combine the lists into one and remove duplicates based on student_id
+        const mergedList = [...firstArray, ...secondArray];
+        const uniqueUserList = mergedList.filter((student, index, self) =>
+            index === self.findIndex((s) => s.student_id === student.student_id)
+        );
+
+        // Find the tbody element in the table
+        const tbody = document.querySelector("#viewUsers2 tbody");
+        tbody.innerHTML = "";
+
+        // Populate the table with user data
+        uniqueUserList.forEach(student => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${student.student_id}</td>
+                <td>${student.tg_no}</td>
+                <td>${student.fullname}</td>
+                <td>${student.email}</td>
+                <td><p style="background-color: #34a639;border-radius: 10px;padding: 3px 3px 3px 3px;text-align: center">Registerd</p></td>
+            `;
+
+            // Append the row to the table body
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Failed to fetch registered students:", error);
+    }
+}
+
+
+
+
+
+
+
 window.submitList = submitList;
-document.getElementById("createStudentId").addEventListener("onclick", createUser);
+document.getElementById("createStudentId").addEventListener("onclick", submitList);
 
 window.addEntry = addEntry;
-document.getElementById("addItem").addEventListener("onclick", createUser);
+document.getElementById("addItem").addEventListener("onclick", addEntry);
 
 window.removeEntry = removeEntry;
-document.getElementById("removemail").addEventListener("onclick", removeEntry);
