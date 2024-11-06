@@ -27,7 +27,7 @@ public class StudentController {
     private final ComplainService complainService; // Assume you have a service to add a complaint
 
 
-    /*
+
     @GetMapping("/getStudent")
     public ResponseEntity<List<StudentDto>> getStudentDetails() {
         System.out.println("Received request to retrieve student details");
@@ -35,8 +35,6 @@ public class StudentController {
         return ResponseEntity.ok().body(studentDtos);
 
     }
-
-     */
 
     //total count of the student
     @GetMapping("/getTotalStudentCount")

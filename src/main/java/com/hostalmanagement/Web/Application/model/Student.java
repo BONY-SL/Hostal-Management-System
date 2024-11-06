@@ -56,8 +56,13 @@ public class Student {
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Asset> assets=new ArrayList<>();
 
+
+    @OneToOne(mappedBy = "student")
+    private OutgoingDetails outgoingDetails;
+
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Complain> complains = new ArrayList<>();
+
 
 
 }
