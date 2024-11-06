@@ -1,6 +1,7 @@
 package com.hostalmanagement.Web.Application.controller;
 import com.hostalmanagement.Web.Application.dto.AuthenticationRequest;
 import com.hostalmanagement.Web.Application.dto.AuthenticationResponse;
+import com.hostalmanagement.Web.Application.dto.GetStudentStatusDTO;
 import com.hostalmanagement.Web.Application.dto.RegistrationRequest;
 import com.hostalmanagement.Web.Application.service.AuthenticationService;
 import jakarta.mail.MessagingException;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -48,8 +50,10 @@ public class AuthenticationController {
         authenticationService.activateAccount(code);
     }
 
-
-
+    @GetMapping("/getAllRegisterdStudents")
+    public ResponseEntity<ArrayList<GetStudentStatusDTO>> getAllRegisteredStudents() {
+        return authenticationService.getAllRegisterdStudents();
+    }
 
 
 }

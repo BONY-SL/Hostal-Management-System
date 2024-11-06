@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDto {
+public class StudentMailsStoreDTO {
 
-    private Long student_id;
-    private String student_name;
-    private String DOB;
-    private String academic_year;
+    private String email;
+    private String tgnumber;
+
 }

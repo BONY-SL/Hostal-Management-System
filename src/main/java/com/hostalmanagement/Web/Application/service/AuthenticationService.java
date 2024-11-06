@@ -2,15 +2,13 @@ package com.hostalmanagement.Web.Application.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostalmanagement.Web.Application.dto.AuthenticationRequest;
 import com.hostalmanagement.Web.Application.dto.AuthenticationResponse;
+import com.hostalmanagement.Web.Application.dto.GetStudentStatusDTO;
 import com.hostalmanagement.Web.Application.dto.RegistrationRequest;
 import com.hostalmanagement.Web.Application.model.SaveActivatedCoeds;
 import com.hostalmanagement.Web.Application.model.StudentMailStore;
 import com.hostalmanagement.Web.Application.model.Token;
 import com.hostalmanagement.Web.Application.model.User;
-import com.hostalmanagement.Web.Application.repository.SaveCodeRepo;
-import com.hostalmanagement.Web.Application.repository.StudentMailRepository;
-import com.hostalmanagement.Web.Application.repository.TokenRepository;
-import com.hostalmanagement.Web.Application.repository.UserRepository;
+import com.hostalmanagement.Web.Application.repository.*;
 import com.hostalmanagement.Web.Application.util.EmailService;
 import com.hostalmanagement.Web.Application.util.EmailTemplateName;
 import com.hostalmanagement.Web.Application.util.Role;
@@ -21,10 +19,14 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,10 +34,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -57,10 +56,14 @@ public class AuthenticationService {
 
     private final SaveCodeRepo saveCodeRepo;
 
+    private final JdbcTemplate jdbcTemplate;
+
     private User user;
 
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
+
+    private final StudentRepo studentRepo;
 
 
     @Transactional
@@ -235,21 +238,21 @@ public class AuthenticationService {
     @PostConstruct
     public void setStudentMails(){
 
-        List<StudentMailStore> studentMailStores = studentMailRepository.findAll();
-
-
-        if(studentMailStores.isEmpty()){
-
-            for (int i = 100 ; i <= 110 ; i++){
-
-                StudentMailStore studentMailStore = StudentMailStore.builder()
-                        .email("studentExample"+i+"@ruhuna.ac.lk")
-                        .tgnumber("TG"+i)
-                        .build();
-
-                studentMailRepository.save(studentMailStore);
-            }
-        }
+//        List<StudentMailStore> studentMailStores = studentMailRepository.findAll();
+//
+//
+//        if(studentMailStores.isEmpty()){
+//
+//            for (int i = 100 ; i <= 110 ; i++){
+//
+//                StudentMailStore studentMailStore = StudentMailStore.builder()
+//                        .email("studentExample"+i+"@ruhuna.ac.lk")
+//                        .tgnumber("TG"+i)
+//                        .build();
+//
+//                studentMailRepository.save(studentMailStore);
+//            }
+//        }
 
         Optional<User> exsistUser = userRepository.findByEmail("admin@gmail.com");
 
@@ -284,5 +287,33 @@ public class AuthenticationService {
         }
 
     }
+
+    public ResponseEntity<ArrayList<GetStudentStatusDTO>> getAllRegisterdStudents() {
+        SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("getAllRegisterdStudents")
+                .returningResultSet("students", new RowMapper<GetStudentStatusDTO>() {
+                    @Override
+                    public GetStudentStatusDTO mapRow(@NonNull java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
+                        return GetStudentStatusDTO.builder()
+                                .tg_no(rs.getString("tg_no"))
+                                .department(rs.getString("department"))
+                                .email(rs.getString("email"))
+                                .isRegisterd(rs.getBoolean("is_registerd"))
+                                .fullname(rs.getString("fullname"))
+                                .build();
+                    }
+                });
+
+        Map<String, Object> result = jdbcCall.execute();
+
+        @SuppressWarnings("unchecked")
+        ArrayList<GetStudentStatusDTO> students = (ArrayList<GetStudentStatusDTO>) result.get("students");
+
+        if (students == null || students.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(students);
+    }
+
 }
 

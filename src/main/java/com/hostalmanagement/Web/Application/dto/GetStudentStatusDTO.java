@@ -1,5 +1,4 @@
 package com.hostalmanagement.Web.Application.dto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDto {
+public class GetStudentStatusDTO {
 
     private Long student_id;
-    private String student_name;
-    private String DOB;
-    private String academic_year;
+    private String tg_no;
+    private String department;
+    private String email;
+    private boolean isRegisterd;
+    private String fullname;
+
 }

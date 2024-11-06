@@ -24,4 +24,13 @@ export class AdminModule{
             headers: authservice.createAuthorizationHeader(),
         }).then(response => response.json());
     }
+
+     submitList(studentEntries) {
+         const authservice = new AuthService();
+         return fetch(`${BASE_URL}/hostalmanage/admin/savedstudentemail`, {
+             method: "POST",
+             headers: authservice.createAuthorizationHeader(),
+             body: JSON.stringify(studentEntries),
+         }).then(response => response.json());
+    }
 }
