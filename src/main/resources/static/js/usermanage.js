@@ -21,6 +21,35 @@ function toggleSections(activeSection) {
     });
 }
 
+async function getSystemUser() {
+    const adminModule = new AdminModule();
+    const userList = await adminModule.getSystemUser(); // Await the fetch request
+
+    // Find the tbody element in the table
+    const tbody = document.querySelector("#viewUsers tbody");
+
+    // Clear any existing rows in the table
+    tbody.innerHTML = "";
+
+    // Populate the table with user data
+    userList.forEach(user => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.firstname} ${user.lastname}</td>
+            <td>${user.email}</td>
+            <td>${user.role}</td>
+        `;
+
+        // Append the row to the table body
+        tbody.appendChild(row);
+    });
+}
+
+
+getSystemUser().then(r => null);
+
 async function createUser() {
 
 

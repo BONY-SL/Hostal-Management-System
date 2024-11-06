@@ -1,4 +1,5 @@
 // Event listener for displaying the fine section
+displayStudent();
 document.getElementById('displayFineButton').addEventListener('click', async function () {
     // Hide the existing content and show the display fine section
     document.querySelector('.content-wrapper').style.display = 'none';
@@ -50,17 +51,17 @@ async function fetchAndDisplayFines() {
 }
 
 // Call the function to hide fines when the page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('displayFineSection').style.display = 'none'; // Hide fine section initially
     fetchAndDisplayFines(); // Fetch fines if needed (but it won't be displayed)
 });
 
 // Event listener for the fine form submission
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const fineForm = document.getElementById('fineForm');
     const clearFormButton = document.getElementById('clearFormButton');
 
-    fineForm.addEventListener('submit', async function(event) {
+    fineForm.addEventListener('submit', async function (event) {
         event.preventDefault(); // Prevent the default form submission
 
         // Collect data from the form fields
@@ -107,7 +108,67 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener to clear the form fields
-    clearFormButton.addEventListener('click', function() {
+    clearFormButton.addEventListener('click', function () {
         fineForm.reset();
     });
 });
+
+
+
+async function displayStudent() {
+    try {
+        // Fetch student data from the backend
+        const response = await fetch('/hostalmanage/student/getStudent');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const studentData = await response.json();
+
+        console.log('Fetched student data:', studentData); // Log fetched data
+
+        // Select the table body to insert rows
+        const tbody = document.querySelector('.fine-table tbody'); // Use class selector only
+        tbody.innerHTML = ''; // Clear any existing rows
+
+        // Populate the table with student data
+        studentData.forEach(student => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.tg_no}</td>
+                <td>${student.firstname}</td>
+                <td>${student.department}</td>
+                <td>${student.phoneNo}</td>
+                <td>${student.email}</td>
+                <td>${student.address}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        // Display the fine section
+        document.getElementById('displayFineSection').style.display = 'block';
+    } catch (error) {
+        console.error('Error fetching student details:', error);
+    }
+}
+
+
+// Function to filter the student data
+function filterStudents() {
+    const nameFilter = document.getElementById('studentName').value.toLowerCase();
+    const idFilter = document.getElementById('studentIDFilter').value;
+
+    const filteredStudents = studentData.filter(student => {
+        const matchesName = student.firstname.toLowerCase().includes(nameFilter);
+        const matchesID = idFilter ? student.tg_no.toString() === idFilter : true;
+        return matchesName && matchesID;
+    });
+
+    populateStudentTable(filteredStudents);
+}
+
+// Event listeners for the input fields
+document.getElementById('studentName').addEventListener('input', filterStudents);
+document.getElementById('studentIDFilter').addEventListener('input', filterStudents);
+
+// Initial call to fetch and display students
+displayStudent();

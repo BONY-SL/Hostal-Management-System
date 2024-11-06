@@ -1,20 +1,30 @@
 package com.hostalmanagement.Web.Application.service;
 import com.hostalmanagement.Web.Application.dto.CreateUser;
+import com.hostalmanagement.Web.Application.dto.StudentMailsStoreDTO;
+import com.hostalmanagement.Web.Application.dto.UserDto;
+import com.hostalmanagement.Web.Application.model.StudentMailStore;
 import com.hostalmanagement.Web.Application.model.User;
+import com.hostalmanagement.Web.Application.repository.StudentMailRepository;
 import com.hostalmanagement.Web.Application.repository.UserRepository;
 import com.hostalmanagement.Web.Application.util.EmailAlreadyExistsException;
 import com.hostalmanagement.Web.Application.webconfig.JwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Map;
+import java.sql.Types;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,6 +39,9 @@ public class AdminService {
 
     private final AuthenticationService authenticationService;
 
+    private final StudentMailRepository studentMailRepository;
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Transactional
     public ResponseEntity<?> createUser(CreateUser createUser) {
@@ -84,5 +97,60 @@ public class AdminService {
     }
 
 
+    public List<UserDto> getSystemUsers() {
+
+        List<User> userList = userRepository.getUsersExceptStudent();
+
+        return userList.stream()
+                .map(this::convertUserToUserDto)
+                .collect(Collectors.toList());
+    }
+
+    private UserDto convertUserToUserDto(User user){
+
+        var getUser = UserDto.builder()
+                .id(user.getId())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .email(user.getEmail())
+                .role(user.getRole()).build();
+
+        return getUser;
+    }
+
+    public ResponseEntity<?> saveStudentEmailAndTgNumbers(List<StudentMailsStoreDTO> studentMailsStoreDTO) {
+
+        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("saveStudentEmails")
+                .declareParameters(
+                        new SqlParameter("InEmail", Types.VARCHAR),
+                        new SqlParameter("IntgNumber", Types.VARCHAR),
+                        new SqlOutParameter("StatusMessage", Types.VARCHAR)
+                );
+
+        List<String> errorMessages = new ArrayList<>();
+
+        for (StudentMailsStoreDTO storeDTO : studentMailsStoreDTO) {
+            Map<String, Object> inParams = new HashMap<>();
+            inParams.put("InEmail", storeDTO.getEmail());
+            inParams.put("IntgNumber", storeDTO.getTgnumber());
+
+            // Execute stored procedure and get the result
+            Map<String, Object> outParams = simpleJdbcCall.execute(inParams);
+            String statusMessage = (String) outParams.get("StatusMessage");
+
+            // Check if the status message contains an error
+            if (statusMessage.contains("Error")) {
+                errorMessages.add(statusMessage + " for email: " + storeDTO.getEmail());
+            }
+        }
+
+        // If there are errors, return them; otherwise, confirm success
+        if (!errorMessages.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap("errors", errorMessages));
+        } else {
+            return ResponseEntity.ok(Collections.singletonMap("message", "All emails saved successfully."));
+        }
+    }
 
 }

@@ -4,7 +4,7 @@ let roomsData = []; // Holds the full dataset
 let filteredData = []; // Holds search results
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/api/rooms")
+  fetch("/hostalmanage/student/rooms")
     .then((response) => response.json())
     .then((data) => {
       roomsData = data;
@@ -71,7 +71,7 @@ function searchRoomById(event) {
   const roomId = document.getElementById("roomIdInput").value.trim();
 
   if (roomId) {
-    fetch(`/api/room/${roomId}`)
+    fetch(`/hostalmanage/student/room/${roomId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Room not found");

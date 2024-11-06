@@ -22,13 +22,14 @@ public class OutgoingService {
     }
 
     private OutgoingDto covertOutgoingToDto(OutgoingDetails outgoingDetails) {
-        return OutgoingDto.builder()
-                .outgoingId(outgoingDetails.getOutgoingId())
-                .studentName(outgoingDetails.getStudentName())
-                .location(outgoingDetails.getLocation())
-                .date(outgoingDetails.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                .arrivalTime(outgoingDetails.getArrivalTime().toLocalTime())  // Convert from java.sql.Time to LocalTime
-                .leaveTime(outgoingDetails.getLeaveTime().toLocalTime())
-                .build();
+        return new OutgoingDto(
+                outgoingDetails.getOutgoingId(),
+                outgoingDetails.getDateout(),
+                outgoingDetails.getReturndate(),
+                outgoingDetails.getArrivalTime(),
+                outgoingDetails.getLeaveTime(),
+                outgoingDetails.getStudent().getTg_no(),
+                outgoingDetails.getStudent().user1.getFirstname()
+        );
     }
 }

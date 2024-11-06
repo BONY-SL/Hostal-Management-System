@@ -23,6 +23,4 @@ public interface StudentRepo extends JpaRepository<Student, Long> {
     List<Student>getCountofStudent();
 
 
-
-
 }

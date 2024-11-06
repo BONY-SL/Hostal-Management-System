@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 @Data
 @Builder
@@ -18,6 +19,14 @@ public class StudentMailStore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true,name = "email")
+    @Column(unique = true, name = "email")
     private String email;
+
+    @Column(length = 5, unique = true)
+    private String tgnumber;
+
+    @Column(name = "is_registerd")
+    @ColumnDefault("false")
+    private boolean isRegisterd;
+
 }

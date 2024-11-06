@@ -2,30 +2,39 @@ package com.hostalmanagement.Web.Application.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hostalmanagement.Web.Application.dto.AuthenticationRequest;
 import com.hostalmanagement.Web.Application.dto.AuthenticationResponse;
+import com.hostalmanagement.Web.Application.dto.GetStudentStatusDTO;
 import com.hostalmanagement.Web.Application.dto.RegistrationRequest;
+import com.hostalmanagement.Web.Application.model.SaveActivatedCoeds;
 import com.hostalmanagement.Web.Application.model.StudentMailStore;
 import com.hostalmanagement.Web.Application.model.Token;
 import com.hostalmanagement.Web.Application.model.User;
-import com.hostalmanagement.Web.Application.repository.StudentMailRepository;
-import com.hostalmanagement.Web.Application.repository.TokenRepository;
-import com.hostalmanagement.Web.Application.repository.UserRepository;
+import com.hostalmanagement.Web.Application.repository.*;
+import com.hostalmanagement.Web.Application.util.EmailService;
+import com.hostalmanagement.Web.Application.util.EmailTemplateName;
 import com.hostalmanagement.Web.Application.util.Role;
 import com.hostalmanagement.Web.Application.util.TokenType;
 import com.hostalmanagement.Web.Application.webconfig.JwtService;
 import jakarta.annotation.PostConstruct;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.security.SecureRandom;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,9 +52,22 @@ public class AuthenticationService {
 
     private final StudentMailRepository studentMailRepository;
 
+    private final EmailService emailService;
+
+    private final SaveCodeRepo saveCodeRepo;
+
+    private final JdbcTemplate jdbcTemplate;
+
+    private User user;
+
+    @Value("${application.mailing.frontend.activation-url}")
+    private String activationUrl;
+
+    private final StudentRepo studentRepo;
+
 
     @Transactional
-    public AuthenticationResponse register(RegistrationRequest registrationRequest) {
+    public ResponseEntity<Map<String, String>> register(RegistrationRequest registrationRequest) throws MessagingException {
 
 
         Optional<StudentMailStore> studentMailStore = studentMailRepository.findByEmail(registrationRequest.getEmail());
@@ -55,7 +77,8 @@ public class AuthenticationService {
 
             if(exsistUser.isPresent()){
                 System.out.println("User Already Exsist");
-                return null;
+                return ResponseEntity.ok(Collections.singletonMap("message", "User Already Exsist"));
+
             }
 
             var user = User.builder()
@@ -63,26 +86,54 @@ public class AuthenticationService {
                     .lastname(registrationRequest.getLastname())
                     .email(registrationRequest.getEmail())
                     .password(passwordEncoder.encode(registrationRequest.getPassword()))
-                    .role(registrationRequest.getRole())
+                    .role(Role.STUDENT)
                     .build();
 
-            var savedUser = userRepository.save(user);
-            var jwtToken = jwtService.generateToken(user);
-
-            var refreshToken = jwtService.generateRefreshToken(user);
-
-            saveUserToken(savedUser, jwtToken);
+                this.user =user;
+                sendValidationEmail(user);
 
 
+            return ResponseEntity.ok(Collections.singletonMap("message", "OTP"));
 
-            return AuthenticationResponse.builder()
-                    .accessToken(jwtToken)
-                    .refreshToken(refreshToken)
-                    .build();
         }else {
             System.out.println("Your Email is Not Registered In The System Yet");
-            return null;
+            return ResponseEntity.ok(Collections.singletonMap("message", "Your Email is Not Registered In The System Yet"));
+
         }
+    }
+
+
+    private void sendValidationEmail(User user) throws MessagingException {
+
+        String code = generateActivationCode(6);
+
+        emailService.sendUserCredentials(
+                user.getEmail(),
+                user.getFirstname()+" "+user.getLastname(),
+                EmailTemplateName.ACTIVATE_ACCOUNT,
+                activationUrl,
+                code,
+                "Account Activation");
+
+        var savedCode = SaveActivatedCoeds.builder()
+                .activationCode(code).build();
+
+        saveCodeRepo.save(savedCode);
+    }
+
+    private String generateActivationCode(int length) {
+
+        String characters = "0123456789";
+
+        StringBuilder codeBuilder = new StringBuilder();
+        SecureRandom secureRandom = new SecureRandom();
+
+        for(int i = 0 ; i<length ;i++){
+
+            int randomIndex = secureRandom.nextInt(characters.length());
+            codeBuilder.append(characters.charAt(randomIndex));
+        }
+        return codeBuilder.toString();
     }
 
     @Transactional
@@ -143,7 +194,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    protected void revokeAllUserTokens(User user) {
+    public void revokeAllUserTokens(User user) {
 
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -187,20 +238,21 @@ public class AuthenticationService {
     @PostConstruct
     public void setStudentMails(){
 
-        List<StudentMailStore> studentMailStores = studentMailRepository.findAll();
-
-
-        if(studentMailStores.isEmpty()){
-
-            for (int i = 100 ; i <= 110 ; i++){
-
-                StudentMailStore studentMailStore = StudentMailStore.builder()
-                        .email("studentExample"+i+"@ruhuna.ac.lk")
-                        .build();
-
-                studentMailRepository.save(studentMailStore);
-            }
-        }
+//        List<StudentMailStore> studentMailStores = studentMailRepository.findAll();
+//
+//
+//        if(studentMailStores.isEmpty()){
+//
+//            for (int i = 100 ; i <= 110 ; i++){
+//
+//                StudentMailStore studentMailStore = StudentMailStore.builder()
+//                        .email("studentExample"+i+"@ruhuna.ac.lk")
+//                        .tgnumber("TG"+i)
+//                        .build();
+//
+//                studentMailRepository.save(studentMailStore);
+//            }
+//        }
 
         Optional<User> exsistUser = userRepository.findByEmail("admin@gmail.com");
 
@@ -220,5 +272,48 @@ public class AuthenticationService {
         userRepository.save(user);
 
     }
+
+    @Transactional
+    public void activateAccount(String code) {
+
+        SaveActivatedCoeds saveActivatedCoeds = saveCodeRepo.findByActivationCode(code)
+                .orElseThrow(()-> new RuntimeException("Invalid Code..."));
+
+        if(saveActivatedCoeds.getActivationCode().contains(code)){
+
+            var savedUser = userRepository.save(this.user);
+            var jwtToken = jwtService.generateToken(this.user);
+            saveUserToken(savedUser, jwtToken);
+        }
+
+    }
+
+    public ResponseEntity<ArrayList<GetStudentStatusDTO>> getAllRegisterdStudents() {
+        SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("getAllRegisterdStudents")
+                .returningResultSet("students", new RowMapper<GetStudentStatusDTO>() {
+                    @Override
+                    public GetStudentStatusDTO mapRow(@NonNull java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
+                        return GetStudentStatusDTO.builder()
+                                .tg_no(rs.getString("tg_no"))
+                                .department(rs.getString("department"))
+                                .email(rs.getString("email"))
+                                .isRegisterd(rs.getBoolean("is_registerd"))
+                                .fullname(rs.getString("fullname"))
+                                .build();
+                    }
+                });
+
+        Map<String, Object> result = jdbcCall.execute();
+
+        @SuppressWarnings("unchecked")
+        ArrayList<GetStudentStatusDTO> students = (ArrayList<GetStudentStatusDTO>) result.get("students");
+
+        if (students == null || students.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(students);
+    }
+
 }
 

@@ -2,13 +2,16 @@ package com.hostalmanagement.Web.Application.controller;
 
 import com.hostalmanagement.Web.Application.dto.AssetDto;
 import com.hostalmanagement.Web.Application.dto.FineDto;
+import com.hostalmanagement.Web.Application.dto.OutgoingDto;
 import com.hostalmanagement.Web.Application.model.Asset;
 import com.hostalmanagement.Web.Application.model.Fine;
 import com.hostalmanagement.Web.Application.service.AssetService;
 import com.hostalmanagement.Web.Application.service.FineService;
+import com.hostalmanagement.Web.Application.service.OutgoingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hostalmanage/subwarden")
+@PreAuthorize("hasAuthority('SUB_WARDEN')")
 public class SubwardenController {
 
 
@@ -25,6 +29,9 @@ public class SubwardenController {
 
     @Autowired
     private FineService fineService;
+
+    @Autowired
+    private OutgoingService outgoingService;
 
 
     //add fine
@@ -61,6 +68,14 @@ public class SubwardenController {
         System.out.println("work");
         List<AssetDto> assetDtos=assetService.getAllAsset();
         return ResponseEntity.ok().body(assetDtos);
+    }
+
+    //get out goings
+    @GetMapping("/getOutgoingDetails")
+    public ResponseEntity<?>getAllOutgoingDetails(){
+        System.out.println("Retrieving all Outgoing details");
+        List<OutgoingDto> outgoingDtos=outgoingService.getAllOutgoings();
+        return ResponseEntity.ok().body(outgoingDtos);
     }
 
 

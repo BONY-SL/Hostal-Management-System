@@ -17,7 +17,6 @@ public class StudentService {
 
     public StudentService (StudentRepo studentRepo) {
         this.studentRepo = studentRepo;
-
     }
 
 
@@ -28,25 +27,25 @@ public class StudentService {
 
     private StudentDto convertStudentToDTO(Student student) {
 
-            return StudentDto.builder()
-              .studentID(student.getStudentID())          // Mapping studentID to student_id
-                    .tg_no(student.getTg_no())
-                .dob(student.getDob())
-                    .enrollmentDate(student.getEnrollmentDate())
-                    .department(student.getDepartment())
-                    .phoneNo(student.getPhoneNo())
-                    .email(student.getEmail())
-                    .address(student.getAddress())
-            .build();
+                return new StudentDto(
+                    student.getStudentID(),
+                    student.getTg_no(),
+                    student.getDob(),
+                    student.getEnrollmentDate(),
+                    student.getDepartment(),
+                    student.getPhoneNo(),
+                    student.getEmail(),
+                    student.getAddress(),
+                    student.getStudentID(),
+                    student.user1.getFirstname()
+                );
    }
 
-
-
-
     public long getStudentCount() {
-        return studentRepo.count();
-    }
 
+        return studentRepo.count();
+
+    }
 
 
 

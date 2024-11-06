@@ -27,6 +27,7 @@ function showErrorAlert2(message){
     }, 5000);
 }
 
+
 function showSuccessAlert(message){
 
     const  errorMessage = document.getElementById("successAlert");
@@ -47,7 +48,7 @@ loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
 
-function signUp() {
+async function signUp() {
 
 
     const firstname = document.getElementById("firstname").value;
@@ -87,22 +88,19 @@ function signUp() {
         password:password
     };
 
-    fetch("http://localhost:8080/repotronix/register", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(registerUser)
-    }).then(response => {
-        if (response.ok) {
-            console.log(response);
-            showSuccessAlert("Registration Successfully !");
-            document.getElementById("signUpForm").reset();
-        } else {
-            showErrorAlert("Registration Unsuccessfully !");
-            return false;
+    const authService = new AuthService();
+    try{
+        const response = await authService.register(registerUser);
+        if(response.body.message !== "OTP"){
+            showErrorAlert(response.body.message);
+        }else {
+            showSuccessAlert("Please Check Your Email Inbox To Activate Your Account");
         }
-    });
+
+        console.log(response.body.message)
+    }catch (error) {
+        console.error("Error occurred:", error);
+    }
 }
 
 async function signIn() {
@@ -137,9 +135,9 @@ async function signIn() {
             if (StorageService.isAdminLoggedIn() && token) {
                 window.location.href = `admindashboard.html?token=${token}`;
             }else if(StorageService.isDeanLoggedIn()){
-                window.location.href = "";
+                window.location.href = '';
             }else if(StorageService.isStudentLoggedIn()){
-                window.location.href = "";
+                window.location.href = `studentDashboard.html?token=${token}`;
             }else if(StorageService.isMaintainLoggedIn()){
                 window.location.href = "";
             }else if(StorageService.isWardenLoggedIn()){
