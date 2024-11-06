@@ -455,9 +455,63 @@ body {
         z-index: 10001;
     }
     .main.active .toggle {
-        color: #fff;
+        color: #41173c;
         position: fixed;
         right: 0;
         left: initial;
     }
+}
+.dashboard-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 30px;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+#studentTable {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#studentTable thead {
+    background-color: var(--blue);
+    color: #41173c;
+}
+
+#studentTable th, #studentTable td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#studentTable tbody tr:hover {
+    background-color: #f4f4f4;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#studentTable td {
+    color: var(--black1);
+}
+
+#studentTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#studentTable tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+#studentTable th {
+    font-weight: bold;
+    text-transform: uppercase;
 }

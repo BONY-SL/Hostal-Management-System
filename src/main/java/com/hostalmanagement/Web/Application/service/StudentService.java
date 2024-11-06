@@ -20,11 +20,22 @@ public class StudentService {
 
     }
 
+    public List<Student> getAllStudents(){
+        return studentRepo.findAll();
+    }
+
+
+
+
+
+
     /*
     public List<StudentDto> getAllStudents() {
         List<Student> studentList = studentRepo.getStudentFromView();
         return studentList.stream().map(this::convertStudentToDTO).collect(Collectors.toList());
     }
+
+
 
     private StudentDto convertStudentToDTO(Student student) {
         return StudentDto.builder()
@@ -36,6 +47,11 @@ public class StudentService {
     }
 
      */
+
+
+
+
+
 
     public long getStudentCount() {
         return studentRepo.count();

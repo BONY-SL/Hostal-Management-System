@@ -461,3 +461,45 @@ body {
         left: initial;
     }
 }
+
+
+/* Add this to your existing CSS file */
+.center-text {
+    text-align: center;
+    font-size: 24px;
+    color: var(--blue);
+    margin: 20px 0;
+}
+
+.table-container {
+    padding: 20px;
+    background-color: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
