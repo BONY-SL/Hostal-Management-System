@@ -106,24 +106,8 @@
                     <th>TG No</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>$100</td>
-                    <td>Late Payment</td>
-                    <td>2024-10-01</td>
-                    <td>Pending</td>
-                    <td>12345</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>$50</td>
-                    <td>Violation of Rules</td>
-                    <td>2024-10-05</td>
-                    <td>Paid</td>
-                    <td>67890</td>
-                </tr>
-                <!-- Add more rows as necessary -->
+                <tbody id="finesTableBody">
+                <!-- JavaScript will populate rows here -->
                 </tbody>
             </table>
         </div>
@@ -131,7 +115,7 @@
 </div>
 
 <script src="js/warden.js"></script>
-<script src="js/wardenViewFines.js"></script>
+<script src="js/wardenViewFines.js"></script> <!-- Link to the JavaScript file that fetches fines data -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
