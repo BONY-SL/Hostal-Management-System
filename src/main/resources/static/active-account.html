@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Activation</title>
+    <style>
+        /* General styling for body and container */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Success and error sections */
+        .activation-message, .activation-error {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .activation-message h2 {
+            color: #28a745;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .activation-error h2 {
+            color: #dc3545;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .activation-message p, .activation-error p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Button styles */
+        .btn {
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 200px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #024b4b;
+        }
+
+        .btn-primary:hover {
+            background-color: #0a9a9a;
+        }
+
+        /* Styling for the code input */
+        .code-form {
+            text-align: center;
+        }
+
+        .code-form h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #activation-code {
+            width: 100%;
+            max-width: 180px;
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        #activation-code:focus {
+            border-color: #1e7777;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Activation Success Message -->
+<div class="container" id="activation-success" style="display: none;">
+    <div class="activation-message">
+        <h2>Activation Successful!</h2>
+        <p>Your account has been successfully activated.</p>
+        <button type="button" class="btn btn-primary" onclick="redirectToLogin()">Go to Login</button>
+    </div>
+</div>
+
+<!-- Activation Error Message -->
+<div class="container" id="activation-error" style="display: none;">
+    <div class="activation-error">
+        <h2>Activation Failed!</h2>
+        <p id="error-message">An error occurred during activation.</p>
+        <button type="button"  class="btn btn-primary" onclick="retryActivation()">Try again</button>
+    </div>
+</div>
+
+<!-- Activation Code Form -->
+<div class="container code-form" id="code-form">
+    <h2>Enter your activation code</h2>
+    <label for="activation-code"></label><input type="text" id="activation-code" maxlength="6" placeholder="Enter 6-digit code">
+    <button type="button"  class="btn btn-primary" onclick="submitCode()">Submit</button>
+</div>
+
+<script src="js/activation.js"></script>
+</body>
+</html>

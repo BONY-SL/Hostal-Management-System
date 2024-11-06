@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room List</title>
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .card {
             height: 100%; /* Ensures cards are the same height */
+        }
+        .btn{
+            background: #068f8f;
+            border-left: #024b4b;
         }
     </style>
 </head>
@@ -48,14 +53,18 @@
             card.classList.add('col-md-4', 'mb-4');
             card.innerHTML = `
                 <div class="card">
+                <div class="card-header">
+                 <h5 class="card-title">Room Number: ${room.roomNumber}</h5>
+                </div>
                     <div class="card-body">
-                        <h5 class="card-title">Room Number: ${room.roomNumber}</h5>
-                        <p class="card-text"><strong>ID:</strong> ${room.id}</p>
+
+
                         <p class="card-text"><strong>Floor Number:</strong> ${room.floorNumber}</p>
                         <p class="card-text"><strong>Capacity:</strong> ${room.roomCapacity}</p>
                         <p class="card-text"><strong>Description:</strong> ${room.description}</p>
                         <p class="card-text"><strong>Building ID:</strong> ${room.buildingId}</p>
                     </div>
+                   <button type="button" class="btn btn-secondary">Allocate Room</button>
                 </div>
             `;
             cardsContainer.appendChild(card);

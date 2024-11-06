@@ -1,28 +1,38 @@
 package com.hostalmanagement.Web.Application.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Table(name="complain")
+@Table(name = "complain")
+@Data
 public class Complain {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long complain_id;
-    private String title;
-    private String description;
-    private Date date_reported;
+    @Column(name = "complain_id")
+    private Long complainId;
+
+    @Column(name = "room_number")
+    private String roomNumber;
+
+    @Column(name = "complain_type")
+    private String complainType;
+
+    @Column(name = "description")
+    private String Description;
+
+    @Column(name = "contact_number")
+    private String ContactNumber;
+
+    @Column(name = "status")
     private String status;
-    private Date resolved_date;
 
     @ManyToOne
-    @JoinColumn(name = "subwarden_id")
-    private SubWarden subwarden;
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id", nullable = true)
+    private Student student;
+
 }
