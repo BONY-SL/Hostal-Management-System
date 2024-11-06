@@ -64,5 +64,4 @@ public class Student {
     private List<Complain> complains = new ArrayList<>();
 
 
-
 }

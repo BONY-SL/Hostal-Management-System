@@ -94,3 +94,58 @@ DELIMITER ;
 
 CREATE OR REPLACE VIEW  GetAllSystemUsers AS
 SELECT * FROM user WHERE role != 'STUDENT';
+
+
+-- SaveStudentEmails
+
+DELIMITER $$
+CREATE PROCEDURE saveStudentEmails(
+
+    IN InEmail VARCHAR(255),
+    IN IntgNumber VARCHAR(5),
+    OUT StatusMessage VARCHAR(255)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+BEGIN
+            -- Set the status message for duplicate entry
+            SET StatusMessage = 'Error: Duplicate email or TG Number detected.';
+END;
+
+    -- Attempt to insert the record
+INSERT INTO studentmail (email, tgnumber) VALUES (InEmail, IntgNumber);
+
+-- Set success message if no exception occurred
+SET StatusMessage = 'Success: Email and TG saved successfully.';
+END $$
+DELIMITER ;
+
+-- Update Trigger For Student Registration State
+
+DELIMITER $$
+CREATE TRIGGER UpdateStudentRegistrationState
+    AFTER INSERT ON student
+    FOR EACH ROW
+BEGIN
+    UPDATE studentmail SET is_registerd = true WHERE tgnumber = NEW.tg_no;
+END $$
+DELIMITER ;
+
+
+-- Get All Registerd Students
+
+-- Get All Registerd Students
+
+DELIMITER $$
+CREATE PROCEDURE getAllRegisterdStudents()
+BEGIN
+SELECT s.tg_no,
+       s.department,
+       s.email,
+       r.is_registerd,
+       CONCAT(u.firstname, ' ', u.lastname) AS fullname
+FROM student s
+         JOIN user u ON s.user_id = u.id
+         LEFT JOIN studentmail r ON s.tg_no = r.tgnumber;
+END $$
+DELIMITER ;
