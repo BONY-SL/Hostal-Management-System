@@ -1,3 +1,4 @@
+displayStudent();
 document.getElementById('displayFineButton').addEventListener('click', function() {
     // Hide the existing content and show the display fine section
     document.querySelector('.content-wrapper').style.display = 'none';
@@ -101,3 +102,39 @@ document.addEventListener('DOMContentLoaded', function() {
         fineForm.reset();
     });
 });
+
+async function displayStudent() {
+    try {
+        // Fetch student data from the backend
+        const response = await fetch('/hostalmanage/student/getStudent');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const studentData = await response.json();
+
+        console.log('Fetched student data:', studentData); // Log fetched data
+
+        // Select the table body to insert rows
+        const tbody = document.querySelector('.fine-table tbody'); // Use class selector only
+        tbody.innerHTML = ''; // Clear any existing rows
+
+        // Populate the table with student data
+        studentData.forEach(student => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${student.tg_no}</td>
+                <td>${student.firstname}</td>
+                <td>${student.department}</td>
+                <td>${student.phoneNo}</td>
+                <td>${student.email}</td>
+                <td>${student.address}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        // Display the fine section
+        document.getElementById('displayFineSection').style.display = 'block';
+    } catch (error) {
+        console.error('Error fetching student details:', error);
+    }
+}

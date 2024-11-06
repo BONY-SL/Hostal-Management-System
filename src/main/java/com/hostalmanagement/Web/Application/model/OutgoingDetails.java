@@ -1,9 +1,6 @@
 package com.hostalmanagement.Web.Application.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,21 +18,23 @@ import java.util.Date;
 public class OutgoingDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "outgoing_id")
     private int outgoingId;
 
-    @Column(name = "Student_name")
-    private String studentName;
+    @Column(name = "date_out")
+    private Date dateout;
 
-    @Column(name = "location")
-    private String location;
-
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "return_date")
+    private Date returndate;
 
     @Column(name = "arrival_time")
     private Time arrivalTime;
 
     @Column(name="leave_time")
     private Time leaveTime;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tg_no", referencedColumnName = "tg_no", nullable = true)
+    private Student student;
 }

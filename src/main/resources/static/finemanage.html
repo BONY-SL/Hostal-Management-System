@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/subwarden.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
     <style>
-
+        /* Add any additional styles if needed */
     </style>
 </head>
 
@@ -31,9 +31,9 @@
             </li>
             <li>
                 <a href="finemanage.html">
-                     <span class="icon">
-                         <ion-icon name="wallet-outline"></ion-icon>
-                   </span>
+                    <span class="icon">
+                        <ion-icon name="wallet-outline"></ion-icon>
+                    </span>
                     <span class="title">Fine Manage</span>
                 </a>
             </li>
@@ -50,7 +50,7 @@
                     <span class="icon">
                         <ion-icon name="people-outline"></ion-icon>
                     </span>
-                    <span class="title">Student Manage</span>
+                    <span class="title">Assign Room</span>
                 </a>
             </li>
             <li>
@@ -101,34 +101,24 @@
             </div>
 
             <div class="content-wrapper">
-
-                <!-- Table for fine details -->
+                <!-- Table for student details -->
                 <div class="fine-table">
                     <label for="studentName">Student Name:</label>
                     <input type="text" id="studentName" placeholder="Enter student name">
                     <label for="studentIDFilter">Student ID:</label>
-                    <input type="number" id="studentIDFilter" placeholder="Enter student ID">
+                    <input type="text" id="studentIDFilter" placeholder="Enter student ID">
                     <table>
                         <thead>
                         <tr>
-                            <th>Fine ID</th>
-                            <th>Amount</th>
-                            <th>Reason</th>
-                            <th>Issued Date</th>
-                            <th>Status</th>
                             <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Phone NO</th>
+                            <th>Email</th>
+                            <th>Address</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>$50</td>
-                            <td>Late Return</td>
-                            <td>2023-10-15</td>
-                            <td>Pending</td>
-                            <td>1001</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
                         </tbody>
                     </table>
                 </div>
@@ -156,14 +146,13 @@
                             <option value="unpaid">unpaid</option>
                         </select>
 
-
                         <button type="submit">Add Fine</button>
                         &nbsp;
                         <button type="button" id="clearFormButton">Clear</button>
-
                     </form>
                 </div>
             </div>
+
             <div id="displayFineSection" style="display: none;">
                 <h2>Fine Details</h2>
                 <div class="fine-table">
@@ -175,7 +164,6 @@
                             <th>Amount</th>
                             <th>Issued Date</th>
                             <th>Status</th>
-
                         </tr>
                         </thead>
                         <tbody>
@@ -187,14 +175,11 @@
     </div>
 </div>
 
-
-//get dashboard template(js file)
+<!-- Include JavaScript files -->
 <script src="js/admin.js"></script>
-//finemanage template
 <script src="js/finemanage.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

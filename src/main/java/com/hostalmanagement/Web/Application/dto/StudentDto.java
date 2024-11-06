@@ -1,9 +1,13 @@
 package com.hostalmanagement.Web.Application.dto;
 
+import com.hostalmanagement.Web.Application.model.User;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -12,7 +16,14 @@ import lombok.NoArgsConstructor;
 public class StudentDto {
 
     private Long student_id;
-    private String student_name;
-    private String DOB;
-    private String academic_year;
+    private String tg_no;
+    private String dob;
+    private Date enrollmentDate;
+    private String department;
+    private String phoneNo;
+    private String email;
+    private String address;
+    private Long userId;
+    private String firstname;
+
 }
