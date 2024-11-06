@@ -25,6 +25,7 @@ public class OutgoingService {
         return new OutgoingDto(
                 outgoingDetails.getOutgoingId(),
                 outgoingDetails.getDateout(),
+                outgoingDetails.getLocation(),
                 outgoingDetails.getReturndate(),
                 outgoingDetails.getArrivalTime(),
                 outgoingDetails.getLeaveTime(),

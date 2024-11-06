@@ -22,6 +22,9 @@ public class OutgoingDetails {
     @Column(name = "outgoing_id")
     private int outgoingId;
 
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "date_out")
     private Date dateout;
 

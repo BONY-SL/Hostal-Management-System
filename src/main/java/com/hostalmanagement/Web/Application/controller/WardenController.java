@@ -1,14 +1,8 @@
 package com.hostalmanagement.Web.Application.controller;
 
-import com.hostalmanagement.Web.Application.dto.AssetDto;
-import com.hostalmanagement.Web.Application.dto.FineDto;
-import com.hostalmanagement.Web.Application.dto.NoticeDto;
-import com.hostalmanagement.Web.Application.dto.StudentDto;
+import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.model.Notice;
-import com.hostalmanagement.Web.Application.service.AssetService;
-import com.hostalmanagement.Web.Application.service.FineService;
-import com.hostalmanagement.Web.Application.service.NoticeService;
-import com.hostalmanagement.Web.Application.service.StudentService;
+import com.hostalmanagement.Web.Application.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +20,7 @@ public class WardenController {
     private final NoticeService noticeService;
     private final FineService fineService;
     private final AssetService assetService;
+    private final OutgoingService outgoingService;
 
     //View Student
     @GetMapping("/getStudent")
@@ -50,6 +45,14 @@ public class WardenController {
         System.out.println("work");
         List<AssetDto> assetDtos=assetService.getAllAsset();
         return ResponseEntity.ok().body(assetDtos);
+    }
+
+    //View Outgoing Details
+    @GetMapping("/getOutgoingDetails")
+    public ResponseEntity<?>getAllOutgoingDetails(){
+        System.out.println("Retrieving all Outgoing details");
+        List<OutgoingDto> outgoingDtos=outgoingService.getAllOutgoings();
+        return ResponseEntity.ok().body(outgoingDtos);
     }
 
 
