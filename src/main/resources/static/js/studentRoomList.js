@@ -5,8 +5,11 @@ let currentPage = 1;
 let filteredData = [];
 let roomsData = []; // Added this line to define roomsData
 
-gerRooms();
+gerRooms(); // Call the function to get rooms data
+
+// Get rooms data
 function gerRooms() {
+  // Create an instance of AuthService to get the authorization header
   const authservice = new AuthService();
 
   fetch("http://localhost:8080/hostalmanage/student/rooms", {
@@ -36,6 +39,7 @@ function renderPage(page) {
   const endIndex = startIndex + itemsPerPage;
   const roomsToDisplay = filteredData.slice(startIndex, endIndex);
 
+  // Create a card for each room
   roomsToDisplay.forEach((room) => {
     const card = document.createElement("div");
     card.classList.add("col-md-4", "mb-4");
