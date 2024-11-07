@@ -20,9 +20,6 @@ public class RequestRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "tg_no",nullable = false)
-    private String tg_no;
-
     @Column(name ="room_no",nullable = false)
     private String room_no;
 
@@ -30,10 +27,11 @@ public class RequestRoom {
     private Date request_date;
 
     @Column(name = "state")
-    private String state;
+    private String state="pending";
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tg_no", referencedColumnName = "tg_no")
+    @JoinColumn(name = "tg_no", referencedColumnName = "tg_no", nullable = true)
     private Student student;
+
 
 }

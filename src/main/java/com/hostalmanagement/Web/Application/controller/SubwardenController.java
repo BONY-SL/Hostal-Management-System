@@ -3,10 +3,7 @@ package com.hostalmanagement.Web.Application.controller;
 import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.model.Asset;
 import com.hostalmanagement.Web.Application.model.Fine;
-import com.hostalmanagement.Web.Application.service.AssetService;
-import com.hostalmanagement.Web.Application.service.FineService;
-import com.hostalmanagement.Web.Application.service.OutgoingService;
-import com.hostalmanagement.Web.Application.service.StudentService;
+import com.hostalmanagement.Web.Application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +32,9 @@ public class SubwardenController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private RequestRoomService requestRoomService;
 
 
     //add fine
@@ -102,6 +102,14 @@ public class SubwardenController {
         List<StudentDto> studentDtos=studentService.getAllStudents();
         return ResponseEntity.ok().body(studentDtos);
 
+    }
+
+
+    @GetMapping("/getrequestDetails")
+    public ResponseEntity<?>getAllRequestDetails(){
+        System.out.println("Retrieving all details");
+        List<RequesrtDto> requesrtDtos=requestRoomService.getAllRequest();
+        return ResponseEntity.ok().body(requesrtDtos);
     }
 
 

@@ -109,17 +109,87 @@
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
-            <h2>Faculty Of Technology University Of Ruhuna</h2>
+            <h2>Faculty Of Technology University Of Ruhuna!</h2>
         </div>
-        <h1>Assign Room</h1>
+
+        <div class="usermanage">
+            <h1>Manage Room</h1>
+            &nbsp;&nbsp;
+
+            <hr>
 
 
+            <!-- Add Fine and Display Fine buttons -->
+            <div class="action-buttons">
+                <button id="addFineButton">Add Fine</button>
+                <button id="displayFineButton">Display Fine</button>
+            </div>
 
+            <div class="content-wrapper">
+                <!-- Table for student details -->
+                <div class="request-table">
+                    <label for="studentIDFilter">Student ID:</label>
+                    <input type="text" id="studentIDFilter" placeholder="Enter student ID">
+                    <button id="filterButton">Filter Students</button>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Room NO</th>
+                            <th>Date</th>
+                            <th>State</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Form to add fine details -->
+                <div class="fine-section">
+                    <form id="fineForm">
+                        <label for="studentID">Student ID:</label>
+                        <input type="text" id="studentID" required>
+
+                        <label for="status">Status:</label>
+                        <select id="status" required>
+                            <option value="">Select Status</option>
+                            <option value="registered">registered</option>
+                            <option value="reject">reject</option>
+                        </select>
+
+                        <button type="submit">Register</button>
+                        &nbsp;
+                        <button type="button" id="clearFormButton">Clear</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="displayFineSection" style="display: none;">
+                <h2>Fine Details</h2>
+                <div class="fine-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Reason</th>
+                            <th>Amount</th>
+                            <th>Issued Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 
 <!-- Include JavaScript files -->
+<script src="js/manageroom.js" type="module"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </body>
