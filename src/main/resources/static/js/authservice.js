@@ -1,5 +1,4 @@
 import {StorageService} from "./storageservice.js";
-
 const BASE_URL = "http://localhost:8080";
 
 export class AuthService {
@@ -34,6 +33,13 @@ export class AuthService {
                 return { message: "Logged out successfully (no content)" };
             }
         });
+    }
+
+    refreshProfileToken() {
+        return fetch(`${BASE_URL}/hostalmanage/auth/refresh-token`, {
+            method: "POST",
+            headers: this.createAuthorizationHeader(),
+        }).then(response => response.json());
     }
 
 

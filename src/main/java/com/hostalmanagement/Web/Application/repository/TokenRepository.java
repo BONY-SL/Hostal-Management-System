@@ -19,5 +19,11 @@ public interface TokenRepository extends JpaRepository<Token,Integer> {
 
     Optional<Token> findByToken(String token);
 
+    @Procedure(procedureName = "updateTokenAfterUpdatingUserEmail")
+    void updateToken(
+            @Param("idIn") Integer id,
+            @Param("tokenIn") String token
+    );
+
 }
 

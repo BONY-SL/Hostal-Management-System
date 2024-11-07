@@ -1,5 +1,6 @@
 import {AuthService} from "./authservice.js";
 
+
 const BASE_URL = "http://localhost:8080";
 
 
@@ -41,5 +42,23 @@ export class AdminModule{
             console.log("Raw Response:", textResponse); // Log the raw response
             // Attempt to parse if it looks like JSON
             return textResponse;
+    }
+
+    async getAdminProfileDetails(id) {
+        const authservice = new AuthService();
+        return fetch(`${BASE_URL}/hostalmanage/admin/getadmin?id=${id}`, {  // Use ${id} to insert the id value correctly
+            method: "GET",
+            headers: authservice.createAuthorizationHeader(),
+        }).then(response => response.json());
+    }
+
+    async updateProfile(updateUser) {
+
+        const authservice = new AuthService();
+        return fetch(`${BASE_URL}/hostalmanage/admin/updateprofile`, {
+            method: "PUT",
+            headers: authservice.createAuthorizationHeader(),
+            body: JSON.stringify(updateUser),
+        }).then(response => response.json());
     }
 }
