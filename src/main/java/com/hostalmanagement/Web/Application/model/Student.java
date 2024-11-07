@@ -63,8 +63,8 @@ public class Student {
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Complain> complains = new ArrayList<>();
 
-    @OneToOne(mappedBy = "student")
-    private RequestRoom requestRoom;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RequestRoom> requestRooms = new ArrayList<>();
 
 
 }

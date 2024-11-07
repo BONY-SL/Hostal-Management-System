@@ -13,8 +13,8 @@ import java.sql.Date;
 @Builder
 @Data
 @Entity
-@Table(name = "requestroom",indexes ={@Index(name = "idx_requestRoom_room_no",columnList = "room_no")})
-public class RequestRoom {
+@Table(name="registerstudent")
+public class RegisterStudent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +27,9 @@ public class RequestRoom {
     private Date request_date;
 
     @Column(name = "state")
-    private String state="pending";
+    private String state;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tg_no", referencedColumnName = "tg_no", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tg_no", referencedColumnName = "tg_no", nullable = true)
     private Student student;
-
-
 }

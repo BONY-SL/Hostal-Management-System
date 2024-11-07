@@ -12,7 +12,10 @@ import java.util.List;
 @Repository
 public interface RequestRoomRepository extends JpaRepository<RequestRoom,Integer> {
 
+
     @Query(value = "SELECT * FROM RequestDate", nativeQuery = true)
     List<RequestRoom> getRequestRoomFromView();
+
+    
 
 }

@@ -105,12 +105,15 @@ public class SubwardenController {
     }
 
 
+
     @GetMapping("/getrequestDetails")
     public ResponseEntity<?>getAllRequestDetails(){
         System.out.println("Retrieving all details");
         List<RequesrtDto> requesrtDtos=requestRoomService.getAllRequest();
         return ResponseEntity.ok().body(requesrtDtos);
     }
+
+
 
 
 
