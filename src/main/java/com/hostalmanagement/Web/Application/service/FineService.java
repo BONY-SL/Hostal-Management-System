@@ -1,8 +1,11 @@
 package com.hostalmanagement.Web.Application.service;
 
 import com.hostalmanagement.Web.Application.dto.FineDto;
+import com.hostalmanagement.Web.Application.dto.FinePaymentDto;
 import com.hostalmanagement.Web.Application.model.Fine;
+import com.hostalmanagement.Web.Application.model.PaymentUpdatesLog;
 import com.hostalmanagement.Web.Application.repository.FineRepository;
+import com.hostalmanagement.Web.Application.repository.FinepaymentRepository;
 import com.hostalmanagement.Web.Application.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +24,9 @@ public class FineService {
 
     @Autowired
     private StudentRepo studentRepo;
+
+    @Autowired
+    private FinepaymentRepository finepaymentRepository;
 
     public String saveFineUsingProcedure(FineDto fineDto) {
         // Check if the student exists
@@ -64,6 +70,22 @@ public class FineService {
                 fine.getFine_status(),
                 fine.getStudent().getTg_no()
         );
+    }
+
+    public List<FinePaymentDto>getFinePaymentDetails(){
+        List<PaymentUpdatesLog>fineList=finepaymentRepository.getfinePaymentDetails();
+        return fineList.stream().map(this::convertToFinepaymentDto).collect(Collectors.toList());
+    }
+
+    private FinePaymentDto convertToFinepaymentDto(PaymentUpdatesLog paymentUpdatesLog){
+        return  new FinePaymentDto(
+                paymentUpdatesLog.getTgNo(),
+                paymentUpdatesLog.getIssueDate(),
+                paymentUpdatesLog.getUpdateTime(),
+                paymentUpdatesLog.getMessage()
+        );
+
+
     }
 
 
