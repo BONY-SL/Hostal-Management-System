@@ -22,6 +22,9 @@ public interface StudentRepo extends JpaRepository<Student, Long> {
     @Query(value = "select * from total_student_count",nativeQuery = true)
     List<Student>getCountofStudent();
 
+    @Query(value = "SELECT * FROM studentviewwithtgnumber", nativeQuery = true)
+    List<Student> getStudentFromViewWithTgNumber();
+
 
 
 

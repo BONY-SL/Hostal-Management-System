@@ -20,9 +20,8 @@ public class StudentService {
 
     }
 
-    public List<Student> getAllStudents(){
-        List<Student> studentList= studentRepo.getStudentFromView();
-        return studentRepo.findAll();
+    public List<?> getAllStudents(){
+        return studentRepo.getStudentFromViewWithTgNumber();
     }
 
 
