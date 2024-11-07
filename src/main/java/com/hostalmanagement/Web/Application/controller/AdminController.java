@@ -1,8 +1,5 @@
 package com.hostalmanagement.Web.Application.controller;
-import com.hostalmanagement.Web.Application.dto.CreateUser;
-import com.hostalmanagement.Web.Application.dto.GetStudentStatusDTO;
-import com.hostalmanagement.Web.Application.dto.StudentMailsStoreDTO;
-import com.hostalmanagement.Web.Application.dto.UserDto;
+import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +35,21 @@ public class AdminController {
 
         System.out.println(studentMailsStoreDTO);
         return adminService.saveStudentEmailAndTgNumbers(studentMailsStoreDTO);
+    }
+
+
+    @GetMapping("/getadmin")
+    public ResponseEntity<GetAdminProfileDetails> getAdminProfileDetailsResponseEntity(
+            @RequestParam Integer id) {
+
+        return ResponseEntity.ok(adminService.getAdminProfileDetailsResponseEntity(id));
+    }
+
+    @PutMapping("/updateprofile")
+    public ResponseEntity<?> updateAdminProfile(@RequestBody UpdateAdminDTO updateAdminDTO){
+
+        return ResponseEntity.ok(adminService.updateAdminProfile(updateAdminDTO));
+
     }
 
 

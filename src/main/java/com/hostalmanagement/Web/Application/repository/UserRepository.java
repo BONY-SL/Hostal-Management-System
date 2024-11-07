@@ -1,7 +1,6 @@
 package com.hostalmanagement.Web.Application.repository;
-import com.hostalmanagement.Web.Application.model.Fine;
+import com.hostalmanagement.Web.Application.dto.GetAdminProfileDetails;
 import com.hostalmanagement.Web.Application.model.User;
-import org.hibernate.annotations.View;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
@@ -26,9 +25,22 @@ public interface UserRepository extends JpaRepository<User,Integer> {
             @Param("roleIn") String role  // Accept as String
     );
 
+    @Procedure(procedureName = "updateAdminProfilePro")
+    String updateAdminProfile(
+            @Param("idIn") Integer id,
+            @Param("firstnameIn") String firstname,
+            @Param("lastnameIn") String lastname,
+            @Param("emailIn") String email
+    );
+
+
     @Query(value = "SELECT * FROM GetAllSystemUsers", nativeQuery = true)
     List<User> getUsersExceptStudent();
 
+
+    @Query(value = "SELECT new com.hostalmanagement.Web.Application.dto.GetAdminProfileDetails(u.id, u.firstname, u.lastname, u.email) " +
+            "FROM User u WHERE u.id = :id")
+    Optional<GetAdminProfileDetails> findAdminDetailsByEmail(@Param("id") Integer id);
 
 
 }

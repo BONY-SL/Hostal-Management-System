@@ -56,14 +56,13 @@ async function createUser() {
     const firstname = document.getElementById("firstname").value;
     const lastname = document.getElementById("lastname").value;
     const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
     const role = document.getElementById("role").value;
 
     const user = {
         firstname: firstname,
         lastname: lastname,
         email: email,
-        password: password,
+        password: null,
         role: role,
     };
 
@@ -76,6 +75,7 @@ async function createUser() {
 
         if (response.message) {
             showSuccessAlert(response.message);
+            getSystemUser().then(r => null);
             console.log(response.message);
         } else {
             showErrorAlert("Email Already Exsist")

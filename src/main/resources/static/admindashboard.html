@@ -8,6 +8,57 @@
     <title>Admin DashBoard</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
+
+    <style>
+        /* Main container styling */
+        .dashboard {
+            padding: 25px;
+            color: #333;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        /* Cards container */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+            margin-left: 60px;
+        }
+
+        /* Card styling */
+        .card {
+            background-color: #f5f5f5;
+            color: #333;
+            width: 220px;
+            height: 150px;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #34a639;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -49,14 +100,14 @@
                     <span class="title">Student Manege</span>
                 </a>
             </li>
-            <li>
-                <a href="adminmessage.html" id="adminMessageLink">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                        </span>
-                    <span class="title">Messages</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="adminmessage.html" id="adminMessageLink">-->
+<!--                        <span class="icon">-->
+<!--                            <ion-icon name="chatbubble-outline"></ion-icon>-->
+<!--                        </span>-->
+<!--                    <span class="title">Messages</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li>
                 <a href="adminprofilesetting.html" id="adminProfileSettingsLink">
                         <span class="icon">
@@ -83,8 +134,30 @@
             </div>
             <h2 style="color: #F5F5F5">Faculty Of Technology University Of Ruhuna!</h2>
         </div>
-        <div>
-            Main Dashboard
+
+        <div class="dashboard">
+            <div class="cards-container">
+                <div class="card" id="registered-students-card">
+                    <h4>Registered Students</h4>
+                    <p id="registeredStudents">0</p>
+                </div>
+                <div class="card" id="system-users-card">
+                    <h4>System Users</h4>
+                    <p id="systemUsers">0</p>
+                </div>
+                <div class="card" id="total-rooms-card">
+                    <h4>Total Rooms</h4>
+                    <p id="totalRooms">0</p>
+                </div>
+                <div class="card" id="available-rooms-card">
+                    <h4>Available Rooms</h4>
+                    <p id="availableRooms">0</p>
+                </div>
+                <div class="card" id="registered-rooms-card">
+                    <h4>Registered Rooms</h4>
+                    <p id="registeredRooms">0</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
