@@ -131,17 +131,19 @@ async function signIn() {
 
             const userRole = StorageService.getUserRole();
 
+            const token = StorageService.getToken();
+
             // Check if the user is an admin and redirect
             if (StorageService.isAdminLoggedIn()) {
                 window.location.href = `admindashboard.html?userRole=${userRole}`;
             }else if(StorageService.isDeanLoggedIn()){
                 window.location.href = '';
             }else if(StorageService.isStudentLoggedIn()){
-                window.location.href = `studentDashboard.html?userRole=${userId}`;
+                window.location.href = `studentDashboard.html?token=${token}`;
             }else if(StorageService.isMaintainLoggedIn()){
                 window.location.href = "";
             }else if(StorageService.isWardenLoggedIn()){
-                window.location.href = `wardenDashboard.html?userRole=${userId}`;
+                window.location.href = `wardenDashboard.html?token=${token}`;
             }else if(StorageService.isSubWardenLoggedIn()){
                 window.location.href = `subwardendashboard.html?token=${token}`;
             }else {

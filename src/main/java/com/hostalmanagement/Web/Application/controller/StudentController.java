@@ -1,5 +1,6 @@
 package com.hostalmanagement.Web.Application.controller;
 import com.hostalmanagement.Web.Application.dto.ComplainRequest;
+import com.hostalmanagement.Web.Application.dto.StudentDto;
 import com.hostalmanagement.Web.Application.model.PowerConsumption;
 import com.hostalmanagement.Web.Application.service.ComplainService;
 import com.hostalmanagement.Web.Application.service.PowerConsumptionService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 

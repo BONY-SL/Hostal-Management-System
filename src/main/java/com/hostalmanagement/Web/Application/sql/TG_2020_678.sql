@@ -283,3 +283,9 @@ VALUES (p_roomNumber, p_floorNumber, p_roomCapacity, p_description, p_buildingId
 END $$
 
 DELIMITER ;
+
+
+-- Create View get All Rooms
+
+CREATE OR REPLACE VIEW getAllRooms AS
+SELECT * FROM room;
