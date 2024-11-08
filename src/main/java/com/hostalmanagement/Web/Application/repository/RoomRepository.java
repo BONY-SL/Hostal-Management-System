@@ -27,4 +27,5 @@ public interface RoomRepository extends JpaRepository<Room, Long> { // JpaReposi
    // Custom query to fetch all rooms from the 'getAllRooms' view
    @Query("SELECT new com.hostalmanagement.Web.Application.dto.CreateRoomRequest(r.id, r.roomNumber, r.floorNumber, r.roomCapacity, r.description, r.buildingId) FROM Room r")
    List<CreateRoomRequest> findAllRooms();
+
 }

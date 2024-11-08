@@ -1,19 +1,35 @@
-const itemsPerPage = 6; // Number of cards per page
-let currentPage = 1;
-let roomsData = []; // Holds the full dataset
-let filteredData = []; // Holds search results
+import { AuthService } from "./authservice.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("/hostalmanage/student/rooms")
-    .then((response) => response.json())
-    .then((data) => {
-      roomsData = data;
-      filteredData = [...roomsData]; // Initialize filteredData with all rooms
-      renderPage(currentPage);
-      setupPagination();
-    })
-    .catch((error) => console.error("Error fetching room data:", error));
-});
+const itemsPerPage = 6;
+let currentPage = 1;
+let filteredData = [];
+let roomsData = []; // Added this line to define roomsData
+
+gerRooms(); // Call the function to get rooms data
+
+// Get rooms data
+function gerRooms() {
+  // Create an instance of AuthService to get the authorization header
+  const authservice = new AuthService();
+
+  fetch("http://localhost:8080/hostalmanage/student/rooms", {
+    method: "GET",
+    headers: authservice.createAuthorizationHeader(),
+  })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch rooms data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        roomsData = data;
+        filteredData = [...roomsData];
+        renderPage(currentPage);
+        setupPagination();
+      })
+      .catch((error) => console.error("Error fetching room data:", error));
+}
 
 // Render the current page of cards
 function renderPage(page) {
@@ -23,6 +39,7 @@ function renderPage(page) {
   const endIndex = startIndex + itemsPerPage;
   const roomsToDisplay = filteredData.slice(startIndex, endIndex);
 
+  // Create a card for each room
   roomsToDisplay.forEach((room) => {
     const card = document.createElement("div");
     card.classList.add("col-md-4", "mb-4");
@@ -53,17 +70,28 @@ function setupPagination() {
   for (let i = 1; i <= totalPages; i++) {
     const li = document.createElement("li");
     li.classList.add("page-item");
-    li.innerHTML = `
-      <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
-    `;
+
+    const link = document.createElement("a");
+    link.classList.add("page-link");
+    link.href = "#";
+    link.textContent = i;
+    link.addEventListener("click", () => changePage(i));
+
+    li.appendChild(link);
     pagination.appendChild(li);
   }
 }
 
+// Change the page
 function changePage(page) {
   currentPage = page;
   renderPage(currentPage);
 }
+
+window.searchRoomById=searchRoomById;
+
+document.getElementById("searchRoomById").addEventListener("onclick", searchRoomById);
+
 
 // Search for a room by ID
 function searchRoomById(event) {
@@ -71,34 +99,39 @@ function searchRoomById(event) {
   const roomId = document.getElementById("roomIdInput").value.trim();
 
   if (roomId) {
-    fetch(`/hostalmanage/student/room/${roomId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Room not found");
-        }
-        return response.json();
-      })
-      .then((room) => {
-        filteredData = [room]; // Use only the searched room for display
-        currentPage = 1;
-        renderPage(currentPage);
-        setupPagination(); // Reset pagination to a single page if only one result
-      })
-      .catch((error) => {
-        // If room not found, show "Not Found" message
-        filteredData = [
-          {
-            roomNumber: "Not Found",
-            floorNumber: "-",
-            roomCapacity: "-",
-            description: "No matching room found",
-            buildingId: "-",
-          },
-        ];
-        currentPage = 1;
-        renderPage(currentPage);
-        setupPagination();
-      });
+    const authservice = new AuthService();
+
+    fetch(`http://localhost:8080/hostalmanage/student/room/${roomId}`, {
+      method: "GET",
+      headers: authservice.createAuthorizationHeader(),
+    })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Room not found");
+          }
+          return response.json();
+        })
+        .then((room) => {
+          filteredData = [room]; // Use only the searched room for display
+          currentPage = 1;
+          renderPage(currentPage);
+          setupPagination(); // Reset pagination to a single page if only one result
+        })
+        .catch((error) => {
+          // If room not found, show "Not Found" message
+          filteredData = [
+            {
+              roomNumber: "Not Found",
+              floorNumber: "-",
+              roomCapacity: "-",
+              description: "No matching room found",
+              buildingId: "-",
+            },
+          ];
+          currentPage = 1;
+          renderPage(currentPage);
+          setupPagination();
+        });
   } else {
     // Reset filtered data to the full list if search input is empty
     filteredData = [...roomsData];
@@ -108,18 +141,23 @@ function searchRoomById(event) {
   }
 }
 
-// Open and close modal functions
+// Open modal function
 function openModal() {
   document.getElementById("myModal").style.display = "block";
 }
 
+
+// Close modal function
 function closeModal() {
   document.getElementById("myModal").style.display = "none";
 }
 
-window.onclick = function (event) {
+// Ensure modal closes when clicking outside of it
+window.onclick = function(event) {
   const modal = document.getElementById("myModal");
   if (event.target === modal) {
     modal.style.display = "none";
   }
 };
+
+
