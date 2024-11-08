@@ -1,6 +1,7 @@
 package com.hostalmanagement.Web.Application.service;
 import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.model.User;
+import com.hostalmanagement.Web.Application.repository.RoomRepository;
 import com.hostalmanagement.Web.Application.repository.TokenRepository;
 import com.hostalmanagement.Web.Application.repository.UserRepository;
 import com.hostalmanagement.Web.Application.util.EmailAlreadyExistsException;
@@ -43,6 +44,8 @@ public class AdminService {
     private final EmailService emailService;
 
     private final TokenRepository tokenRepository;
+
+    private final RoomRepository repository;
 
     @Transactional
     public ResponseEntity<?> createUser(CreateUser createUser) {
@@ -218,4 +221,55 @@ public class AdminService {
         return ResponseEntity.ok(Collections.singletonMap("message", resultMessage));
     }
 
+
+    public boolean checkPassword(Integer userId, String rawPassword) {
+
+        Optional<String> encodedPasswordOpt = userRepository.getEncodedPasswordById(userId);
+        return encodedPasswordOpt.isPresent() && passwordEncoder.matches(rawPassword, encodedPasswordOpt.get());
+    }
+
+
+    public ResponseEntity<Map<String, String>> confirmationPassword(ChangePasswordRequest changePasswordRequest) {
+
+        boolean isMatched = checkPassword(changePasswordRequest.getId(), changePasswordRequest.getCurrentPassword());
+
+        Map<String, String> response = new HashMap<>();
+        if (isMatched) {
+            response.put("status", "Password matched");
+        } else {
+            response.put("status", "Cannot update. The entered current password does not match.");
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+
+    public boolean updatePassword(ChangePasswordRequest request) {
+
+        Optional<User> optionalUser = userRepository.findById(request.getId());
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            if (passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+
+                // Encode and update the new password
+                user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+                userRepository.save(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String createNewRoom(CreateRoomRequest createRoomRequest) {
+        repository.createRoom(
+                createRoomRequest.getRoomNumber(),
+                createRoomRequest.getFloorNumber(),
+                createRoomRequest.getRoomCapacity(),
+                createRoomRequest.getDescription(),
+                createRoomRequest.getBuildingId()
+        );
+        return "Room created successfully";
+    }
 }

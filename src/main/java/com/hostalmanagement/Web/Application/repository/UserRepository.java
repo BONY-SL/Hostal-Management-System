@@ -33,6 +33,17 @@ public interface UserRepository extends JpaRepository<User,Integer> {
             @Param("emailIn") String email
     );
 
+    @Query(value = "SELECT checkPasswordIsMatched(:idId, :passwordIn)", nativeQuery = true)
+    Boolean checkUserPassword(
+            @Param("idId") Integer id,
+            @Param("passwordIn") String password
+    );
+
+
+    @Query("SELECT u.password FROM User u WHERE u.id = :id")
+    Optional<String> getEncodedPasswordById(@Param("id") Integer id);
+
+
 
     @Query(value = "SELECT * FROM GetAllSystemUsers", nativeQuery = true)
     List<User> getUsersExceptStudent();

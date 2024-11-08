@@ -32,10 +32,4 @@ public class Room {
     @Column(name = "building_id")
     private Long buildingId;
 
-//    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<PowerConsumption> powerConsumptions = new ArrayList<>();
-
-
-
-
 }

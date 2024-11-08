@@ -130,7 +130,6 @@ async function signIn() {
             StorageService.saveToken(response.access_token);
 
             const userRole = StorageService.getUserRole();
-            alert(userRole)
 
             // Check if the user is an admin and redirect
             if (StorageService.isAdminLoggedIn()) {

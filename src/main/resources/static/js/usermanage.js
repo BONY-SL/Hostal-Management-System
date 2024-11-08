@@ -10,12 +10,10 @@ document.getElementById('viewUsersBtn').onclick = function() {
 document.getElementById('createUserBtn').onclick = function() {
     toggleSections('createUser');
 };
-document.getElementById('deleteUserBtn').onclick = function() {
-    toggleSections('deleteUser');
-};
+
 
 function toggleSections(activeSection) {
-    const sections = ['viewUsers', 'createUser', 'deleteUser'];
+    const sections = ['viewUsers', 'createUser'];
     sections.forEach(section => {
         document.getElementById(section).style.display = (section === activeSection) ? 'block' : 'none';
     });
