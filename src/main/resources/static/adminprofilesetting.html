@@ -61,7 +61,7 @@
 
         button {
             padding: 12px;
-            background-color: #34a639;
+            background-color: #197c6d;
             color: #fff;
             font-weight: bold;
             border: none;
@@ -71,7 +71,7 @@
         }
 
         button:hover {
-            background-color: #2d8a32;
+            background-color: #29b6a0;
         }
 
         /* Password update section styling */
@@ -97,6 +97,36 @@
             }
         }
 
+        /* Container for the entire form layout */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        /* Each section in the form container */
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .form-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-section {
+                width: 80%;
+            }
+        }
+
+        .alert{
+            display: none;
+        }
     </style>
 </head>
 
@@ -123,14 +153,14 @@
                     <span class="title">User Manage</span>
                 </a>
             </li>
-            <li>
-                <a href="roommanage.html" id="roomManageLink">
-                    <span class="icon">
-                            <ion-icon name="bed"></ion-icon>
-                    </span>
-                    <span class="title">Room Manage</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="roommanage.html" id="roomManageLink">-->
+<!--                    <span class="icon">-->
+<!--                            <ion-icon name="bed"></ion-icon>-->
+<!--                    </span>-->
+<!--                    <span class="title">Room Manage</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li>
                 <a href="studentmanage.html" id="studentManageLink">
                         <span class="icon">
@@ -180,37 +210,46 @@
                 <div class="profile-image">
                     <img src="images/images.png" alt="User Image" id="userImage">
                 </div>
+                <div id="errorAlert" class="alert alert-danger" role="alert"></div>
+                <div id="successAlert" class="alert alert-success" role="alert"></div>
+                <div id="wording" class="alert-warning" role="alert"></div>
+                <div class="form-container">
+                    <div class="form-section">
+                        <form id="adminProfileForm">
+                            <label for="firstname">First Name</label>
+                            <input type="text" id="firstname" name="firstname" value="">
 
-                <form id="adminProfileForm">
-                    <label for="firstname">First Name</label>
-                    <input type="text" id="firstname" name="firstname" value="">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" id="lastname" name="lastname" value="">
 
-                    <label for="lastname">Last Name</label>
-                    <input type="text" id="lastname" name="lastname" value="">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="">
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" value="">
+                            <br/>
+                            <button type="button" id="userprofileupdate" onclick="updateProfile()">Update Profile</button>
+                        </form>
+                    </div>
 
-                    <button type="button" id="userprofileupdate" onclick="updateProfile()">Update Profile</button>
-                </form>
-                <form style="margin-top: 40px">
+                    <div class="form-section">
+                        <form>
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password" disabled>
 
-                    <label for="currentPassword">Current Password</label>
-                    <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password" disabled>
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" disabled>
 
-                    <label for="newPassword">New Password</label>
-                    <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" disabled>
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Confirm new password" disabled>
 
-                    <label for="confirmNewPassword">Confirm New Password</label>
-                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Confirm new password" disabled>
-                    <!-- Checkbox to enable password fields -->
-                    <label>
-                        <input type="checkbox" id="changePasswordCheckbox" onclick="togglePasswordFields()" style="margin-left: 300px"> Change Password
-                    </label>
+                            <!-- Checkbox to enable password fields -->
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="changePasswordCheckbox" onclick="togglePasswordFields()"> Change Password
+                            </label>
 
-                    <button type="button" id="updatepassword" onclick="updatePassword()" disabled>Change Password</button>
-
-                </form>
+                            <button type="button" id="updatepassword" onclick="updatePassword()" disabled>Change Password</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

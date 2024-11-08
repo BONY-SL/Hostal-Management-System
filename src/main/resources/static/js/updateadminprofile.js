@@ -9,6 +9,34 @@ const currentPassword = document.getElementById("currentPassword").value;
 const newPassword = document.getElementById("newPassword").value;
 const confirmNewPassword = document.getElementById("confirmNewPassword").value;
 
+function showErrorAlert(message){
+
+    const  errorMessage = document.getElementById("errorAlert");
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+    setTimeout(() => {
+        errorMessage.style.display = "none";
+    }, 5000);
+}
+function showSuccessAlert(message){
+
+    const  errorMessage = document.getElementById("successAlert");
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+    setTimeout(() => {
+        errorMessage.style.display = "none";
+    }, 5000);
+}
+function warningAlert(message){
+
+    const  errorMessage = document.getElementById("wording");
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+    setTimeout(() => {
+        errorMessage.style.display = "none";
+    }, 5000);
+}
+
 
 
 
@@ -51,10 +79,11 @@ async function updateProfile() {
 
     if (!isValidEmail(email)) {
         console.log("Valid email address");
+        showErrorAlert("Please Enter Valid Email Address")
         return;
     }
     if(firstname === '' || lastname === '' || email === ''){
-        console.log("Please Enter All Details");
+        showErrorAlert("Please Enter All Details")
         return;
     }
 
@@ -72,18 +101,19 @@ async function updateProfile() {
         if (response.body && response.body.message === "Email already in use by another user") {
 
             getProfileDataByID().then(r => null);
-            alert("Error: " + response.body.message);
+            showSuccessAlert(response.body.message);
 
         } else if(response.body && response.body.message === "Profile updated successfully"){
 
             StorageService.saveToken(response.body.access_token);
             getProfileDataByID().then(r => null);
-            alert(response.body.message);
+            showSuccessAlert(response.body.message);
         }else {
-            alert(response.body.message);
+            showSuccessAlert(response.body.message);
             getProfileDataByID().then(r => null);
         }
     } catch (error) {
+        showErrorAlert("An error occurred while updating the profile.")
         console.error("Error updating profile:", error);
         alert("An error occurred while updating the profile.");
     }
@@ -108,9 +138,74 @@ function togglePasswordFields() {
 }
 
 
-function updatePassword(){
+async function updatePassword(){
 
-    alert(1)
+    const currentPassword = document.getElementById("currentPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+    const isChecked = document.getElementById("changePasswordCheckbox");
+
+    if(!isChecked.checked){
+        warningAlert("Please Select The Check Box First")
+    }else {
+        if(currentPassword === '' || newPassword === '' || confirmNewPassword === ''){
+            showErrorAlert("Please Fill the All Fields !")
+            return;
+        }
+        if(newPassword !== confirmNewPassword){
+            showErrorAlert("New Password And Confirm Password are Not Matched !")
+            return;
+        }
+        if(newPassword.length < 8){
+            showErrorAlert("Password Must be Contain At Least 8 Characters !")
+            return;
+        }
+
+        try {
+            const id = StorageService.getUserId();
+            const confirm ={
+                id,
+                currentPassword,
+                newPassword
+            }
+            const admin = new AdminModule();
+            const response = await admin.confirm(confirm)
+
+            if(response.body && response.body.status === "Password matched"){
+
+                const id = StorageService.getUserId();
+                const updateRequst ={
+                    id,
+                    currentPassword,
+                    newPassword
+                }
+
+                const admin = new AdminModule();
+                const response2 = await admin.updatePassword(updateRequst);
+
+                if(response2.message === "Password updated successfully") {
+
+                    showSuccessAlert(response2.message);
+                    document.getElementById("currentPassword").value ='';
+                    document.getElementById("newPassword").value='';
+                    document.getElementById("confirmNewPassword").value='';
+
+
+                }else {
+
+                    showErrorAlert(response2.message);
+                }
+
+            }else {
+                    showErrorAlert(response.body.status);
+            }
+
+        }catch (error){
+            console.log(error);
+        }
+    }
+
 
 }
 window.togglePasswordFields=togglePasswordFields

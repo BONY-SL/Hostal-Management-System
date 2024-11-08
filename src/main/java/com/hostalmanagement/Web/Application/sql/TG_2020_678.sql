@@ -241,3 +241,45 @@ UPDATE token SET token = tokenIn WHERE id = idIn AND revoked = false AND expired
 END $$
 
 DELIMITER ;
+
+
+-- Create Function Check password Matched
+DELIMITER $$
+
+CREATE FUNCTION checkPasswordIsMatched(idiN INT ,passwordIn VARCHAR(255))
+    RETURNS BOOLEAN
+    DETERMINISTIC
+BEGIN
+    DECLARE isPasswordMatched BOOLEAN DEFAULT FALSE;
+
+    DECLARE CurrentPassword VARCHAR(255);
+
+SELECT password INTO CurrentPassword FROM user WHERE id = idiN;
+
+IF(CurrentPassword = passwordIn) THEN
+        SET isPasswordMatched = true;
+END IF ;
+
+RETURN isPasswordMatched;
+
+END $$
+
+DELIMITER ;
+
+-- create Room Procedure
+
+DELIMITER $$
+
+CREATE PROCEDURE createRoom(
+    IN p_roomNumber VARCHAR(50),
+    IN p_floorNumber INT,
+    IN p_roomCapacity INT,
+    IN p_description VARCHAR(255),
+    IN p_buildingId BIGINT
+)
+BEGIN
+INSERT INTO roomview (room_number, floor_number, room_capacity, room_type, building_id)
+VALUES (p_roomNumber, p_floorNumber, p_roomCapacity, p_description, p_buildingId);
+END $$
+
+DELIMITER ;

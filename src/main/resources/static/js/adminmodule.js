@@ -61,4 +61,27 @@ export class AdminModule{
             body: JSON.stringify(updateUser),
         }).then(response => response.json());
     }
+
+    async confirm(confirmold){
+
+        const authservice = new AuthService();
+
+        return fetch(`${BASE_URL}/hostalmanage/admin/confirmold`,{
+            method:"POST",
+            headers : authservice.createAuthorizationHeader(),
+            body: JSON.stringify(confirmold),
+        }).then(response => response.json())
+    }
+
+
+    async updatePassword(updateRequest){
+
+        const authservice = new AuthService();
+
+        return fetch(`${BASE_URL}/hostalmanage/admin/updateps`,{
+            method:"PUT",
+            headers : authservice.createAuthorizationHeader(),
+            body: JSON.stringify(updateRequest),
+        }).then(response => response.json())
+    }
 }
