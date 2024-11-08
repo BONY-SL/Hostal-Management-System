@@ -9,4 +9,5 @@ public interface RoomRepository extends JpaRepository<Room, Long> { // JpaReposi
 
    Optional<Room> findByRoomNumber(String roomNumber); // This method is used to find a room by its room number.
 
+
 }

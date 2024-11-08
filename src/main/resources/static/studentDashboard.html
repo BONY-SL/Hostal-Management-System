@@ -69,7 +69,7 @@
                 </a>
             </li>
             <li>
-                <a href="StudentComplain.html" id="studentComplainLink">
+                <a href="studentComplain.html" id="studentComplainLink">
                     <span class="icon">
                             <ion-icon name="bed"></ion-icon>
                     </span>
@@ -125,26 +125,26 @@
                     <!-- Card Boxes -->
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="card-box">
-                            <h4>Total Users</h4>
-                            <p>1,234</p>
+                            <h4>Room Status</h4>
+                            <p>Maintain</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="card-box">
-                            <h4>Total Sales</h4>
-                            <p>$12,345</p>
+                            <h4>Due Payment</h4>
+                            <p>Rs.12,345</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="card-box">
-                            <h4>New Messages</h4>
-                            <p>56</p>
+                            <h4>Messages</h4>
+                            <p>3</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                         <div class="card-box">
-                            <h4>Pending Orders</h4>
-                            <p>89</p>
+                            <h4>Power Consumption</h4>
+                            <p>kWh 8900</p>
                         </div>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                     <div class="col-md-12 col-lg-6 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Sales Overview</h5>
+                                <h5 class="card-title">Power Consumption Overview</h5>
                                 <canvas id="salesChart"></canvas>
                             </div>
                         </div>
@@ -162,12 +162,17 @@
                     <div class="col-md-12 col-lg-6 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Activity Histogram</h5>
+                                <h5 class="card-title">Power Consumption Histogram</h5>
                                 <canvas id="histogramChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
+                <footer class="footer mt-auto py-3 bg-light">
+                    <div class="container">
+                        <p class="mb-0">&copy; 2023  University of Ruhuna. All rights reserved.</p>
+                    </div>
+                </footer>
             </div>
 
             <!-- Include Bootstrap JS, Chart.js, FullCalendar, and jQuery -->
@@ -177,61 +182,18 @@
             <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 
             <script>
-                // Chart.js - Sales Overview Line Chart
-                var ctx1 = document.getElementById('salesChart').getContext('2d');
-                var salesChart = new Chart(ctx1, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                        datasets: [{
-                            label: 'Sales ($)',
-                            data: [12000, 15000, 13000, 17000, 14000, 16000, 19000],
-                            backgroundColor: 'rgba(6, 143, 143, 0.2)',
-                            borderColor: '#068f8f',
-                            borderWidth: 2,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            x: { title: { display: true, text: 'Month' } },
-                            y: { title: { display: true, text: 'Sales ($)' } }
-                        }
-                    }
-                });
 
-                // Chart.js - Histogram for Daily Activity
-                var ctx2 = document.getElementById('histogramChart').getContext('2d');
-                var histogramChart = new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-                        datasets: [{
-                            label: 'Activities',
-                            data: [50, 70, 60, 80, 90, 60, 75],
-                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            x: { title: { display: true, text: 'Day of the Week' } },
-                            y: { title: { display: true, text: 'Activity Count' } }
-                        }
-                    }
-                });
             </script>
 
         </div>
 
     </div>
+
 </div>
 
-<script src="js/admin.js"></script>
+
 <script type="module" src="js/student.js"></script>
+<script type="module" src="js/studentChart.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
