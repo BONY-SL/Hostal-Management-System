@@ -1,0 +1,51 @@
+/* Container for the complaints table */
+.complaints-view {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.complaints-view h3 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#complaintsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#complaintsTable th,
+#complaintsTable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#complaintsTable th {
+    background-color: #068f8f;
+    color: white;
+    font-weight: bold;
+}
+
+#complaintsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#complaintsTable tr:hover {
+    background-color: #d1e7fd;
+    cursor: pointer;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    #complaintsTable, .complaints-view {
+        font-size: 14px;
+    }
+}

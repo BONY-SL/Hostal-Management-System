@@ -30,9 +30,9 @@ public class ComplainService {
 
         // Set the values to the Complaint object
         complain.setRoomNumber(complainRequest.getRoomNumber());
-        complain.setComplainType(complainRequest.getComplainType());
+        complain.setComplainType(complainRequest.getComplaintType());
         complain.setDescription(complainRequest.getDescription());
-        complain.setContactNumber(complainRequest.getContactNumber());
+        complain.setContactNumber(complainRequest.getContact());
         complain.setStatus(complainRequest.getStatus());
 
         // Fetch the Student by studentId

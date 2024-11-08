@@ -6,8 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.sql.Date;
+
+
 
 @Data
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class StudentDto {
     private String phoneNo;
     private String email;
     private String address;
-    private Long userId;
-    private String firstname;
+    private Integer user_id;
+    private String fName;
 
 }

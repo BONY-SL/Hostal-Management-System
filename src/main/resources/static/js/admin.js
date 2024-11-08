@@ -68,10 +68,10 @@ document.getElementById("logoutButtonId").addEventListener("onclick", logOut);
 
 // Utility function to get token and role from storage
 function getAuthData() {
-    return {
-        token: StorageService.getToken(),
-        role: StorageService.getUserRole()
-    };
+
+    return {role: StorageService.getUserRole(),
+        userId: StorageService.getUserId()
+        };
 }
 
 // Redirects to index.html if the user does not have admin access
@@ -81,19 +81,21 @@ function redirectToLogin() {
 
 // Checks if the user has admin access based on token and role
 function checkAdminAccess() {
-    const { token, role } = getAuthData();
-    const tokenFromUrl = new URLSearchParams(window.location.search).get("token");
 
-    if (!token || role !== "ADMIN" || token !== tokenFromUrl) {
+    const {role,userId}= getAuthData();
+    const userRole = new URLSearchParams(window.location.search).get("userRole");
+
+    if (!role || role !== "ADMIN" || userRole !== role) {
         redirectToLogin();
     }
 }
 
 // Adds token as a URL parameter to each link in the navigation menu
 function appendTokenToLinks() {
-    const { token } = getAuthData();
 
-    if (!token) {
+    const {role } = getAuthData();
+
+    if (!role) {
         redirectToLogin();
         return;
     }
@@ -110,7 +112,7 @@ function appendTokenToLinks() {
     links.forEach(({ id, href }) => {
         const element = document.getElementById(id);
         if (element) {
-            element.href = `${href}?token=${token}`;
+            element.href = `${href}?userRole=${role}`;
         }
     });
 }

@@ -8,6 +8,68 @@
     <title>Admin DashBoard</title>
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
+
+    <style>
+        /* Main container styling */
+        .dashboard {
+            padding: 25px;
+            color: #333;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        /* Cards container */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+            margin-left: 60px;
+        }
+
+        /* Card styling */
+        .card {
+            background-color: #f5f5f5;
+            color: #333;
+            width: 220px;
+            height: 150px;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .card p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #34a639;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 900px;
+            max-height: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+    </style>
 </head>
 
 <body>
@@ -33,14 +95,14 @@
                     <span class="title">User Manage</span>
                 </a>
             </li>
-            <li>
-                <a href="roommanage.html" id="roomManageLink">
-                    <span class="icon">
-                            <ion-icon name="bed"></ion-icon>
-                    </span>
-                    <span class="title">Room Manage</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="roommanage.html" id="roomManageLink">-->
+<!--                    <span class="icon">-->
+<!--                            <ion-icon name="bed"></ion-icon>-->
+<!--                    </span>-->
+<!--                    <span class="title">Room Manage</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li>
                 <a href="studentmanage.html" id="studentManageLink">
                         <span class="icon">
@@ -49,14 +111,14 @@
                     <span class="title">Student Manege</span>
                 </a>
             </li>
-            <li>
-                <a href="adminmessage.html" id="adminMessageLink">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                        </span>
-                    <span class="title">Messages</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="adminmessage.html" id="adminMessageLink">-->
+<!--                        <span class="icon">-->
+<!--                            <ion-icon name="chatbubble-outline"></ion-icon>-->
+<!--                        </span>-->
+<!--                    <span class="title">Messages</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li>
                 <a href="adminprofilesetting.html" id="adminProfileSettingsLink">
                         <span class="icon">
@@ -83,8 +145,36 @@
             </div>
             <h2 style="color: #F5F5F5">Faculty Of Technology University Of Ruhuna!</h2>
         </div>
-        <div>
-            Main Dashboard
+
+        <div class="dashboard">
+            <div class="cards-container">
+                <div class="card" id="registered-students-card">
+                    <h4>Registered Students</h4>
+                    <p id="registeredStudents">285</p>
+                </div>
+                <div class="card" id="system-users-card">
+                    <h4>System Users</h4>
+                    <p id="systemUsers">8</p>
+                </div>
+                <div class="card" id="total-rooms-card">
+                    <h4>Total Rooms</h4>
+                    <p id="totalRooms">100</p>
+                </div>
+                <div class="card" id="available-rooms-card">
+                    <h4>Available Rooms</h4>
+                    <p id="availableRooms">25</p>
+                </div>
+                <div class="card" id="registered-rooms-card">
+                    <h4>Registered Rooms</h4>
+                    <p id="registeredRooms">75</p>
+                </div>
+            </div>
+
+            <!-- Bar chart container -->
+            <div class="chart-container">
+                <canvas id="studentsLevelChart"></canvas>
+            </div>
+
         </div>
     </div>
 </div>
@@ -95,6 +185,55 @@
 <script type="module" src="js/admin.js"  defer></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('studentsLevelChart').getContext('2d');
 
+        // Sample data for student levels
+        const data = {
+            labels: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
+            datasets: [{
+                label: 'Number Of Students',
+                data: [50, 75, 100, 60], // Replace it with dynamic data as needed
+                backgroundColor: ['#575757', '#575757', '#575757', '#575757'],
+            }]
+        };
+
+        // Chart configuration
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 24, // This sets the font size to be equivalent to h2
+                                weight: 'bold' // Optional: makes the label bold like h2
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Students',
+                            font: {
+                                size: 20 // Adjust this if you want a similar h2 size on y-axis title
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Render the chart
+        new Chart(ctx, config);
+    });
+</script>
+</body>
 </html>

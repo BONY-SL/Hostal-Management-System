@@ -1,0 +1,87 @@
+/* card.css */
+
+
+/* Card Styling */
+.card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    transition: transform 0.2s ease-in-out;
+    width: 60%; /* Full-width card */
+    margin-top: 80px;
+    margin-left: 230px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Title Styling in Card */
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Table Styling Inside Card */
+.card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.card table thead th {
+    background-color: #068f8f; /* Optional: adjust color */
+    color: #fff;
+    padding: 12px;
+    font-weight: bold;
+}
+
+/* Table Rows */
+.card table tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s;
+}
+
+.card table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.card table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Table Cells */
+.card table tbody td {
+    padding: 10px;
+}
+
+/* Optional: Styling for Card Button */
+.card .button {
+    background-color: #068f8f;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.card .button:hover {
+    background-color: #068f8f;
+}
+
+.center {
+    text-align: center;
+    margin: 20px 0;
+}
+
+

@@ -7,7 +7,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Manage</title>
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/usermanage.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
+    <style>
+        .usermanage{
+            margin-left: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        h1{
+            color: #034242;
+        }
+        .button-container{
+            margin-top: 40px;
+        }
+        .alert{
+            display: none;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #6ef1de;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #5ed4c3;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,14 +96,14 @@
                     <span class="title">User Manage</span>
                 </a>
             </li>
-            <li>
-                <a href="roommanage.html" id="roomManageLink">
-                    <span class="icon">
-                            <ion-icon name="bed"></ion-icon>
-                    </span>
-                    <span class="title">Room Manage</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="roommanage.html" id="roomManageLink">-->
+<!--                    <span class="icon">-->
+<!--                            <ion-icon name="bed"></ion-icon>-->
+<!--                    </span>-->
+<!--                    <span class="title">Room Manage</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li>
                 <a href="studentmanage.html" id="studentManageLink">
                         <span class="icon">
@@ -49,14 +112,14 @@
                     <span class="title">Student Manege</span>
                 </a>
             </li>
-            <li>
-                <a href="adminmessage.html" id="adminMessageLink">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                        </span>
-                    <span class="title">Messages</span>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="adminmessage.html" id="adminMessageLink">-->
+<!--                        <span class="icon">-->
+<!--                            <ion-icon name="chatbubble-outline"></ion-icon>-->
+<!--                        </span>-->
+<!--                    <span class="title">Messages</span>-->
+<!--                </a>-->
+<!--            </li>-->
             <li>
                 <a href="adminprofilesetting.html" id="adminProfileSettingsLink">
                         <span class="icon">
@@ -83,15 +146,137 @@
             </div>
             <h2 style="color: #F5F5F5">Faculty Of Technology University Of Ruhuna!</h2>
         </div>
-        <div>
-            Room Manage
+        <div class="usermanage">
+            <h1 style="padding: 10px 10px 10px 10px">Manage Rooms</h1>
+            <div class="button-container">
+                <button id="viewRooms">View All Created Rooms</button>
+                <button id="createRooms">Create Room</button>
+<!--                <button id="updateRomeChanges">Update Room Changes</button>-->
+            </div>
+            <div id="viewUsers3" class="user-section">
+                <table id="roomTable">
+                    <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Floor Number</th>
+                        <th>Room Capacity</th>
+                        <th>Description</th>
+                        <th>Building ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <script>
+                    // Fetch room data and display it in the table
+                    fetch('http://localhost:8080/hostalmanage/auth/rooms')
+                        .then(response => response.json())
+                        .then(data => {
+                            // Log the raw response
+                            console.log("Raw Room Data:", data);
+
+                            // Assuming data might be in concatenated arrays like your example with registered students
+                            const textResponse = JSON.stringify(data); // Convert data to string (if it's already in array format, this is just for logging purposes)
+
+                            console.log("Raw Response:", textResponse);
+
+                            // Split the concatenated JSON arrays
+                            const jsonParts = textResponse.split("]["); // Split at the '][' character (if applicable)
+
+                            // Parse each part as JSON
+                            const firstArray = JSON.parse(jsonParts[0] + "]");
+                            const secondArray = JSON.parse("[" + jsonParts[1]);
+
+                            // Combine both arrays
+                            const mergedList = [...firstArray, ...secondArray];
+
+                            // Optional: Remove duplicates based on room_number or any other unique identifier if needed
+                            const uniqueRoomList = mergedList.filter((room, index, self) =>
+                                index === self.findIndex((r) => r.roomNumber === room.roomNumber)
+                            );
+
+                            // Find the tbody element in the table
+                            const tbody = document.querySelector("#roomTable tbody");
+                            tbody.innerHTML = ""; // Clear existing rows
+
+                            // Populate the table with unique room data
+                            uniqueRoomList.forEach(room => {
+                                const row = document.createElement("tr");
+
+                                row.innerHTML = `
+                    <td>${room.roomNumber}</td>
+                    <td>${room.floorNumber}</td>
+                    <td>${room.roomCapacity}</td>
+                    <td>${room.description}</td>
+                    <td>${room.buildingId}</td>
+                `;
+
+                                // Append the row to the table body
+                                tbody.appendChild(row);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching room data:', error);
+                        });
+                </script>
+
+            </div>
+
+            <div id="createUser3" class="user-section" style="display:none;">
+                <div class="form-container">
+                    <h2>Add New Room</h2>
+                    <form id="createRoomForm">
+                        <div class="form-group">
+                            <label for="roomNumber">Room Number</label>
+                            <input type="text" id="roomNumber" name="roomNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="floorNumber">Floor Number</label>
+                            <input type="number" id="floorNumber" name="floorNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomCapacity">Room Capacity</label>
+                            <input type="number" id="roomCapacity" name="roomCapacity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="buildingId">Building ID</label>
+                            <input type="number" id="buildingId" name="buildingId" required>
+                        </div>
+                        <div class="button-container">
+                            <button type="submit">Add Room</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="deleteUser3" class="user-section" style="display:none;">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Include SweetAlert2 from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script type="module" src="js/adminroommanage.js" defer></script>
 <script type="module" src="js/admin.js"  defer></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

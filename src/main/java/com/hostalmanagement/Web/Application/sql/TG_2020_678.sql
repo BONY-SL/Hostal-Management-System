@@ -149,3 +149,137 @@ FROM student s
          LEFT JOIN studentmail r ON s.tg_no = r.tgnumber;
 END $$
 DELIMITER ;
+
+
+-- get Admin Details
+
+CREATE OR REPLACE VIEW showAllAdmins AS
+SELECT id,firstname,lastname,email,password,role
+FROM user
+WHERE role = 'ADMIN';
+
+
+
+-- Update Admin Profile Details
+
+DELIMITER $$
+
+CREATE PROCEDURE updateAdminProfilePro(
+    IN idIn INT,
+    IN firstnameIn VARCHAR(255),
+    IN lastnameIn VARCHAR(255),
+    IN emailIn VARCHAR(255),
+    OUT resultMessage VARCHAR(255)
+)
+BEGIN
+    DECLARE isEmailDuplicate BOOLEAN;
+    DECLARE oldEmail VARCHAR(255);
+
+    -- Get the old email for the user
+SELECT email INTO oldEmail FROM user WHERE id = idIn;
+
+-- Check if the new email is the same as the old email
+IF emailIn = oldEmail THEN
+
+UPDATE user
+SET firstname = firstnameIn, lastname = lastnameIn, email = oldEmail
+WHERE id = idIn;
+
+-- If the new email is the same as the old email, don't update and set the message
+SET resultMessage = 'Update User Details With Existing Email';
+ELSE
+        -- Check if the email is already in use by another user
+        SET isEmailDuplicate = checkEmailIsExsistEmailWithOutOwnerUser(idIn, emailIn);
+
+        IF isEmailDuplicate THEN
+            SET resultMessage = 'Email already in use by another user';
+ELSE
+            -- Proceed to update the user details
+UPDATE user
+SET firstname = firstnameIn, lastname = lastnameIn, email = emailIn
+WHERE id = idIn;
+
+SET resultMessage = 'Profile updated successfully';
+END IF;
+END IF;
+END $$
+
+DELIMITER ;
+
+
+-- The Function Get The User Email is Already Exsisit
+
+DELIMITER $$
+
+CREATE FUNCTION checkEmailIsExsistEmailWithOutOwnerUser(adminId INT, adminMail VARCHAR(255))
+    RETURNS BOOLEAN
+    DETERMINISTIC
+BEGIN
+    DECLARE emailExists BOOLEAN DEFAULT FALSE;
+
+    -- Check if the email exists for any other user except the one with adminId
+    IF EXISTS (SELECT 1 FROM user WHERE email = adminMail AND id != adminId) THEN
+        SET emailExists = TRUE;
+END IF;
+
+RETURN emailExists;
+END $$
+
+DELIMITER ;
+
+
+-- User Token Update After Update User Email
+
+DELIMITER $$
+
+CREATE PROCEDURE updateTokenAfterUpdatingUserEmail(IN idIn INT,IN tokenIn varchar(255))
+
+BEGIN
+
+UPDATE token SET token = tokenIn WHERE id = idIn AND revoked = false AND expired = false;
+
+END $$
+
+DELIMITER ;
+
+
+-- Create Function Check password Matched
+DELIMITER $$
+
+CREATE FUNCTION checkPasswordIsMatched(idiN INT ,passwordIn VARCHAR(255))
+    RETURNS BOOLEAN
+    DETERMINISTIC
+BEGIN
+    DECLARE isPasswordMatched BOOLEAN DEFAULT FALSE;
+
+    DECLARE CurrentPassword VARCHAR(255);
+
+SELECT password INTO CurrentPassword FROM user WHERE id = idiN;
+
+IF(CurrentPassword = passwordIn) THEN
+        SET isPasswordMatched = true;
+END IF ;
+
+RETURN isPasswordMatched;
+
+END $$
+
+DELIMITER ;
+
+-- create Room Procedure
+
+DELIMITER $$
+
+CREATE PROCEDURE createRoom(
+    IN p_roomNumber VARCHAR(50),
+    IN p_floorNumber INT,
+    IN p_roomCapacity INT,
+    IN p_description VARCHAR(255),
+    IN p_buildingId BIGINT
+)
+BEGIN
+INSERT INTO roomview (room_number, floor_number, room_capacity, room_type, building_id)
+VALUES (p_roomNumber, p_floorNumber, p_roomCapacity, p_description, p_buildingId);
+END $$
+
+DELIMITER ;
