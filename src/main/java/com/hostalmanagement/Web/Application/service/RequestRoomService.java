@@ -5,6 +5,7 @@ import com.hostalmanagement.Web.Application.dto.StudentDto;
 import com.hostalmanagement.Web.Application.model.RequestRoom;
 import com.hostalmanagement.Web.Application.model.Student;
 import com.hostalmanagement.Web.Application.repository.RequestRoomRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,16 @@ public class RequestRoomService {
                 requestRoom.getState(),
                 requestRoom.getStudent().getTg_no()
         );
+    }
+
+    @Transactional
+    public String updateRequestRoomState(String tgNo, String newState) {
+        int updatedRows = requestRoomRepository.updateRequestRoomStateByTgNo(tgNo, newState);
+        if (updatedRows > 0) {
+            return "Request state updated successfully.";
+        } else {
+            return "No matching record found for the provided tg_no.";
+        }
     }
 
 

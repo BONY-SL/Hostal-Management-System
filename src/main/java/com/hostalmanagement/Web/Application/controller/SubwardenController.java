@@ -114,6 +114,15 @@ public class SubwardenController {
     }
 
 
+    @PutMapping("/updateRequestState")
+    public ResponseEntity<String> updateRequestState(
+            @RequestParam String tgNo,
+            @RequestParam String newState) {
+        String result = requestRoomService.updateRequestRoomState(tgNo, newState);
+        return ResponseEntity.ok(result);
+    }
+
+
 
 
 

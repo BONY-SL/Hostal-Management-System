@@ -85,6 +85,7 @@
                     <span class="title">Messages</span>
                 </a>
             </li>
+            <!--
             <li>
                 <a href="">
                     <span class="icon">
@@ -93,6 +94,7 @@
                     <span class="title">Profile Settings</span>
                 </a>
             </li>
+            -->
             <li>
                 <a href="#">
                     <span class="icon">
@@ -147,26 +149,29 @@
                 </div>
 
                 <!-- Form to add fine details -->
-                <div class="fine-section">
-                    <form id="fineForm">
-                        <label for="studentID">Student ID:</label>
-                        <input type="text" id="studentID" required>
+                <!-- Form to update request state -->
+                <div class="update-section">
+                    <h2>Update Request State</h2>
+                    <form id="updateForm">
+                        <label for="tgNo">Student TG No:</label>
+                        <input type="text" id="tgNo" required>
 
-                        <label for="status">Status:</label>
-                        <select id="status" required>
-                            <option value="">Select Status</option>
-                            <option value="registered">registered</option>
-                            <option value="reject">reject</option>
+                        <label for="newState">New State:</label>
+                        <select id="newState" required>
+                            <option value="">Select New State</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="pending">Pending</option>
                         </select>
 
-                        <button type="submit">Register</button>
+                        <button type="submit">Update State</button>
                         &nbsp;
-                        <button type="button" id="clearFormButton">Clear</button>
+                        <button type="button" id="clearUpdateFormButton">Clear</button>
                     </form>
                 </div>
-            </div>
 
-            <div id="displayFineSection" style="display: none;">
+
+                <div id="displayFineSection" style="display: none;">
                 <h2>Fine Details</h2>
                 <div class="fine-table">
                     <table>

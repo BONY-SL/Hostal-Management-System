@@ -44,3 +44,32 @@ function populateRequestTable(requests) {
         tbody.appendChild(row);
     });
 }
+
+
+document.getElementById("updateForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const tgNo = document.getElementById("tgNo").value;
+    const newState = document.getElementById("newState").value;
+
+    try {
+        const response = await fetch(`/hostalmanage/subwarden/updateRequestState?tgNo=${tgNo}&newState=${newState}`, {
+            method: 'PUT',
+            headers: {
+                ...authservice.createAuthorizationHeader(),
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update the request state');
+        }
+
+        alert("Request state updated successfully!");
+        document.getElementById("updateForm").reset();
+        displayRequestDetails(); // Optionally reload the request details table
+    } catch (error) {
+        console.error("Error updating request state:", error);
+        alert("Error updating request state. Please try again.");
+    }
+});

@@ -29,7 +29,7 @@ public class RegisterStudent {
     @Column(name = "state")
     private String state;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "tg_no", referencedColumnName = "tg_no", nullable = true)
     private Student student;
 }

@@ -66,5 +66,8 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RequestRoom> requestRooms = new ArrayList<>();
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegisterStudent> registerStudents = new ArrayList<>();
+
 
 }
