@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -17,12 +15,11 @@ import java.util.Date;
 public class OutgoingDto {
     private int outgoingId;
     private Date date_out;
+    private String location;
     private Date return_date;
     private Time arrivalTime;
     private Time leaveTime;
     private String tg_no;
     private String name;
-
-
 
 }

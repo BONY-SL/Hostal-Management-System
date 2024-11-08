@@ -6,6 +6,10 @@ import com.hostalmanagement.Web.Application.repository.NoticeRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,16 +18,17 @@ import java.util.stream.Collectors;
 public class NoticeService {
     private final NoticeRepo noticeRepo;
 
-    public Notice saveNotice(NoticeDto noticeDto) {
-        Notice notice=Notice.builder()
-                .id(noticeDto.getId())
-                .title(noticeDto.getTitle())
-                .content(noticeDto.getContent())
-                .publishDate(noticeDto.getPublishDate())
-                .publishTime(noticeDto.getPublishTime())
-                .build();
-        return noticeRepo.save(notice);
+    public void saveNotice(NoticeDto noticeDto) {
+        // Get current date and time
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
 
+        noticeRepo.saveNoticeProcedure(
+                noticeDto.getId(),
+                noticeDto.getTitle(),
+                noticeDto.getContent(),
+                Date.valueOf(currentDate),
+                Time.valueOf(currentTime));
     }
 
     public List<NoticeDto> viewNotices(){

@@ -1,34 +1,57 @@
-document.addEventListener("DOMContentLoaded", async function() {
-    const finesTableBody = document.getElementById("finesTableBody");
+// Function to load fine details into the table
+import {AuthService} from "./authservice.js";
 
+viewFinesDetails().then(r => null);
+async function viewFinesDetails() {
+    const tableBody = document.querySelector("#finesTableBody");
+
+    const auth = new AuthService();
     try {
-        // Fetch fines data from the backend API
-        const response = await fetch("http://localhost:8080/hostalmanage/viewFines");
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
+        // Fetch fine data from the backend API and parse it as JSON
+        const fines = await fetch("http://localhost:8080/hostalmanage/warden/viewFines", {
+            method: "GET",
+            headers: auth.createAuthorizationHeader(),
+        }).then(response => response.json());
 
-        // Parse the JSON data into JavaScript objects
-        const finesDetails = await response.json();
+        // Clear existing rows (if any)
+        tableBody.innerHTML = "";
 
-        // Clear any existing rows in the table body
-        finesTableBody.innerHTML = "";
-
-        // Populate table with fetched data
-        finesDetails.forEach(fine => {
+        // Populate rows dynamically
+        fines.forEach(fine => {
             const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${fine.fine_id}</td>
-                <td>$${fine.amount.toFixed(2)}</td>
-                <td>${fine.reason}</td>
-                <td>${new Date(fine.issued_date).toLocaleDateString()}</td>
-                <td>${fine.fine_status}</td>
-                <td>${fine.tg_no}</td>
-            `;
-            finesTableBody.appendChild(row);
+
+            // Create table cells for each fine property
+            const fineIdCell = document.createElement("td");
+            fineIdCell.textContent = fine.fine_id || "-";
+
+            const amountCell = document.createElement("td");
+            amountCell.textContent = fine.amount || "-";
+
+            const reasonCell = document.createElement("td");
+            reasonCell.textContent = fine.reason || "-";
+
+            const issuedDateCell = document.createElement("td");
+            issuedDateCell.textContent = fine.issued_date || "-";
+
+            const statusCell = document.createElement("td");
+            statusCell.textContent = fine.fine_status || "-";
+
+            const tgNoCell = document.createElement("td");
+            tgNoCell.textContent = fine.tg_no || "-";
+
+            // Append cells to the row
+            row.appendChild(fineIdCell);
+            row.appendChild(amountCell);
+            row.appendChild(reasonCell);
+            row.appendChild(issuedDateCell);
+            row.appendChild(statusCell);
+            row.appendChild(tgNoCell);
+
+            // Append the row to the table body
+            tableBody.appendChild(row);
         });
     } catch (error) {
-        console.error("Failed to load fines details:", error);
-        finesTableBody.innerHTML = "<tr><td colspan='6'>Failed to load fines data.</td></tr>";
+        console.error("Failed to load fine details:", error);
+        tableBody.innerHTML = "<tr><td colspan='6'>Failed to load fine data.</td></tr>";
     }
-});
+}
