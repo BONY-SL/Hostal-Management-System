@@ -3,8 +3,11 @@ package com.hostalmanagement.Web.Application.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "roomview") // This tells Hibernate to name the table as User and not User
+@Table(name = "room") // This tells Hibernate to name the table as User and not User
 @Data // Lombok annotation to generate Getters and Setters
 public class Room {
 
@@ -28,6 +31,10 @@ public class Room {
 
     @Column(name = "building_id")
     private Long buildingId;
+
+//    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<PowerConsumption> powerConsumptions = new ArrayList<>();
+
 
 
 
