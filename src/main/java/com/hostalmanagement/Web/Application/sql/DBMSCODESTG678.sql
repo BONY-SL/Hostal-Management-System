@@ -149,3 +149,4 @@ FROM student s
          LEFT JOIN studentmail r ON s.tg_no = r.tgnumber;
 END $$
 DELIMITER ;
+

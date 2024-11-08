@@ -4,6 +4,7 @@ import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.model.Notice;
 import com.hostalmanagement.Web.Application.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -59,9 +60,17 @@ public class WardenController {
 
     //Add new notices
     @PostMapping("/addNewNotice")
-    public ResponseEntity<Notice> addNewNotice(@RequestBody NoticeDto noticeDto){
+    /*public ResponseEntity<Notice> addNewNotice(@RequestBody NoticeDto noticeDto){
         Notice savedEntity=noticeService.saveNotice(noticeDto);
         return ResponseEntity.ok(savedEntity);
+    }*/
+    public ResponseEntity<String> addNotice(@RequestBody NoticeDto noticeDto) {
+        try {
+            noticeService.saveNotice(noticeDto);
+            return ResponseEntity.ok("Notice added successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add notice");
+        }
     }
 
     //View notices

@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Add Notice Form Submission
-    addNoticeForm.addEventListener("submit", function (event) {
+    addNoticeForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const formData = {
@@ -46,9 +46,32 @@ document.addEventListener("DOMContentLoaded", function () {
             publishTime: document.getElementById("publishTime").value
         };
 
-        addNoticeToTable(formData);
-        addNoticeForm.reset();
-        addNoticeSection.style.display = "none"; // Hide form after submission
+        try {
+            // Send data to the backend
+            const response = await fetch("http://localhost:8080/hostalmanage/warden/addNewNotice", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                // Successfully added notice
+                const result = await response.json();
+                alert("Notice added successfully!");
+
+                addNoticeToTable(formData); // Add the notice to the table
+                addNoticeForm.reset(); // Reset form fields
+                addNoticeSection.style.display = "none"; // Hide form after submission
+                noticesTableContainer.style.display = "block"; // Show the table again
+            } else {
+                alert("Failed to add notice. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error adding notice:", error);
+            alert("Error connecting to the server.");
+        }
     });
 
     // Function to add notice to the table
