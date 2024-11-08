@@ -143,7 +143,7 @@ async function signIn() {
             }else if(StorageService.isWardenLoggedIn()){
                 window.location.href = `wardenDashboard.html?userRole=${userId}`;
             }else if(StorageService.isSubWardenLoggedIn()){
-                window.location.href = "";
+                window.location.href = `subwardendashboard.html?token=${token}`;
             }else {
                 alert("Bad Credentials");
             }

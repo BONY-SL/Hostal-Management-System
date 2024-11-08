@@ -131,7 +131,7 @@
                 <img src="images/uni.png" alt="FOT" style="width: 110px;height: 150px;margin-left: 90px;margin-top: 30px;">
             </li>
             <li>
-                <a href="subwardendashboard.html">
+                <a href="subwardendashboard.html" id="subwardendashboard">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -139,7 +139,7 @@
                 </a>
             </li>
             <li>
-                <a href="finemanage.html">
+                <a href="assetmanage.html" id="assetmanage">
                          <span class="icon">
                        <ion-icon name="storefront-outline"></ion-icon>
                     </span>
@@ -147,7 +147,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="finemanage.html" id="finemanage">
                     <span class="icon">
                             <ion-icon name="bed"></ion-icon>
                     </span>
@@ -155,7 +155,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="assignroom.html" id="assignroom">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -163,7 +163,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="subwardenmessage.html" id="subwardenmessage">
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
@@ -171,6 +171,7 @@
                 </a>
             </li>
             <li>
+                <!--
                 <a href="">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -178,6 +179,7 @@
                     <span class="title">Profile Settings</span>
                 </a>
             </li>
+            -->
             <li>
                 <a href="#">
                         <span class="icon">
@@ -208,21 +210,21 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="numbers">200</div>
+                    <div class="numbers">20</div>
                     <div class="cardName">Total Rooms</div>
                     <div class="iconBx">
                         <ion-icon name="bed"></ion-icon>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="numbers">50</div>
+                    <div class="numbers">10</div>
                     <div class="cardName">Active Students</div>
                     <div class="iconBx">
                         <ion-icon name="school-outline"></ion-icon>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="numbers">10</div>
+                    <div class="numbers">2</div>
                     <div class="cardName">New Messages</div>
                     <div class="iconBx">
                         <ion-icon name="chatbubble-outline"></ion-icon>
@@ -266,92 +268,9 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchTotalStudentCount();
-    });
 
-    function fetchTotalStudentCount() {
-        fetch('/hostalmanage/student/getTotalStudentCount')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('totalStudents').innerText = data;
-            })
-            .catch(error => console.error('Error fetching student count:', error));
-    }
 
-    const rowsPerPage = 10; // Number of rows per page
-    let currentPage = 1;
-    let outgoingData = []; // Store fetched data
-
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchOutgoingDetails();
-    });
-
-    function fetchOutgoingDetails() {
-        fetch('/hostalmanage/subwarden/getOutgoingDetails')
-            .then(response => response.json())
-            .then(data => {
-                outgoingData = data;
-                renderTable();
-            })
-            .catch(error => console.error('Error fetching outgoing details:', error));
-    }
-
-    function renderTable() {
-        const tableBody = document.querySelector("#outgoingDetailsTable tbody");
-        tableBody.innerHTML = "";
-
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = outgoingData.slice(start, end);
-
-        pageData.forEach(outgoing => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                    <td>${outgoing.tg_no}</td>
-                    <td>${outgoing.name}</td>
-                    <td>${outgoing.date_out ? new Date(outgoing.date_out).toLocaleDateString() : ''}</td>
-                    <td>${outgoing.return_date ? new Date(outgoing.return_date).toLocaleDateString() : ''}</td>
-                    <td>${outgoing.arrivalTime || ''}</td>
-                    <td>${outgoing.leaveTime || ''}</td>
-                `;
-            tableBody.appendChild(row);
-        });
-
-        document.getElementById('pageInfo').innerText = `Page ${currentPage} of ${Math.ceil(outgoingData.length / rowsPerPage)}`;
-        document.getElementById('prevPage').disabled = currentPage === 1;
-        document.getElementById('nextPage').disabled = currentPage === Math.ceil(outgoingData.length / rowsPerPage);
-    }
-
-    function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderTable();
-        }
-    }
-
-    function nextPage() {
-        if (currentPage < Math.ceil(outgoingData.length / rowsPerPage)) {
-            currentPage++;
-            renderTable();
-        }
-    }
-
-    function filterTable() {
-        const filterInput = document.getElementById("filterInput").value.trim();
-        fetch('/hostalmanage/subwarden/getOutgoingDetails')
-            .then(response => response.json())
-            .then(data => {
-                outgoingData = data.filter(outgoing => outgoing.tg_no.includes(filterInput));
-                currentPage = 1;
-                renderTable();
-            })
-            .catch(error => console.error('Error filtering outgoing details:', error));
-    }
-
-</script>
-<script src="js/admin.js"></script>
+<script src="js/subwarden.js" type="module"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

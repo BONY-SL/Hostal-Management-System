@@ -10,22 +10,54 @@
     <link rel="stylesheet" href="css/subwarden.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
     <style>
-        .fine-table label {
-            font-weight: bold;
+
+        .fine-payment-details h2 {
+            margin-top: 20px;
             color: #333;
-            margin-right: 5px;
+            font-weight: bold;
         }
 
-        .fine-table input[type="text"] {
-            width: 180px;
-            padding: 8px;
-            margin-right: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .fine-payment-details .fine-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .fine-table #filterButton {
-            padding: 8px 15px;
+        .fine-payment-details .fine-table th,
+        .fine-payment-details .fine-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .fine-payment-details .fine-table th {
+            background-color: #37c9c9;
+            color: white;
+            font-weight: bold;
+        }
+
+        .fine-payment-details .fine-table td {
+            color: #333;
+        }
+
+        .fine-payment-details .fine-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            margin: 0 5px;
             background-color: #37c9c9;
             color: #fff;
             border: none;
@@ -33,6 +65,18 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
+        .pagination button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .pagination span {
+            font-weight: bold;
+            color: #333;
+        }
+
+
 
 
     </style>
@@ -85,8 +129,8 @@
                     <span class="title">Messages</span>
                 </a>
             </li>
-            <!--
             <li>
+                <!--
                 <a href="">
                     <span class="icon">
                         <ion-icon name="settings-outline"></ion-icon>
@@ -111,92 +155,50 @@
             <div class="toggle">
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
-            <h2>Faculty Of Technology University Of Ruhuna!</h2>
+            <h2>Faculty Of Technology University Of Ruhuna</h2>
         </div>
-
         <div class="usermanage">
-            <h1>Manage Room</h1>
-            &nbsp;&nbsp;
 
-            <hr>
-
-
-            <!-- Add Fine and Display Fine buttons -->
-            <div class="action-buttons">
-                <button id="addFineButton">Add Fine</button>
-                <button id="displayFineButton">Display Fine</button>
+            <div class="fine-payment-details">
+                <h2>Fine Payment Details</h2>
+                <table class="fine-table">
+                    <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Issued Date</th>
+                        <th>Update Time</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Example rows; replace with dynamically generated content as needed -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button id="prevPage" onclick="prevPage()">Previous</button>
+                <span id="pageNumbers"></span>
+                <button id="nextPage" onclick="nextPage()">Next</button>
             </div>
 
-            <div class="content-wrapper">
-                <!-- Table for student details -->
-                <div class="request-table">
-                    <label for="studentIDFilter">Student ID:</label>
-                    <input type="text" id="studentIDFilter" placeholder="Enter student ID">
-                    <button id="filterButton">Filter Students</button>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Room NO</th>
-                            <th>Date</th>
-                            <th>State</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Form to add fine details -->
-                <!-- Form to update request state -->
-                <div class="update-section">
-                    <h2>Update Request State</h2>
-                    <form id="updateForm">
-                        <label for="tgNo">Student TG No:</label>
-                        <input type="text" id="tgNo" required>
-
-                        <label for="newState">New State:</label>
-                        <select id="newState" required>
-                            <option value="">Select New State</option>
-                            <option value="approved">Approved</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="pending">Pending</option>
-                        </select>
-
-                        <button type="submit">Update State</button>
-                        &nbsp;
-                        <button type="button" id="clearUpdateFormButton">Clear</button>
-                    </form>
-                </div>
 
 
-                <div id="displayFineSection" style="display: none;">
-                <h2>Fine Details</h2>
-                <div class="fine-table">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Reason</th>
-                            <th>Amount</th>
-                            <th>Issued Date</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>
 
 <!-- Include JavaScript files -->
-<script src="js/manageroom.js" type="module"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script src="js/subwardenmessage.js" type="module"></script>
+<script>
+
+
+
+
+</script>
 </body>
 
 </html>

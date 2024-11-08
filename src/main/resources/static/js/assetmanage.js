@@ -1,4 +1,6 @@
-displayStudent();
+import {AuthService} from "./authservice.js";
+
+
 document.getElementById('displayFineButton').addEventListener('click', function() {
     // Hide the existing content and show the display fine section
     document.querySelector('.content-wrapper').style.display = 'none';
@@ -11,11 +13,14 @@ document.getElementById('addFineButton').addEventListener('click', function() {
     document.querySelector('.content-wrapper').style.display = 'flex';
 });
 
-
+const authservice = new AuthService();
 async function fetchAndDisplayAsset() {
     try {
         // Fetch the fine data from the backend
-        const response = await fetch('/hostalmanage/subwarden/getAsset');
+        const response = await fetch('/hostalmanage/subwarden/getAsset', {
+            method: 'GET',
+            headers: authservice.createAuthorizationHeader()
+        });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -52,6 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchAndDisplayAsset(); // Fetch fines if needed (but it won't be displayed)
 });
 
+
+
+
+
+
 // Event listener for the fine form submission
 document.addEventListener('DOMContentLoaded', function() {
     const fineForm = document.getElementById('fineForm');
@@ -70,14 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
             asset_condition: document.getElementById('condition').value
         };
 
-        // Log fine details to the console
-
-
         try {
             // Send a POST request to add fine
             const response = await fetch('/hostalmanage/subwarden/addAsset', {
                 method: 'POST',
                 headers: {
+                    ...authservice.createAuthorizationHeader(),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(fineData)
@@ -103,38 +111,57 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+let studentData = [];
+
+// Function to display student data
+document.addEventListener('DOMContentLoaded', function() {
+    displayStudent(); // Call the function when the page loads
+});
+
 async function displayStudent() {
     try {
         // Fetch student data from the backend
-        const response = await fetch('/hostalmanage/student/getStudent');
+        const response = await fetch('/hostalmanage/subwarden/getStudent', {
+            method: 'GET',
+            headers: authservice.createAuthorizationHeader()
+        });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        const studentData = await response.json();
-
+        studentData = await response.json();
         console.log('Fetched student data:', studentData); // Log fetched data
 
-        // Select the table body to insert rows
-        const tbody = document.querySelector('.fine-table tbody'); // Use class selector only
-        tbody.innerHTML = ''; // Clear any existing rows
-
-        // Populate the table with student data
-        studentData.forEach(student => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${student.tg_no}</td>
-                <td>${student.firstname}</td>
-                <td>${student.department}</td>
-                <td>${student.phoneNo}</td>
-                <td>${student.email}</td>
-                <td>${student.address}</td>
-            `;
-            tbody.appendChild(row);
-        });
-
-        // Display the fine section
-        document.getElementById('displayFineSection').style.display = 'block';
+        // Populate the student table with the fetched data
+        populateStudentTable(studentData);
     } catch (error) {
         console.error('Error fetching student details:', error);
     }
 }
+
+// Function to populate the student table
+function populateStudentTable(students) {
+    const tbody = document.querySelector('.fine-table tbody');
+    tbody.innerHTML = ''; // Clear any existing rows
+
+    students.forEach(student => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${student.tg_no}</td>
+            <td>${student.firstname}</td>
+            <td>${student.department}</td>
+            <td>${student.phoneNo}</td>
+            <td>${student.email}</td>
+            <td>${student.address}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+
+
+
+
+
+
+
+
