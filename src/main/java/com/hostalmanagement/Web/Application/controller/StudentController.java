@@ -1,11 +1,12 @@
 package com.hostalmanagement.Web.Application.controller;
 import com.hostalmanagement.Web.Application.dto.ComplainRequest;
 import com.hostalmanagement.Web.Application.dto.StudentDto;
+import com.hostalmanagement.Web.Application.model.PowerConsumption;
 import com.hostalmanagement.Web.Application.service.ComplainService;
+import com.hostalmanagement.Web.Application.service.PowerConsumptionService;
 import com.hostalmanagement.Web.Application.service.RoomService;
 import com.hostalmanagement.Web.Application.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class StudentController {
     private final StudentService studentService; // Assume you have a service to get student data
     private final RoomService roomService; // Assume you have a service to get room data
     private final ComplainService complainService; // Assume you have a service to add a complaint
-
+    private final PowerConsumptionService powerConsumptionService;  // Assume you have a service to get power consumption data
 
 
     @GetMapping("/getStudent")
@@ -38,12 +38,14 @@ public class StudentController {
 
     }
 
+
     //total count of the student
     @GetMapping("/getTotalStudentCount")
     public ResponseEntity<Long> getTotalStudentCount() {
         long totalStudentCount = studentService.getStudentCount();
         return ResponseEntity.ok(totalStudentCount);
     }
+
 
     @GetMapping("/rooms") // This annotation is used to map the HTTP GET requests onto specific handler methods.
     public ResponseEntity<?> getAllRooms() {
@@ -57,7 +59,7 @@ public class StudentController {
     }
 
     // Add a new complaint
-    @PostMapping("/add/complaint")
+    @PostMapping("/addcomplaint")
     public void addComplaint(@RequestBody ComplainRequest complainRequest) { // This annotation is used to map the request body to the object
         // Add the logic to add a complaint
 
@@ -69,4 +71,10 @@ public class StudentController {
         }
 
     }
+    @GetMapping("/powerConsumption/{room_id}") // This annotation is used to map the HTTP GET requests onto specific handler methods.
+    public ResponseEntity<?> getPowerConsumption(@PathVariable String room_id) {
+        return ResponseEntity.ok(powerConsumptionService.getPowerConsumptionByRoomId(room_id)); // Returns a list of PowerConsumptionService objects as JSON
+    }
+
+
 }

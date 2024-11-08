@@ -1,9 +1,6 @@
 package com.hostalmanagement.Web.Application.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hostalmanagement.Web.Application.dto.AuthenticationRequest;
-import com.hostalmanagement.Web.Application.dto.AuthenticationResponse;
-import com.hostalmanagement.Web.Application.dto.GetStudentStatusDTO;
-import com.hostalmanagement.Web.Application.dto.RegistrationRequest;
+import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.model.SaveActivatedCoeds;
 import com.hostalmanagement.Web.Application.model.StudentMailStore;
 import com.hostalmanagement.Web.Application.model.Token;
@@ -57,6 +54,8 @@ public class AuthenticationService {
     private final SaveCodeRepo saveCodeRepo;
 
     private final JdbcTemplate jdbcTemplate;
+
+    private final RoomRepository repository;
 
     private User user;
 
@@ -238,39 +237,21 @@ public class AuthenticationService {
     @PostConstruct
     public void setStudentMails(){
 
-//        List<StudentMailStore> studentMailStores = studentMailRepository.findAll();
-//
-//
-//        if(studentMailStores.isEmpty()){
-//
-//            for (int i = 100 ; i <= 110 ; i++){
-//
-//                StudentMailStore studentMailStore = StudentMailStore.builder()
-//                        .email("studentExample"+i+"@ruhuna.ac.lk")
-//                        .tgnumber("TG"+i)
-//                        .build();
-//
-//                studentMailRepository.save(studentMailStore);
-//            }
-//        }
 
-        Optional<User> exsistUser = userRepository.findByEmail("admin@gmail.com");
+        List<User> getAllUsers = userRepository.findAll();
 
-        if(exsistUser.isPresent()){
-            System.out.println("User Already Exsist");
-            return;
+        if(getAllUsers.isEmpty()){
+            var user = User.builder()
+                    .firstname("dilshan")
+                    .lastname("danidu")
+                    .email("admin@gmail.com")
+                    .password(passwordEncoder.encode("admin12345"))
+                    .role(Role.ADMIN)
+                    .build();
+
+            userRepository.save(user);
+
         }
-
-        var user = User.builder()
-                .firstname("dilshan")
-                .lastname("danidu")
-                .email("admin@gmail.com")
-                .password(passwordEncoder.encode("admin12345"))
-                .role(Role.ADMIN)
-                .build();
-
-        userRepository.save(user);
-
     }
 
     @Transactional
@@ -295,6 +276,7 @@ public class AuthenticationService {
                     @Override
                     public GetStudentStatusDTO mapRow(@NonNull java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
                         return GetStudentStatusDTO.builder()
+                                .student_id(rs.getLong("student_id"))
                                 .tg_no(rs.getString("tg_no"))
                                 .department(rs.getString("department"))
                                 .email(rs.getString("email"))
@@ -315,5 +297,9 @@ public class AuthenticationService {
         return ResponseEntity.ok(students);
     }
 
+    public List<CreateRoomRequest> getAllRooms() {
+
+        return repository.findAllRooms();
+    }
 }
 

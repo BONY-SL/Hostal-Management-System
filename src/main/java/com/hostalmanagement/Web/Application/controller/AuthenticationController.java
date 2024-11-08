@@ -1,9 +1,7 @@
 package com.hostalmanagement.Web.Application.controller;
-import com.hostalmanagement.Web.Application.dto.AuthenticationRequest;
-import com.hostalmanagement.Web.Application.dto.AuthenticationResponse;
-import com.hostalmanagement.Web.Application.dto.GetStudentStatusDTO;
-import com.hostalmanagement.Web.Application.dto.RegistrationRequest;
+import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.service.AuthenticationService;
+import com.hostalmanagement.Web.Application.service.RoomService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +20,8 @@ import java.util.Map;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+
+    private final RoomService roomService;
 
 
     @PostMapping("/register")
@@ -53,6 +54,12 @@ public class AuthenticationController {
     @GetMapping("/getAllRegisterdStudents")
     public ResponseEntity<ArrayList<GetStudentStatusDTO>> getAllRegisteredStudents() {
         return authenticationService.getAllRegisterdStudents();
+    }
+
+
+    @GetMapping("/rooms")
+    public List<CreateRoomRequest> getRooms() {
+        return authenticationService.getAllRooms();
     }
 
 

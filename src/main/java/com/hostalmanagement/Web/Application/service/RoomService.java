@@ -1,5 +1,6 @@
 package com.hostalmanagement.Web.Application.service;
 
+import com.hostalmanagement.Web.Application.dto.CreateRoomRequest;
 import com.hostalmanagement.Web.Application.model.Room;
 import com.hostalmanagement.Web.Application.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,8 @@ public class RoomService {
 
     public Room getRoomByRoomNumber(String room_id) {
        return roomRepository.findByRoomNumber(room_id).orElseThrow(() -> new RuntimeException("Room not found with id: " + room_id));
-    }   // This method is used to get a room by its id from the database.
+    }// This method is used to get a room by its id from the database.
+
 }
+
+

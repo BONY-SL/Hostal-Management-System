@@ -1,13 +1,9 @@
 package com.hostalmanagement.Web.Application.controller;
 
-import com.hostalmanagement.Web.Application.dto.AssetDto;
-import com.hostalmanagement.Web.Application.dto.FineDto;
-import com.hostalmanagement.Web.Application.dto.OutgoingDto;
+import com.hostalmanagement.Web.Application.dto.*;
 import com.hostalmanagement.Web.Application.model.Asset;
 import com.hostalmanagement.Web.Application.model.Fine;
-import com.hostalmanagement.Web.Application.service.AssetService;
-import com.hostalmanagement.Web.Application.service.FineService;
-import com.hostalmanagement.Web.Application.service.OutgoingService;
+import com.hostalmanagement.Web.Application.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +30,13 @@ public class SubwardenController {
     private OutgoingService outgoingService;
 
 
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private RequestRoomService requestRoomService;
+
+
     //add fine
     @PostMapping("/addFine")
     public ResponseEntity<String> addComplain(@RequestBody FineDto fineDto){
@@ -55,7 +58,7 @@ public class SubwardenController {
 
     //get fine details
     @GetMapping("/getFine")
-    public ResponseEntity<List<FineDto>> getStudentDetails() {
+    public ResponseEntity<List<FineDto>> getFineDetails() {
         System.out.println("Received request to retrieve fine details");
         List<FineDto> fineDtosDtos=fineService.getFinesByStudentId();
         return ResponseEntity.ok().body(fineDtosDtos);
@@ -77,6 +80,50 @@ public class SubwardenController {
         List<OutgoingDto> outgoingDtos=outgoingService.getAllOutgoings();
         return ResponseEntity.ok().body(outgoingDtos);
     }
+
+
+    //total count of the student
+    @GetMapping("/getTotalStudentCount")
+    public ResponseEntity<Long> getTotalStudentCount() {
+        long totalStudentCount = studentService.getStudentCount();
+        return ResponseEntity.ok(totalStudentCount);
+    }
+
+    @GetMapping("/getFinepaymentDetails")
+    public ResponseEntity<?>getFinepaymentDetails(){
+        System.out.println("payment details");
+        List<FinePaymentDto> finePaymentDtos=fineService.getFinePaymentDetails();
+        return ResponseEntity.ok().body(finePaymentDtos);
+    }
+
+    @GetMapping("/getStudent")
+    public ResponseEntity<List<StudentDto>> getStudentDetails() {
+        System.out.println("Received request to retrieve student details");
+        List<StudentDto> studentDtos=studentService.getAllStudents();
+        return ResponseEntity.ok().body(studentDtos);
+
+    }
+
+
+
+    @GetMapping("/getrequestDetails")
+    public ResponseEntity<?>getAllRequestDetails(){
+        System.out.println("Retrieving all details");
+        List<RequesrtDto> requesrtDtos=requestRoomService.getAllRequest();
+        return ResponseEntity.ok().body(requesrtDtos);
+    }
+
+
+    @PutMapping("/updateRequestState")
+    public ResponseEntity<String> updateRequestState(
+            @RequestParam String tgNo,
+            @RequestParam String newState) {
+        String result = requestRoomService.updateRequestRoomState(tgNo, newState);
+        return ResponseEntity.ok(result);
+    }
+
+
+
 
 
 }

@@ -129,11 +129,13 @@ async function signIn() {
             StorageService.saveUser(user);
             StorageService.saveToken(response.access_token);
 
+            const userRole = StorageService.getUserRole();
+
             const token = StorageService.getToken();
 
             // Check if the user is an admin and redirect
-            if (StorageService.isAdminLoggedIn() && token) {
-                window.location.href = `admindashboard.html?token=${token}`;
+            if (StorageService.isAdminLoggedIn()) {
+                window.location.href = `admindashboard.html?userRole=${userRole}`;
             }else if(StorageService.isDeanLoggedIn()){
                 window.location.href = '';
             }else if(StorageService.isStudentLoggedIn()){
@@ -143,7 +145,7 @@ async function signIn() {
             }else if(StorageService.isWardenLoggedIn()){
                 window.location.href = `wardenDashboard.html?token=${token}`;
             }else if(StorageService.isSubWardenLoggedIn()){
-                window.location.href = "";
+                window.location.href = `subwardendashboard.html?token=${token}`;
             }else {
                 alert("Bad Credentials");
             }

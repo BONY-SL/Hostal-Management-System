@@ -1,5 +1,5 @@
 const TOKEN = "token";
-const RefreshToken = "refreshToken";
+const REFRESHTOKEN = "refreshToken";
 const USER ="user";
 
 export class StorageService {
@@ -13,7 +13,6 @@ export class StorageService {
         window.localStorage.setItem(TOKEN,token);
 
     }
-
 
     static saveUser(user){
 
