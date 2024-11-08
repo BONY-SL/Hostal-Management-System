@@ -1,0 +1,251 @@
+
+/* Basic styling for user manage section */
+.usermanage {
+    margin-left: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h1 {
+    color: #034242;
+    font-size: 28px;
+}
+
+/* Button styling for Add Fine and Display Fine */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #035959;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.action-buttons button:hover {
+    background-color: #068f8f;
+}
+
+.action-buttons button:active {
+    transform: scale(0.98);
+}
+
+/* Flexbox layout for table and form */
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Styling for the fine table */
+.fine-table {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fine-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.fine-table th,
+.fine-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.fine-table th {
+    background-color: #128181;
+    color: #fff;
+}
+
+/* Styling for the form section */
+.fine-section {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+.fine-section label {
+    align-self: flex-start;
+    margin: 8px 0 4px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #034242;
+}
+
+.fine-section input {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+.fine-section input:focus {
+    border-color: #035959;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(3, 89, 89, 0.5);
+}
+
+.fine-section button {
+    padding: 12px 20px;
+    border: none;
+    background-color: #035959;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.fine-section button:hover {
+    background-color: #068f8f;
+}
+
+.fine-section button:active {
+    transform: scale(0.98);
+}
+
+
+
+
+
+/*fine management css part */
+
+.button-container {
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    margin-right: 10px;
+    padding: 15px 20px;
+    border: none;
+    background-color: #035959;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.button-container button:hover {
+    background-color: #068f8f;
+}
+.user-section {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 50px;
+}
+
+.user-section h4 {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th{
+    border: 1px solid #044444;
+    background-color: #068f8f;
+    text-align: center;
+}
+
+th, td {
+    padding: 8px;
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------
+
+
+ */
+
+/* Textarea styling */
+.fine-section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+    resize: vertical; /* Allow vertical resizing only */
+    margin-bottom: 15px;
+}
+
+.fine-section textarea:focus {
+    border-color: #035959;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(3, 89, 89, 0.5);
+}
+
+/* Dropdown (select) styling */
+.fine-section select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.fine-section select:focus {
+    border-color: #035959;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(3, 89, 89, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

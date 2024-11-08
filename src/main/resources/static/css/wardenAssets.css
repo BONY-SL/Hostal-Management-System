@@ -1,0 +1,57 @@
+/* Container for the assets table */
+.Assets-view {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Title Styling */
+.centered-title {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+/* Table Styling */
+#assetsTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+#assetsTable th, #assetsTable td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+#assetsTable th {
+    background-color: #068f8f;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Row Styling */
+#assetsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#assetsTable tr:hover {
+    background-color: #d1e7fd;
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #assetsTable, .Assets-view {
+        font-size: 14px;
+    }
+}

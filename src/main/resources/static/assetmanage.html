@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Fines</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/subwarden.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=apps" />
+    <style>
+        .fine-table label {
+            font-weight: bold;
+            color: #333;
+            margin-right: 5px;
+        }
+
+        .fine-table input[type="text"] {
+            width: 180px;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .fine-table #filterButton {
+            padding: 8px 15px;
+            background-color: #37c9c9;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+    </style>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="navigation">
+        <ul>
+            <li>
+                <img src="images/uni.png" alt="FOT" style="width: 110px;height: 150px;margin-left: 90px;margin-top: 30px;">
+            </li>
+            <li>
+                <a href="subwardendashboard.html" id="subwardendashboard">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="assetmanage.html" id="assetmanage">
+                   <span class="icon">
+                         <ion-icon name="wallet-outline"></ion-icon>
+                   </span>
+                    <span class="title">Asset Manage</span>
+                </a>
+            </li>
+            <li>
+                <a href="finemanage.html" id="finemanage">
+                    <span class="icon">
+                       <ion-icon name="storefront-outline"></ion-icon>
+                    </span>
+                    <span class="title">Fine Manage</span>
+                </a>
+            </li>
+            <li>
+                <a href="assignroom.html" id="assignroom">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Assign Room</span>
+                </a>
+            </li>
+            <li>
+                <a href="subwardenmessage.html" id="subwardenmessage">
+                    <span class="icon">
+                        <ion-icon name="chatbubble-outline"></ion-icon>
+                    </span>
+                    <span class="title">Messages</span>
+                </a>
+            </li>
+            <!--
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Profile Settings</span>
+                </a>
+            </li>
+             -->
+            <li>
+
+                <a href="#">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+            <h2>Faculty Of Technology University Of Ruhuna</h2>
+        </div>
+
+        <div class="usermanage">
+            <h1>Manage Asset</h1>
+            &nbsp;&nbsp;
+
+            <hr>
+
+            <!-- Add Fine and Display Fine buttons -->
+            <div class="action-buttons">
+                <button id="addFineButton">Add Asset</button>
+                <button id="displayFineButton">Display Asset</button>
+            </div>
+
+            <div class="content-wrapper">
+
+                <!-- Table for Asset details -->
+                <div class="fine-table">
+                    <label for="studentName">Student Name:</label>
+                    <input type="text" id="studentName" placeholder="Enter student name">
+                    <label for="studentIDFilter">Student ID:</label>
+                    <input type="text" id="studentIDFilter" placeholder="Enter student ID">
+                    <button id="filterButton">Filter Students</button>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Phone NO</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- Form to add fine details -->
+                <div class="fine-section">
+                    <form id="fineForm">
+
+                        <label for="studentid">Student ID:</label>
+                        <input type="text" id="studentid" required>
+
+                        <label for="roomNo">Room NO:</label>
+                        <input type="number" id="roomNo" required>
+
+                        <label for="description">Description:</label>
+                        <textarea id="description" rows="3" placeholder="Enter description" required></textarea>
+
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" required>
+
+                        <label for="acquisitionDate">Acquisition Date:</label>
+                        <input type="date" id="acquisitionDate" required>
+
+                        <label for="condition">Condition:</label>
+                        <select id="condition" required>
+                            <option value="">Select Status</option>
+                            <option value="good">good</option>
+                            <option value="repairer">repairer</option>
+                        </select>
+
+
+                        <button type="submit">Add Asset</button>
+                        &nbsp;
+                        <button type="button" id="clearFormButton">Clear</button>
+
+                    </form>
+                </div>
+            </div>
+            <div id="displayFineSection" style="display: none;">
+                <h2>Asser Details</h2>
+                <div class="fine-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Room NO</th>
+                            <th>Description</th>
+                            <th>Location</th>
+                            <th>Acquisition Date</th>
+                            <th>Condition</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+//assets) template
+<script src="js/assetmanage.js" type="module"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin DashBoard</title>
+    <link rel="stylesheet" href="css/student.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bed" />
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            height: 100%; /* Ensures cards are the same height */
+        }
+        .btn{
+            background: #068f8f;
+            border-left: #024b4b;
+        }
+
+             /* Button Style */
+         .open-modal-btn {
+             background-color: #068f8f;
+             color: white;
+             padding: 10px 20px;
+             border: none;
+             cursor: pointer;
+             font-size: 16px;
+         }
+
+        /* Modal Background */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Modal Content */
+        .modal-content {
+            position:relative;
+            margin: 10% auto;
+            padding: 20px;
+            background-color: white;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container_css">
+    <div class="navigation">
+        <ul>
+            <li>
+                <img src="images/uni.png" alt="FOT" style="width: 110px;height: 150px;margin-left: 90px;margin-top: 30px;">
+            </li>
+
+            <hr/>
+            <li>
+                <a href="studentDashboard.html" id="studentdashboardLink">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentRoomList.html" id="studentRoomList">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                    <span class="title">Room Allocation</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentComplain.html" id="studentComplainLink">
+                    <span class="icon">
+                            <ion-icon name="bed"></ion-icon>
+                    </span>
+                    <span class="title">Student Complain</span>
+                </a>
+            </li>
+            <li>
+                <a href="StudentPayment.html" id="StudentPayment">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                    <span class="title">Student Payment</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentNoticeView.html" id="studentNotiesView">
+                        <span class="icon">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                        </span>
+                    <span class="title">Messages</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentProfileView.html" id="studentProfileView">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                    <span class="title">Profile Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                    <span class="title">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+           <h2><samp class="small-text">Hostel Management System - University of Ruhuna </samp></h2>
+
+        </div>
+        <div>
+            <div class="container">
+                <h2 class="mt-4">Room List
+                    <form class="d-flex" >
+                        <input id="roomIdInput" class="form-control me-2" type="text" placeholder="Enter Room ID" aria-label="Search by Room ID" required>
+                        <button class="btn btn-success" type="button" id="searchForm" id="searchRoomById"  onclick="searchRoomById(event)">Search</button>
+                    </form>
+                </h2>
+                <div class="row" id="roomCards"></div>
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center" id="pagination"></ul>
+                </nav>
+            </div>
+            <!-- External JavaScript File -->
+
+        </div>
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container">
+                <p class="mb-0">&copy; 2023  University of Ruhuna. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+</div>
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Hostel Management System</h2>
+
+        <label for="exampleInputEmail1" class="form-label">Registration Number</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <button type="button" class="btn btn-secondary" >Conform Request</button>
+    </div>
+
+</div>
+</div>
+
+
+
+
+
+<script type="module" src="js/student.js"></script>
+<script type="module" src="js/studentRoomList.js" ></script>
+<!-- Bootstrap JS and FontAwesome for Icons -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+</body>
+
+</html>
