@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hostel Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            margin-top: 30px;
-        }
-        h1, h2 {
-            margin-bottom: 20px;
-        }
-        .list-group-item {
-            padding: 10px 20px;
-        }
-        .section-title {
-            font-size: 1.5em;
-            margin-top: 20px;
-            color: #007bff;
-        }
-        pre {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+ <div class="container">
         <h1 class="text-center">Hostel Management System</h1>
         <p class="lead text-center">A web-based application to manage hostel operations with role-based authentication and authorization using JWT.</p>
         <h2>Project Overview</h2>
@@ -116,8 +86,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+
 
 
 ![image](https://github.com/user-attachments/assets/2e5670b1-f84c-43f5-ba32-51f08ddcd95e)
