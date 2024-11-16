@@ -20,20 +20,20 @@
         </ul>
         <h2>System Requirements</h2>
         <ul class="list-group">
-            <li class="list-group-item">Java 11 or higher</li>
-            <li class="list-group-item">Spring Boot 2.x</li>
-            <li class="list-group-item">MySQL or PostgreSQL database</li>
+            <li class="list-group-item">Java 17</li>
+            <li class="list-group-item">Spring Boot </li>
+            <li class="list-group-item">MySQL database</li>
             <li class="list-group-item">Maven for project dependencies</li>
         </ul>
         <h2>Installation Guide</h2>
         <ol class="list-group">
             <li class="list-group-item">Clone the repository: 
-                <pre>git clone https://github.com/yourusername/hostel-management-system.git</pre>
+                <pre>https://github.com/BONY-SL/Hostal-Management-System</pre>
             </li>
             <li class="list-group-item">Set up your MySQL database and create a database named `hostel_management`.</li>
             <li class="list-group-item">Update the database credentials in the `application.properties` file located in `src/main/resources`:</li>
             <pre>
-                spring.datasource.url=jdbc:mysql://localhost:3306/hostel_management
+                spring.datasource.url=jdbc:mysql://localhost:3306/hostalmanagementsystem
                 spring.datasource.username=root
                 spring.datasource.password=yourpassword
                 spring.jpa.hibernate.ddl-auto=update
@@ -41,15 +41,14 @@
             </pre>
             <li class="list-group-item">Build the project using Maven:</li>
             <pre>mvn clean install</pre>
-            <li class="list-group-item">Run the application using the command:</li>
-            <pre>mvn spring-boot:run</pre>
+            <li class="list-group-item">Run the application using the InteliJ IDEA:</li>
             <li class="list-group-item">Access the application in your browser at <strong>http://localhost:8080</strong></li>
         </ol>
         <h2>Usage</h2>
         <h3>Authentication</h3>
-        <p>Users must authenticate using the <code>/api/auth/login</code> endpoint by providing a username and password.</p>
+        <p>Users must authenticate using the <code>/hostalmanage/auth/authenticate</code> endpoint by providing a username and password.</p>
         <pre>
-            POST /api/auth/login
+            POST /hostalmanage/auth/authenticate
             Request Body:
             {
                 "username": "admin",
@@ -60,7 +59,8 @@
         <pre>
             Response:
             {
-                "accessToken": "your_jwt_token_here"
+                "accessToken": "xxxxx",
+                "Refresh_token": "xxxxx",
             }
         </pre>
         <p>The token should be included in the `Authorization` header as a Bearer token in all subsequent requests to access protected routes.</p>
@@ -73,14 +73,6 @@
             <li class="list-group-item"><strong>Warden:</strong> Can assign rooms to students and manage room availability.</li>
             <li class="list-group-item"><strong>Sub-Warden:</strong> Limited permissions under a specific warden's supervision.</li>
         </ul>
-        <h2>Contributing</h2>
-        <p>We welcome contributions to improve this project! To contribute:</p>
-        <ol class="list-group">
-            <li class="list-group-item">Fork the repository on GitHub.</li>
-            <li class="list-group-item">Clone your fork locally and create a new branch.</li>
-            <li class="list-group-item">Make your changes and commit them with descriptive messages.</li>
-            <li class="list-group-item">Push your changes to your fork and create a pull request.</li>
-        </ol>
     </div>
 
 
