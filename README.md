@@ -73,6 +73,94 @@
             <li class="list-group-item"><strong>Warden:</strong> Can assign rooms to students and manage room availability.</li>
             <li class="list-group-item"><strong>Sub-Warden:</strong> Limited permissions under a specific warden's supervision.</li>
         </ul>
+          <pre>
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
+public class SecurityConfig{
+    private final JwtAuthFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
+    private final LogoutHandler logoutHandler;
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/", "**", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/hostalmanage/auth/**")
+                        .permitAll()
+                        .requestMatchers("/hostalmanage/admin/**").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("/hostalmanage/student/**").hasAuthority(Role.STUDENT.name())
+                        .requestMatchers("/hostalmanage/warden/**").hasAuthority(Role.WARDEN.name())
+                        .requestMatchers("/hostalmanage/subwarden/**").hasAuthority(Role.SUB_WARDEN.name())
+                        .requestMatchers("/hostalmanage/maintainsupervisor/**").hasAuthority(Role.MAINTAIN_SUPERVISOR.name())
+                        .requestMatchers("/hostalmanage/dean/**").hasAuthority(Role.DEAN.name())
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout ->
+                        logout.logoutUrl("/hostalmanage/auth/logout")
+                                .addLogoutHandler(logoutHandler)
+                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
+        return httpSecurity.build();
+    }
+}
+        </pre>
+          <pre>
+@RestController
+@RequestMapping("/hostalmanage/admin")
+@PreAuthorize("hasAuthority('ADMIN')")
+@RequiredArgsConstructor
+public class AdminController {
+        </pre>
+            <pre>
+@Component
+@RequiredArgsConstructor
+public class JwtAuthFilter extends OncePerRequestFilter {
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
+    private final TokenRepository tokenRepository;
+    @Override
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
+        if(request.getServletPath().contains("/hostalmanage/auth")){
+            filterChain.doFilter(request,response);
+        }
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        final String userEmail;
+        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+            filterChain.doFilter(request,response);
+            return;
+        }
+        jwt = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(jwt);
+        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            var isTokenValid = tokenRepository.findByToken(jwt)
+                    .map(t -> !t.isExpired() && !t.isRevoked())
+                    .orElse(false);
+            if(jwtService.isTokenValid(jwt,userDetails) && isTokenValid){
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails,null,userDetails.getAuthorities()
+                );
+                authenticationToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+        }
+        filterChain.doFilter(request,response);
+    }
+}
+        </pre>
     </div>
 
 
