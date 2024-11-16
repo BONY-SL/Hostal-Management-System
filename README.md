@@ -81,11 +81,7 @@
             <li class="list-group-item">Make your changes and commit them with descriptive messages.</li>
             <li class="list-group-item">Push your changes to your fork and create a pull request.</li>
         </ol>
-        <h2>License</h2>
-        <p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for more information.</p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 
 
